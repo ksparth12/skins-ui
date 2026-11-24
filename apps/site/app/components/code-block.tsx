@@ -1,12 +1,12 @@
 import { Tabs } from "@base-ui/react/tabs";
 import { AnimatePresence, motion } from "motion/react";
-import { useMemo, useState, useSyncExternalStore, type ReactNode } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
 import { highlight } from "sugar-high";
-import { CheckIcon, CopyIcon, FileIcon, TerminalIcon } from "~/components/icons";
+import { CheckIcon, CopyIcon, TerminalIcon } from "~/components/icons";
+import { Panel, PanelLabel } from "~/components/panel";
 
 const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-ring";
 const LINE = 24;
-
 
 /** Copies text and swaps its icon for a check for a moment. */
 export function CopyIconButton({ text, label = "Copy code" }: { text: string; label?: string }) {
@@ -21,7 +21,7 @@ export function CopyIconButton({ text, label = "Copy code" }: { text: string; la
         setDone(true);
         setTimeout(() => setDone(false), 1600);
       }}
-      className={`relative grid size-8 place-items-center rounded-md text-sk-muted transition-colors duration-100 hover:bg-sk-hover hover:text-sk-ink active:bg-sk-press ${focus}`}
+      className={`grid size-7 place-items-center rounded-md text-neutral-500 transition-colors duration-100 hover:bg-neutral-200/70 hover:text-neutral-900 dark:text-neutral-400 dark:hover:bg-neutral-800/70 dark:hover:text-white ${focus}`}
     >
       <AnimatePresence initial={false} mode="popLayout">
         <motion.span
@@ -30,9 +30,9 @@ export function CopyIconButton({ text, label = "Copy code" }: { text: string; la
           animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
           exit={{ opacity: 0, scale: 0.6, filter: "blur(2px)" }}
           transition={{ type: "spring", duration: 0.2, bounce: 0 }}
-          className={`grid place-items-center ${done ? "text-sk-success" : ""}`}
+          className="grid place-items-center"
         >
-          {done ? <CheckIcon /> : <CopyIcon />}
+          {done ? <CheckIcon className="size-3.5" /> : <CopyIcon className="size-3.5" />}
         </motion.span>
       </AnimatePresence>
       <span className="sr-only" aria-live="polite">{done ? "Copied" : ""}</span>
@@ -40,72 +40,49 @@ export function CopyIconButton({ text, label = "Copy code" }: { text: string; la
   );
 }
 
-/** The frame every block of code sits in: a header bar and a body. */
-function Frame({ header, children }: { header: ReactNode; children: ReactNode }) {
-  return (
-    <div className="overflow-hidden rounded-xl border border-sk-border bg-sk-surface">
-      <div className="flex h-10 items-center justify-between gap-3 border-b border-sk-border bg-sk-well/60 pr-1.5 pl-4 dark:bg-white/[0.02]">{header}</div>
-      {children}
-    </div>
-  );
-}
-
 export interface CodeBlockProps {
   code: string;
   /** A file name, or a title such as "Usage". */
   title: string;
-  kind?: "file" | "terminal";
-  lineNumbers?: boolean;
   /** Longer code shows this many lines and a button to see the rest. */
   collapseAfter?: number;
 }
 
-/** Highlighted code with a header, copy, line numbers, and a collapsed state for long files. */
-export function CodeBlock({ code, title, kind = "file", lineNumbers = false, collapseAfter = 22 }: CodeBlockProps) {
+/** Highlighted code in a panel: the file name and copy above, the code on the inner card. */
+export function CodeBlock({ code, title, collapseAfter = 22 }: CodeBlockProps) {
+  const trimmed = code.replace(/\n$/, "");
   // Each line is its own block, so the line breaks between them are dropped.
-  const html = useMemo(() => highlight(code.replace(/\n$/, "")).replace(/\n/g, ""), [code]);
-  const lines = code.replace(/\n$/, "").split("\n").length;
+  const html = useMemo(() => highlight(trimmed).replace(/\n/g, ""), [trimmed]);
+  const lines = trimmed.split("\n").length;
   const collapsible = lines > collapseAfter + 4;
   const [open, setOpen] = useState(false);
   const shut = collapsible && !open;
 
   return (
-    <Frame
-      header={
-        <>
-          <span className="flex min-w-0 items-center gap-2 font-sk-mono text-[12.5px] text-sk-muted">
-            {kind === "terminal" ? <TerminalIcon className="size-3.5 shrink-0" /> : <FileIcon className="size-3.5 shrink-0" />}
-            <span className="truncate">{title}</span>
-          </span>
-          <CopyIconButton text={code} />
-        </>
-      }
-    >
-      <div className="relative">
-        <motion.div
-          initial={false}
-          animate={{ height: shut ? collapseAfter * LINE + 40 : "auto" }}
-          transition={{ type: "spring", duration: 0.35, bounce: 0 }}
-          className={`overflow-hidden ${shut ? "[mask-image:linear-gradient(to_bottom,black_55%,transparent)]" : ""}`}
-        >
-          <pre className={`code-block overflow-x-auto py-5 font-sk-mono text-[14px]/[1.7] ${lineNumbers ? "code-lines" : "px-5"}`} tabIndex={0}>
-            <code dangerouslySetInnerHTML={{ __html: html }} />
-          </pre>
-        </motion.div>
-        {collapsible && (
-          <div className={shut ? "absolute inset-x-0 bottom-4 flex justify-center" : "flex justify-center pb-4"}>
-            <button
-              type="button"
-              aria-expanded={open}
-              onClick={() => setOpen((v) => !v)}
-              className={`inline-flex h-8 items-center rounded-md border border-sk-border bg-sk-surface px-3 text-[13px] font-medium text-sk-ink transition-colors duration-100 hover:bg-sk-raised ${focus}`}
-            >
-              {open ? "Collapse" : "Expand code"}
-            </button>
-          </div>
-        )}
-      </div>
-    </Frame>
+    <Panel header={<><PanelLabel icon={<TerminalIcon className="size-3.5" />}>{title}</PanelLabel><CopyIconButton text={code} /></>}>
+      <motion.div
+        initial={false}
+        animate={{ height: shut ? collapseAfter * LINE + 28 : "auto" }}
+        transition={{ type: "spring", duration: 0.35, bounce: 0 }}
+        className={`overflow-hidden ${shut ? "[mask-image:linear-gradient(to_bottom,black_50%,transparent)]" : ""}`}
+      >
+        <pre className="code-block overflow-x-auto px-4 py-3.5 font-sk-mono text-[13px]/6" tabIndex={0}>
+          <code dangerouslySetInnerHTML={{ __html: html }} />
+        </pre>
+      </motion.div>
+      {collapsible && (
+        <div className={shut ? "absolute inset-x-0 bottom-3 flex justify-center" : "flex justify-center pb-3"}>
+          <button
+            type="button"
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+            className={`h-7 rounded-md bg-neutral-100 px-3 text-xs font-medium text-neutral-900 ring-1 ring-neutral-200 transition-colors duration-150 hover:bg-neutral-200/70 dark:bg-neutral-800 dark:text-neutral-200 dark:ring-neutral-800 dark:hover:bg-neutral-700/80 ${focus}`}
+          >
+            {open ? "Collapse" : "Expand"}
+          </button>
+        </div>
+      )}
+    </Panel>
   );
 }
 
@@ -138,21 +115,20 @@ export function CommandBlock({ commands }: { commands: Record<Manager, string> }
   const [manager, setManager] = useManager();
   return (
     <Tabs.Root value={manager} onValueChange={(v) => setManager(v as Manager)}>
-      <Frame
+      <Panel
         header={
           <>
-            <Tabs.List aria-label="Package manager" className="relative flex h-10 items-center gap-2.5">
-
+            <Tabs.List aria-label="Package manager" className="relative flex h-7 items-center">
               {MANAGERS.map((m) => (
                 <Tabs.Tab
                   key={m}
                   value={m}
-                  className={`relative h-10 px-1.5 font-sk-mono text-[12.5px] text-sk-muted transition-colors duration-100 hover:text-sk-ink data-active:text-sk-ink ${focus}`}
+                  className={`relative h-7 px-2 text-xs text-neutral-500 transition-colors duration-150 hover:text-neutral-900 data-active:font-medium data-active:text-neutral-950 dark:text-neutral-400 dark:hover:text-white dark:data-active:text-white ${focus}`}
                 >
                   {m}
                 </Tabs.Tab>
               ))}
-              <Tabs.Indicator className="absolute bottom-[-1px] left-0 h-px w-(--active-tab-width) translate-x-(--active-tab-left) bg-sk-ink transition-[translate,width] duration-200 ease-sk-out" />
+              <Tabs.Indicator className="absolute -bottom-0.5 left-0 h-px w-(--active-tab-width) translate-x-(--active-tab-left) bg-neutral-950 transition-[translate,width] duration-200 ease-sk-out dark:bg-white" />
             </Tabs.List>
             <CopyIconButton text={commands[manager]} label="Copy command" />
           </>
@@ -160,12 +136,12 @@ export function CommandBlock({ commands }: { commands: Record<Manager, string> }
       >
         {MANAGERS.map((m) => (
           <Tabs.Panel key={m} value={m}>
-            <pre className="overflow-x-auto px-5 py-4 font-sk-mono text-[14px]/6 text-sk-ink">
+            <pre className="overflow-x-auto px-4 py-3.5 font-sk-mono text-[13px]/6 text-neutral-900 dark:text-neutral-100">
               <code>{commands[m]}</code>
             </pre>
           </Tabs.Panel>
         ))}
-      </Frame>
+      </Panel>
     </Tabs.Root>
   );
 }

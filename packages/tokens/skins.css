@@ -76,11 +76,11 @@
 }
 
 .dark, [data-theme="dark"] {
-  --sk-floor: #000000;
-  --sk-surface: #0a0a0a;
-  --sk-raised: #141414;
-  --sk-overlay: #171717;
-  --sk-well: #111111;
+  --sk-floor: #0a0a0a;
+  --sk-surface: #121212;
+  --sk-raised: #191919;
+  --sk-overlay: #1c1c1c;
+  --sk-well: #161616;
   --sk-ink: #fafafa;
   --sk-muted: #a3a3a3;
   --sk-faint: #5c5c5c;
