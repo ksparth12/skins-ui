@@ -62,31 +62,5 @@
   ],
   "preview": {
     "height": 300
-  },
-  "gallery": {
-    "title": "Every size and state",
-    "rows": "size",
-    "extras": [
-      {
-        "label": "Rest",
-        "props": {
-          "description": ""
-        }
-      },
-      {
-        "label": "Invalid",
-        "props": {
-          "description": "",
-          "error": "Enter a full email address."
-        }
-      },
-      {
-        "label": "Disabled",
-        "props": {
-          "description": "",
-          "disabled": true
-        }
-      }
-    ]
   }
 }

@@ -5,6 +5,7 @@ import { Tooltip } from "@base-ui/react/tooltip";
 import { useEffect, useMemo, useRef, useState, type ComponentPropsWithRef, type ReactNode } from "react";
 import { CodeBlock, CommandBlock, addCommand, runCommand } from "~/components/code-block";
 import { Panel, PanelLabel } from "~/components/panel";
+import { TabPill } from "~/components/tab-pill";
 import { highlight } from "sugar-high";
 import { ChoiceControl, Customize, SwitchControl, TextControl } from "~/components/customize";
 import { ArrowRightIcon as ArrowIcon, DesktopIcon, ExpandIcon, EyeIcon, MoonIcon, PhoneIcon, PlusIcon, ReplayIcon, ResetIcon, SunIcon, TabletIcon, TerminalIcon } from "~/components/icons";
@@ -19,10 +20,6 @@ const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visi
 const REGISTRY_URL = "https://skinsui.dev/r";
 const MIN_WIDTH = 320;
 
-
-/** Gallery entries name icons by placeholder, since JSON cannot hold elements. */
-const withIcons = (props: Values): Values =>
-  Object.fromEntries(Object.entries(props).map(([k, v]) => [k, v === "__plus__" ? <PlusIcon /> : v === "__arrow__" ? <ArrowIcon /> : v]));
 
 const titleCase = (s: string) => {
   const words = s.replace(/([A-Z])/g, " $1").toLowerCase();
@@ -238,17 +235,13 @@ export function Playground({ spec, skin }: { spec: ComponentSpec; skin: Skin }) 
   const usageFile = `import { ${spec.export} } from "@/components/skins/${skin.name}";\n\n${code}\n`;
 
   const controls = spec.props.filter((p) => !p.hidden);
-  const gallery = spec.gallery;
-  const optionsOf = (name?: string) => (name ? (spec.props.find((p) => p.name === name)?.options ?? []) : []);
-  const rows = gallery?.rows ? optionsOf(gallery.rows) : [""];
-  const cols = optionsOf(gallery?.columns);
   const reset = () => {
     setValues(defaults);
     setText(spec.children?.default ?? "");
     setIcon("none");
   };
 
-  const tab = `relative inline-flex h-7 items-center gap-1.5 px-2 text-xs font-medium text-neutral-500 transition-colors duration-150 hover:text-neutral-900 data-active:text-neutral-950 dark:text-neutral-400 dark:hover:text-white dark:data-active:text-white ${focus}`;
+  const tab = `relative inline-flex h-7 items-center gap-1.5 rounded-md px-2.5 text-xs font-medium text-neutral-500 transition-colors duration-150 hover:text-neutral-900 data-active:text-neutral-950 dark:text-neutral-400 dark:hover:text-white dark:data-active:text-white ${focus}`;
 
   return (
     <Tooltip.Provider delay={400}>
@@ -257,16 +250,21 @@ export function Playground({ spec, skin }: { spec: ComponentSpec; skin: Skin }) 
           <Panel
             header={
               <>
-                <Tabs.List aria-label="View" className="relative flex items-center">
+                <Tabs.List aria-label="View" className="relative flex items-center gap-0.5">
                   <Tabs.Tab value="preview" className={tab}>
-                    <EyeIcon className="size-3.5" />
-                    Preview
+                    {view === "preview" && <TabPill group="view" />}
+                    <span className="relative inline-flex items-center gap-1.5">
+                      <EyeIcon className="size-3.5" />
+                      Preview
+                    </span>
                   </Tabs.Tab>
                   <Tabs.Tab value="code" className={tab}>
-                    <TerminalIcon className="size-3.5" />
-                    Code
+                    {view === "code" && <TabPill group="view" />}
+                    <span className="relative inline-flex items-center gap-1.5">
+                      <TerminalIcon className="size-3.5" />
+                      Code
+                    </span>
                   </Tabs.Tab>
-                  <Tabs.Indicator className="absolute -bottom-1 left-0 h-px w-(--active-tab-width) translate-x-(--active-tab-left) bg-neutral-950 transition-[translate,width] duration-200 ease-sk-out dark:bg-white" />
                 </Tabs.List>
                 <div className={`flex items-center gap-0.5 transition-opacity duration-150 ${view === "preview" ? "" : "pointer-events-none invisible opacity-0"}`} aria-hidden={view !== "preview"}>
                   <IconChoice
@@ -364,33 +362,6 @@ export function Playground({ spec, skin }: { spec: ComponentSpec; skin: Skin }) 
           <CodeBlock title="usage.tsx" code={usageFile} />
         </Section>
 
-        {gallery && (
-          <Section id="examples" title={gallery.title}>
-            <Panel header={<PanelLabel>All at once</PanelLabel>}>
-              <div className={`grid gap-5 overflow-x-auto p-6 ${modeClass} ${backdrop ?? "bg-white dark:bg-black"}`}>
-                {rows.map((row) => {
-                  const rowProps = gallery.rows ? { [gallery.rows]: row } : {};
-                  return (
-                    <div key={row || "row"} className="flex flex-wrap items-center gap-3">
-                      {gallery.rows && <span className="w-8 shrink-0 font-sk-mono text-xs text-sk-muted">{row}</span>}
-                      {cols.map((col) => (
-                        <Component key={col} {...defaults} {...rowProps} {...(gallery.columns ? { [gallery.columns]: col } : {})}>
-                          {renderChildren(gallery.labels === "value" ? titleCase(col) : text)}
-                        </Component>
-                      ))}
-                      {(gallery.extras ?? []).map((extra) => (
-                        <Component key={extra.label} {...defaults} {...rowProps} {...withIcons(extra.props)}>
-                          {extra.iconOnly ? undefined : renderChildren(extra.label)}
-                        </Component>
-                      ))}
-                    </div>
-                  );
-                })}
-              </div>
-            </Panel>
-          </Section>
-        )}
-
         <Section id="props" title="Props">
           <PropsTable spec={spec} />
         </Section>
@@ -412,13 +383,19 @@ function Section({ id, title, first, children }: { id: string; title: string; fi
 /** Installation: one command, or the manual steps. */
 function Install({ skin }: { skin: Skin }) {
   const deps = skin.dependencies;
-  const underline = `relative h-9 px-3 pb-1 text-sm font-medium text-neutral-500 transition-colors duration-150 hover:text-neutral-900 data-active:text-neutral-950 dark:text-neutral-400 dark:hover:text-white dark:data-active:text-white ${focus}`;
+  const [method, setMethod] = useState<"cli" | "manual">("cli");
+  const underline = `relative inline-flex h-7 items-center rounded-md px-3 text-[13px] font-medium text-neutral-500 transition-colors duration-150 hover:text-neutral-900 data-active:text-neutral-950 dark:text-neutral-400 dark:hover:text-white dark:data-active:text-white ${focus}`;
   return (
-    <Tabs.Root defaultValue="cli" className="grid gap-6">
-      <Tabs.List aria-label="Installation method" className="relative flex border-b border-neutral-200 dark:border-neutral-800">
-        <Tabs.Tab value="cli" className={underline}>CLI</Tabs.Tab>
-        <Tabs.Tab value="manual" className={underline}>Manual</Tabs.Tab>
-        <Tabs.Indicator className="absolute bottom-[-1px] left-0 h-px w-(--active-tab-width) translate-x-(--active-tab-left) bg-neutral-950 transition-[translate,width] duration-200 ease-sk-out dark:bg-white" />
+    <Tabs.Root value={method} onValueChange={(v) => setMethod(v as "cli" | "manual")} className="grid gap-6">
+      <Tabs.List aria-label="Installation method" className="relative flex w-fit items-center gap-0.5 rounded-lg bg-neutral-100 p-0.5 ring-1 ring-neutral-200/70 ring-inset dark:bg-neutral-900 dark:ring-white/[0.06]">
+        <Tabs.Tab value="cli" className={underline}>
+          {method === "cli" && <TabPill group="install" />}
+          <span className="relative">CLI</span>
+        </Tabs.Tab>
+        <Tabs.Tab value="manual" className={underline}>
+          {method === "manual" && <TabPill group="install" />}
+          <span className="relative">Manual</span>
+        </Tabs.Tab>
       </Tabs.List>
       <Tabs.Panel value="cli" className="outline-none">
         <CommandBlock commands={runCommand(`shadcn@latest add ${REGISTRY_URL}/${skin.name}.json`)} />

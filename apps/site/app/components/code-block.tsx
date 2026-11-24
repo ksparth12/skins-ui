@@ -5,6 +5,7 @@ import { highlight } from "sugar-high";
 import { CheckIcon, CopyIcon, FileTypeIcon } from "~/components/icons";
 import { ManagerIcon } from "~/components/manager-icons";
 import { Panel, PanelLabel } from "~/components/panel";
+import { TabPill } from "~/components/tab-pill";
 
 const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-ring";
 const LINE = 24;
@@ -119,18 +120,20 @@ export function CommandBlock({ commands }: { commands: Record<Manager, string> }
       <Panel
         header={
           <>
-            <Tabs.List aria-label="Package manager" className="relative flex h-7 items-center">
+            <Tabs.List aria-label="Package manager" className="relative flex items-center gap-0.5">
               {MANAGERS.map((m) => (
                 <Tabs.Tab
                   key={m}
                   value={m}
-                  className={`relative inline-flex h-7 items-center gap-1.5 px-2 text-xs text-neutral-500 transition-colors duration-150 hover:text-neutral-900 data-active:font-medium data-active:text-neutral-950 dark:text-neutral-400 dark:hover:text-white dark:data-active:text-white ${focus}`}
+                  className={`relative inline-flex h-7 items-center gap-1.5 rounded-md px-2.5 text-xs text-neutral-500 transition-colors duration-150 hover:text-neutral-900 data-active:font-medium data-active:text-neutral-950 dark:text-neutral-400 dark:hover:text-white dark:data-active:text-white ${focus}`}
                 >
-                  <ManagerIcon manager={m} active={m === manager} className="size-3.5 shrink-0 transition-colors duration-150" />
-                  {m}
+                  {m === manager && <TabPill group="manager" />}
+                  <span className="relative inline-flex items-center gap-1.5">
+                    <ManagerIcon manager={m} active={m === manager} className="size-3.5 shrink-0 transition-colors duration-150" />
+                    {m}
+                  </span>
                 </Tabs.Tab>
               ))}
-              <Tabs.Indicator className="absolute -bottom-1 left-0 h-px w-(--active-tab-width) translate-x-(--active-tab-left) bg-neutral-950 transition-[translate,width] duration-200 ease-sk-out dark:bg-white" />
             </Tabs.List>
             <CopyIconButton text={commands[manager]} label="Copy command" />
           </>

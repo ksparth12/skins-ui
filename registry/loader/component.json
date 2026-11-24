@@ -30,10 +30,5 @@
   ],
   "states": [
     "running"
-  ],
-  "gallery": {
-    "title": "Every size",
-    "columns": "size",
-    "labels": "value"
-  }
+  ]
 }

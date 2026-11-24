@@ -78,33 +78,5 @@
     "disabled",
     "loading",
     "icon-only"
-  ],
-  "gallery": {
-    "title": "Every variant and size",
-    "rows": "size",
-    "columns": "variant",
-    "labels": "value",
-    "extras": [
-      {
-        "label": "Saving",
-        "props": {
-          "loading": true
-        }
-      },
-      {
-        "label": "Disabled",
-        "props": {
-          "disabled": true
-        }
-      },
-      {
-        "label": "Add",
-        "props": {
-          "icon": "__plus__",
-          "aria-label": "Add"
-        },
-        "iconOnly": true
-      }
-    ]
-  }
+  ]
 }

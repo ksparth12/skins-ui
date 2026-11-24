@@ -42,19 +42,5 @@
   ],
   "states": [
     "rest"
-  ],
-  "gallery": {
-    "title": "Every tone and size",
-    "rows": "size",
-    "columns": "tone",
-    "labels": "value",
-    "extras": [
-      {
-        "label": "With dot",
-        "props": {
-          "dot": true
-        }
-      }
-    ]
-  }
+  ]
 }

@@ -45,33 +45,5 @@
     "on",
     "focus",
     "disabled"
-  ],
-  "gallery": {
-    "title": "Every state and size",
-    "rows": "size",
-    "extras": [
-      {
-        "label": "Off",
-        "props": {
-          "defaultChecked": false,
-          "label": "Off"
-        }
-      },
-      {
-        "label": "On",
-        "props": {
-          "defaultChecked": true,
-          "label": "On"
-        }
-      },
-      {
-        "label": "Disabled",
-        "props": {
-          "defaultChecked": true,
-          "disabled": true,
-          "label": "Disabled"
-        }
-      }
-    ]
-  }
+  ]
 }

@@ -13,16 +13,6 @@ export interface PropSpec {
   hidden?: boolean;
 }
 
-export interface Gallery {
-  title: string;
-  /** A prop whose options become rows. */
-  rows?: string;
-  /** A prop whose options become columns. */
-  columns?: string;
-  /** Label each column with its value, or with the default text. */
-  labels?: "value" | "default";
-  extras?: Array<{ label: string; props: Record<string, unknown>; iconOnly?: boolean }>;
-}
 
 export interface ComponentSpec {
   name: string;
@@ -33,7 +23,6 @@ export interface ComponentSpec {
   props: PropSpec[];
   states: string[];
   preview?: { layout?: "center" | "fill"; height?: number };
-  gallery?: Gallery;
 }
 
 export interface SkinMeta {
