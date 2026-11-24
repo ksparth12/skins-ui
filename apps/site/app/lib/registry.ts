@@ -4,7 +4,10 @@ export interface PropSpec {
   name: string;
   type: "enum" | "boolean" | "node" | "string" | "data";
   options?: string[];
+  /** The component's own default. */
   default?: unknown;
+  /** The value the playground starts with, when it differs from the default. */
+  demo?: unknown;
   description?: string;
   /** Kept out of the playground controls. */
   hidden?: boolean;

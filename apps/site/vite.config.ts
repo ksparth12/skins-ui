@@ -7,7 +7,8 @@ import { defineConfig } from "vite";
 // never makes the dev server re-bundle mid-request.
 const prebundle = [
   "motion/react",
-  ...["button", "dialog", "field", "input", "switch", "toggle", "toggle-group", "tooltip"].map((name) => `@base-ui/react/${name}`),
+  "sugar-high",
+  ...["button", "dialog", "field", "input", "switch", "tabs", "toggle", "toggle-group", "tooltip"].map((name) => `@base-ui/react/${name}`),
 ];
 
 export default defineConfig({

@@ -20,7 +20,8 @@
         "warning",
         "danger"
       ],
-      "default": "accent"
+      "default": "accent",
+      "description": "The colour and its meaning."
     },
     {
       "name": "size",

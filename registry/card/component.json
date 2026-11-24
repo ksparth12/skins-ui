@@ -13,24 +13,27 @@
     {
       "name": "title",
       "type": "string",
-      "default": "Midnight silk"
+      "demo": "Midnight silk",
+      "description": "The heading."
     },
     {
       "name": "description",
       "type": "string",
-      "default": "A slow, deep background that falls from your colour into near black."
+      "demo": "A slow, deep background that falls from your colour into near black.",
+      "description": "The supporting line under the title."
     },
     {
       "name": "action",
       "type": "string",
-      "default": "View skin",
+      "demo": "View skin",
       "description": "The label of the card's link. Leave empty for no link."
     },
     {
       "name": "href",
       "type": "string",
       "default": "#",
-      "hidden": true
+      "hidden": true,
+      "description": "Where the link goes."
     },
     {
       "name": "media",

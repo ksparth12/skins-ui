@@ -42,7 +42,8 @@
     {
       "name": "disabled",
       "type": "boolean",
-      "default": false
+      "default": false,
+      "description": "Dims it and blocks interaction."
     },
     {
       "name": "icon",

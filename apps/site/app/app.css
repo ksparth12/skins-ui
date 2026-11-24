@@ -68,3 +68,45 @@
   }
 }
 
+
+/* Code colours. Keywords take the link colour, so code follows Hue too. */
+:root {
+  --sh-keyword: var(--sk-link);
+  --sh-string: var(--sk-success);
+  --sh-property: var(--sk-warning);
+  --sh-entity: var(--sk-ink);
+  --sh-class: var(--sk-ink);
+  --sh-identifier: var(--sk-ink);
+  --sh-jsxliterals: var(--sk-ink);
+  --sh-sign: var(--sk-muted);
+  --sh-comment: var(--sk-faint);
+  --sh-space: inherit;
+}
+
+@layer components {
+  .code-block code {
+    display: block;
+    min-width: max-content;
+  }
+  .code-block .sh__line {
+    display: block;
+    min-height: 1.5rem;
+  }
+  /* Line numbers that are never copied with the code. */
+  .code-lines code {
+    counter-reset: sk-line;
+  }
+  .code-lines .sh__line {
+    padding-right: 1rem;
+  }
+  .code-lines .sh__line::before {
+    counter-increment: sk-line;
+    content: counter(sk-line);
+    display: inline-block;
+    width: 2.75rem;
+    padding-right: 1rem;
+    text-align: right;
+    color: var(--sk-faint);
+    user-select: none;
+  }
+}

@@ -13,7 +13,8 @@
     {
       "name": "content",
       "type": "string",
-      "default": "Copy link"
+      "demo": "Copy link",
+      "description": "The text inside the tooltip."
     },
     {
       "name": "side",
@@ -24,12 +25,14 @@
         "bottom",
         "left"
       ],
-      "default": "top"
+      "default": "top",
+      "description": "Which side of the trigger it opens on."
     },
     {
       "name": "defaultOpen",
       "type": "boolean",
-      "default": true,
+      "default": false,
+      "demo": true,
       "description": "Open when it first renders."
     }
   ],

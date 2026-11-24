@@ -13,22 +13,25 @@
     {
       "name": "label",
       "type": "string",
-      "default": "Email"
+      "demo": "Email",
+      "description": "The visible name."
     },
     {
       "name": "placeholder",
       "type": "string",
-      "default": "you@example.com"
+      "demo": "you@example.com",
+      "description": "Shown while the field is empty."
     },
     {
       "name": "description",
       "type": "string",
-      "default": "We only use it to send your receipts."
+      "demo": "We only use it to send your receipts.",
+      "description": "The supporting line under the title."
     },
     {
       "name": "error",
       "type": "string",
-      "default": "",
+      "demo": "",
       "description": "Shown instead of the description, and marks the field invalid."
     },
     {
@@ -45,7 +48,8 @@
     {
       "name": "disabled",
       "type": "boolean",
-      "default": false
+      "default": false,
+      "description": "Dims it and blocks interaction."
     }
   ],
   "states": [

@@ -13,12 +13,13 @@
     {
       "name": "brand",
       "type": "string",
-      "default": "Lumen"
+      "demo": "Lumen",
+      "description": "The site name at the start of the bar."
     },
     {
       "name": "items",
       "type": "data",
-      "default": [
+      "demo": [
         {
           "label": "Product",
           "href": "#"
@@ -35,7 +36,8 @@
           "label": "Blog",
           "href": "#"
         }
-      ]
+      ],
+      "description": "The main pages, each with a label and an href."
     },
     {
       "name": "active",
@@ -46,13 +48,14 @@
         "Docs",
         "Blog"
       ],
-      "default": "Product",
+      "demo": "Product",
       "description": "The label of the current page."
     },
     {
       "name": "action",
       "type": "string",
-      "default": "Get started"
+      "demo": "Get started",
+      "description": "The label of the main action. Leave empty for none."
     }
   ],
   "states": [

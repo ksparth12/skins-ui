@@ -13,27 +13,35 @@
     {
       "name": "triggerLabel",
       "type": "string",
-      "default": "Delete project"
+      "default": "Open",
+      "demo": "Delete project",
+      "description": "The label of the button that opens it."
     },
     {
       "name": "title",
       "type": "string",
-      "default": "Delete this project?"
+      "demo": "Delete this project?",
+      "description": "The heading."
     },
     {
       "name": "description",
       "type": "string",
-      "default": "Its skins, settings and history will be removed. This can't be undone."
+      "demo": "Its skins, settings and history will be removed. This can't be undone.",
+      "description": "The supporting line under the title."
     },
     {
       "name": "confirmLabel",
       "type": "string",
-      "default": "Delete"
+      "default": "Confirm",
+      "demo": "Delete",
+      "description": "The label of the main action."
     },
     {
       "name": "cancelLabel",
       "type": "string",
-      "default": "Cancel"
+      "default": "Cancel",
+      "demo": "Cancel",
+      "description": "The label of the button that closes it."
     },
     {
       "name": "tone",
@@ -42,12 +50,15 @@
         "default",
         "danger"
       ],
-      "default": "danger"
+      "default": "default",
+      "demo": "danger",
+      "description": "The colour and its meaning."
     },
     {
       "name": "defaultOpen",
       "type": "boolean",
       "default": false,
+      "demo": false,
       "description": "Open when it first renders."
     }
   ],

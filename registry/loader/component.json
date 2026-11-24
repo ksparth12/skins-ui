@@ -18,7 +18,8 @@
         "md",
         "lg"
       ],
-      "default": "md"
+      "default": "md",
+      "description": "Small, medium or large."
     },
     {
       "name": "label",
