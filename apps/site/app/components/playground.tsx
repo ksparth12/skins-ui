@@ -7,7 +7,7 @@ import { CodeBlock, CommandBlock, addCommand, runCommand } from "~/components/co
 import { Panel, PanelLabel } from "~/components/panel";
 import { highlight } from "sugar-high";
 import { ChoiceControl, Customize, SwitchControl, TextControl } from "~/components/customize";
-import { DesktopIcon, ExpandIcon, EyeIcon, MoonIcon, PhoneIcon, ReplayIcon, ResetIcon, SunIcon, TabletIcon, TerminalIcon } from "~/components/icons";
+import { ArrowRightIcon as ArrowIcon, DesktopIcon, ExpandIcon, EyeIcon, MoonIcon, PhoneIcon, PlusIcon, ReplayIcon, ResetIcon, SunIcon, TabletIcon, TerminalIcon } from "~/components/icons";
 import { PropsTable } from "~/components/props-table";
 import type { ComponentSpec, PropSpec, Skin } from "~/lib/registry";
 
@@ -19,20 +19,6 @@ const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visi
 const REGISTRY_URL = "https://skinsui.dev/r";
 const MIN_WIDTH = 320;
 
-function PlusIcon() {
-  return (
-    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
-      <path d="M8 3.25v9.5M3.25 8h9.5" />
-    </svg>
-  );
-}
-function ArrowIcon() {
-  return (
-    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M3.25 8h9.5M9 4.25 12.75 8 9 11.75" />
-    </svg>
-  );
-}
 
 /** Gallery entries name icons by placeholder, since JSON cannot hold elements. */
 const withIcons = (props: Values): Values =>
@@ -227,8 +213,9 @@ export function Playground({ spec, skin }: { spec: ComponentSpec; skin: Skin }) 
   const hasIcons = spec.props.some((p) => p.name === "icon") && spec.props.some((p) => p.name === "iconRight");
   const fill = spec.preview?.layout === "fill";
   const control = spec.children?.control ?? "none";
-  const stageMode = forced ?? mode ?? "light";
-  const modeClass = stageMode === "dark" ? "dark" : "light-only";
+  // Until a stage mode is chosen, the stage inherits the site theme, so it never flashes the other mode.
+  const stageMode = forced ?? mode;
+  const modeClass = stageMode === "dark" ? "dark" : stageMode === "light" ? "light-only" : "";
   const changed = JSON.stringify(values) !== JSON.stringify(defaults) || text !== (spec.children?.default ?? "") || icon !== "none";
 
   const renderChildren = (label: string) => {
@@ -284,8 +271,8 @@ export function Playground({ spec, skin }: { spec: ComponentSpec; skin: Skin }) 
                 <div className={`flex items-center gap-0.5 transition-opacity duration-150 ${view === "preview" ? "" : "pointer-events-none invisible opacity-0"}`} aria-hidden={view !== "preview"}>
                   <IconChoice
                     label="Stage colours"
-                    value={stageMode}
-                    onChange={(v) => setMode(v)}
+                    value={stageMode ?? ""}
+                    onChange={(v) => setMode(v as StageMode)}
                     options={[
                       { value: "light", label: "Light stage", icon: <SunIcon className="size-3.5" />, disabled: forced === "dark" },
                       { value: "dark", label: "Dark stage", icon: <MoonIcon className="size-3.5" />, disabled: forced === "light" },

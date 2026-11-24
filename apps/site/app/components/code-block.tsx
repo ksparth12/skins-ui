@@ -2,7 +2,7 @@ import { Tabs } from "@base-ui/react/tabs";
 import { AnimatePresence, motion } from "motion/react";
 import { useMemo, useState, useSyncExternalStore } from "react";
 import { highlight } from "sugar-high";
-import { CheckIcon, CopyIcon, TerminalIcon } from "~/components/icons";
+import { CheckIcon, CopyIcon, FileTypeIcon } from "~/components/icons";
 import { Panel, PanelLabel } from "~/components/panel";
 
 const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-ring";
@@ -59,7 +59,7 @@ export function CodeBlock({ code, title, collapseAfter = 22 }: CodeBlockProps) {
   const shut = collapsible && !open;
 
   return (
-    <Panel header={<><PanelLabel icon={<TerminalIcon className="size-3.5" />}>{title}</PanelLabel><CopyIconButton text={code} /></>}>
+    <Panel header={<><PanelLabel icon={<FileTypeIcon name={title} className="size-4" />}>{title}</PanelLabel><CopyIconButton text={code} /></>}>
       <motion.div
         initial={false}
         animate={{ height: shut ? collapseAfter * LINE + 28 : "auto" }}
