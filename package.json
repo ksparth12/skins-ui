@@ -1,0 +1,22 @@
+{
+  "name": "skins-ui",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.4.1",
+  "engines": {
+    "node": ">=26"
+  },
+  "scripts": {
+    "dev": "pnpm --filter @skins/site dev",
+    "build": "pnpm tokens && pnpm --filter @skins/site build",
+    "tokens": "node packages/tokens/build.ts",
+    "typecheck": "pnpm -r typecheck",
+    "test": "vitest run",
+    "check": "node packages/checks/src/cli.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.7",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.1"
+  }
+}

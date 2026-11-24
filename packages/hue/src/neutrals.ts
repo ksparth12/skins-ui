@@ -1,0 +1,73 @@
+export type Mode = "light" | "dark";
+
+/** Neutral tokens. Hue never changes these, so every colour keeps its role. */
+export const neutrals = {
+  light: {
+    floor: "#f6f6f7",
+    surface: "#ffffff",
+    raised: "#ffffff",
+    overlay: "#ffffff",
+    well: "#f0f0f2",
+    ink: "#111114",
+    muted: "#5f5f68",
+    faint: "#9b9ba3",
+    hairline: "rgb(0 0 0 / 0.06)",
+    border: "rgb(0 0 0 / 0.1)",
+    "border-strong": "rgb(0 0 0 / 0.17)",
+    hover: "rgb(0 0 0 / 0.04)",
+    press: "rgb(0 0 0 / 0.075)",
+    "menu-on": "rgb(0 0 0 / 0.05)",
+    "edge-light": "inset 0 1px 0 rgb(255 255 255 / 0.7)",
+    "shadow-ring": "0 0 0 1px rgb(0 0 0 / 0.06)",
+    "shadow-card": "0 0 0 1px rgb(0 0 0 / 0.06), 0 1px 1px -0.5px rgb(0 0 0 / 0.06), 0 2px 4px -1px rgb(0 0 0 / 0.04)",
+    "shadow-raised": "0 0 0 1px rgb(0 0 0 / 0.06), 0 2px 4px -1px rgb(0 0 0 / 0.05), 0 8px 16px -6px rgb(0 0 0 / 0.08)",
+    "shadow-popover": "0 0 0 1px rgb(0 0 0 / 0.07), 0 4px 8px -2px rgb(0 0 0 / 0.05), 0 16px 32px -8px rgb(0 0 0 / 0.14)",
+    "shadow-modal": "0 0 0 1px rgb(0 0 0 / 0.07), 0 8px 16px -4px rgb(0 0 0 / 0.06), 0 32px 64px -16px rgb(0 0 0 / 0.24)",
+    "shadow-inset": "inset 0 1px 2px rgb(0 0 0 / 0.06)",
+    danger: "#c4320a",
+    "danger-soft": "#fdecea",
+    success: "#177a45",
+    "success-soft": "#e7f6ee",
+    warning: "#a35400",
+    "warning-soft": "#fdf1e3",
+    info: "#0b63c4",
+    "info-soft": "#e8f1fd",
+  },
+  dark: {
+    floor: "#09090a",
+    surface: "#111113",
+    raised: "#18181b",
+    overlay: "#1d1d20",
+    well: "#1a1a1d",
+    ink: "#ededf0",
+    muted: "#a1a1aa",
+    faint: "#6c6c75",
+    hairline: "rgb(255 255 255 / 0.06)",
+    border: "rgb(255 255 255 / 0.1)",
+    "border-strong": "rgb(255 255 255 / 0.17)",
+    hover: "rgb(255 255 255 / 0.05)",
+    press: "rgb(255 255 255 / 0.085)",
+    "menu-on": "rgb(255 255 255 / 0.07)",
+    "edge-light": "inset 0 1px 0 rgb(255 255 255 / 0.06)",
+    "shadow-ring": "0 0 0 1px rgb(255 255 255 / 0.07)",
+    "shadow-card": "0 0 0 1px rgb(255 255 255 / 0.07), 0 1px 2px rgb(0 0 0 / 0.4)",
+    "shadow-raised": "0 0 0 1px rgb(255 255 255 / 0.08), 0 2px 4px rgb(0 0 0 / 0.35), 0 8px 20px -6px rgb(0 0 0 / 0.5)",
+    "shadow-popover": "0 0 0 1px rgb(255 255 255 / 0.09), 0 4px 8px -2px rgb(0 0 0 / 0.4), 0 16px 36px -8px rgb(0 0 0 / 0.6)",
+    "shadow-modal": "0 0 0 1px rgb(255 255 255 / 0.09), 0 8px 16px -4px rgb(0 0 0 / 0.45), 0 32px 72px -16px rgb(0 0 0 / 0.75)",
+    "shadow-inset": "inset 0 1px 2px rgb(0 0 0 / 0.4)",
+    danger: "#ff8a7a",
+    "danger-soft": "#2a1513",
+    success: "#7dcf9f",
+    "success-soft": "#112219",
+    warning: "#ffb35c",
+    "warning-soft": "#2a1d0e",
+    info: "#6cb6ff",
+    "info-soft": "#0f1d2e",
+  },
+} as const satisfies Record<Mode, Record<string, string>>;
+
+/** The solid surfaces a coloured role can sit on, used for contrast checks. */
+export const surfacesOf = (mode: Mode) => {
+  const n = neutrals[mode];
+  return [n.floor, n.surface, n.raised, n.overlay, n.well];
+};

@@ -1,0 +1,46 @@
+@import "tailwindcss";
+@import "@skins/tokens/skins.css";
+
+@font-face {
+  font-family: "Cal Sans";
+  src: url("./fonts/cal-sans.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cal Sans Text UI";
+  src: url("./fonts/cal-sans-text-ui.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Geist Mono";
+  src: url("./fonts/geist-mono.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+:root {
+  --sk-font-sans: "Cal Sans Text UI", ui-sans-serif, system-ui, sans-serif;
+  --sk-font-display: "Cal Sans", var(--sk-font-sans);
+  --sk-font-mono: "Geist Mono", ui-monospace, monospace;
+  color-scheme: light;
+}
+.dark {
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    background: var(--sk-floor);
+    color: var(--sk-ink);
+    font-family: var(--sk-font-sans);
+    font-weight: 450;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 {
+    font-family: var(--sk-font-display);
+    font-weight: 600;
+    font-optical-sizing: auto;
+  }
+}

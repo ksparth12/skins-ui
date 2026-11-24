@@ -1,0 +1,12 @@
+{
+  "name": "@skins/tokens",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./skins.css": "./skins.css"
+  },
+  "dependencies": {
+    "@skins/hue": "workspace:*"
+  }
+}

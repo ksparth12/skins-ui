@@ -1,0 +1,11 @@
+node_modules/
+build/
+.react-router/
+.wrangler/
+.dev.vars*
+.env*
+*.tsbuildinfo
+.DS_Store
+CLAUDE.local.md
+.claude/
+worker-configuration.d.ts
