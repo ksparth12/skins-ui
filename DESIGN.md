@@ -106,7 +106,7 @@ A gradient in a skin uses one hue: a mid shade falling smoothly through the ramp
 
 All tokens carry the `--sk-` prefix so they never collide with the tokens of the app a skin is installed into. Tailwind utilities use the same names: `bg-sk-accent`, `text-sk-ink`, `shadow-sk-card`.
 
-Dark values apply when an ancestor has the class `dark` or the attribute `data-theme="dark"`.
+Dark values apply when an ancestor has the class `dark` or the attribute `data-theme="dark"`. The class `light` or `data-theme="light"` brings light values back inside a dark page.
 
 ### Surfaces
 

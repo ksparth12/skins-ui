@@ -8,13 +8,12 @@ import { Panel, PanelLabel } from "~/components/panel";
 import { TabPill } from "~/components/tab-pill";
 import { highlight } from "sugar-high";
 import { ChoiceControl, Customize, SwitchControl, TextControl } from "~/components/customize";
-import { ArrowRightIcon as ArrowIcon, DesktopIcon, ExpandIcon, EyeIcon, MoonIcon, PhoneIcon, PlusIcon, ReplayIcon, ResetIcon, SunIcon, TabletIcon, TerminalIcon } from "~/components/icons";
+import { ArrowRightIcon as ArrowIcon, DesktopIcon, ExpandIcon, EyeIcon, PhoneIcon, PlusIcon, ReplayIcon, ResetIcon, TabletIcon, TerminalIcon } from "~/components/icons";
 import { PropsTable } from "~/components/props-table";
 import type { ComponentSpec, PropSpec, Skin } from "~/lib/registry";
 
 type Values = Record<string, unknown>;
 type IconPlace = "none" | "before" | "after" | "only";
-type StageMode = "light" | "dark";
 
 const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-ring";
 const REGISTRY_URL = "https://skinsui.dev/r";
@@ -95,14 +94,14 @@ function ToolButton({ label, onClick, children }: { label: string; onClick: () =
 }
 
 /** A small group of icon toggles, one of which is chosen. */
-function IconChoice<T extends string>({ label, value, options, onChange }: { label: string; value: T; options: Array<{ value: T; label: string; icon: ReactNode; disabled?: boolean }>; onChange: (v: T) => void }) {
+function IconChoice<T extends string>({ label, value, options, onChange }: { label: string; value: T; options: Array<{ value: T; label: string; icon: ReactNode }>; onChange: (v: T) => void }) {
   return (
     <ToggleGroup aria-label={label} value={[value]} onValueChange={(next) => next[0] && onChange(next[0] as T)} className="flex items-center gap-0.5">
       {options.map((o) => (
         <Tooltip.Root key={o.value}>
           <Tooltip.Trigger
-            render={<Toggle value={o.value} aria-label={o.label} disabled={o.disabled} />}
-            className={`grid size-7 place-items-center rounded-md text-neutral-500 transition-[background-color,color] duration-150 hover:text-neutral-900 data-pressed:bg-neutral-200/70 data-pressed:text-neutral-950 disabled:opacity-35 dark:text-neutral-400 dark:hover:text-white dark:data-pressed:bg-neutral-800/70 dark:data-pressed:text-white ${focus}`}
+            render={<Toggle value={o.value} aria-label={o.label} />}
+            className={`grid size-7 place-items-center rounded-md text-neutral-500 transition-[background-color,color] duration-150 hover:text-neutral-900 data-pressed:bg-neutral-200/70 data-pressed:text-neutral-950 dark:text-neutral-400 dark:hover:text-white dark:data-pressed:bg-neutral-800/70 dark:data-pressed:text-white ${focus}`}
           >
             {o.icon}
           </Tooltip.Trigger>
@@ -193,16 +192,7 @@ export function Playground({ spec, skin }: { spec: ComponentSpec; skin: Skin }) 
   const [view, setView] = useState<"preview" | "code">("preview");
   const [preset, setPreset] = useState<WidthPreset>("full");
   const [width, setWidth] = useState<number | null>(null);
-  const forced = skin.modes.length === 1 ? skin.modes[0] : undefined;
-  const [mode, setMode] = useState<StageMode | null>(forced ?? null);
   const stage = useRef<HTMLDivElement>(null);
-
-  // Follow the site theme until a stage mode is chosen.
-  useEffect(() => {
-    if (forced || mode) return;
-    const read = () => setMode(document.documentElement.classList.contains("dark") ? "dark" : "light");
-    read();
-  }, [forced, mode]);
 
   const set = (name: string, v: unknown) => setValues((prev) => ({ ...prev, [name]: v }));
   const { Component } = skin;
@@ -210,9 +200,8 @@ export function Playground({ spec, skin }: { spec: ComponentSpec; skin: Skin }) 
   const hasIcons = spec.props.some((p) => p.name === "icon") && spec.props.some((p) => p.name === "iconRight");
   const fill = spec.preview?.layout === "fill";
   const control = spec.children?.control ?? "none";
-  // Until a stage mode is chosen, the stage inherits the site theme, so it never flashes the other mode.
-  const stageMode = forced ?? mode;
-  const modeClass = stageMode === "dark" ? "dark" : stageMode === "light" ? "light-only" : "";
+  // The stage follows the site theme. A skin drawn for one mode only always shows in that mode.
+  const modeClass = skin.modes.length === 1 ? skin.modes[0] : "";
   const changed = JSON.stringify(values) !== JSON.stringify(defaults) || text !== (spec.children?.default ?? "") || icon !== "none";
 
   const renderChildren = (label: string) => {
@@ -267,16 +256,6 @@ export function Playground({ spec, skin }: { spec: ComponentSpec; skin: Skin }) 
                   </Tabs.Tab>
                 </Tabs.List>
                 <div className={`flex items-center gap-0.5 transition-opacity duration-150 ${view === "preview" ? "" : "pointer-events-none invisible opacity-0"}`} aria-hidden={view !== "preview"}>
-                  <IconChoice
-                    label="Stage colours"
-                    value={stageMode ?? ""}
-                    onChange={(v) => setMode(v as StageMode)}
-                    options={[
-                      { value: "light", label: "Light stage", icon: <SunIcon className="size-3.5" />, disabled: forced === "dark" },
-                      { value: "dark", label: "Dark stage", icon: <MoonIcon className="size-3.5" />, disabled: forced === "light" },
-                    ]}
-                  />
-                  <span aria-hidden="true" className="mx-1 h-3.5 w-px bg-neutral-300 dark:bg-neutral-700" />
                   <IconChoice
                     label="Stage width"
                     value={preset}

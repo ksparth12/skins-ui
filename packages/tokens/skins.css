@@ -14,7 +14,7 @@
   --sk-motion-slow-exit: 160ms;
 }
 
-:root, .light-only {
+:root, .light, [data-theme="light"] {
   --sk-floor: #ffffff;
   --sk-surface: #ffffff;
   --sk-raised: #ffffff;
@@ -137,7 +137,7 @@
 }
 
 @media (color-gamut: p3) {
-  :root, .light-only {
+  :root, .light, [data-theme="light"] {
     --sk-hue-50: oklch(0.975 0.013 261);
     --sk-hue-100: oklch(0.945 0.028 261);
     --sk-hue-200: oklch(0.895 0.055 261);
@@ -189,7 +189,7 @@
   }
 }
 
-@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *));
+@custom-variant dark (&:where(.dark, .dark *, [data-theme="dark"], [data-theme="dark"] *):not(:where(.light, .light *, [data-theme="light"], [data-theme="light"] *)));
 
 @theme inline {
   --color-sk-floor: var(--sk-floor);
