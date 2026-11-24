@@ -279,7 +279,7 @@ export function Playground({ spec, skin }: { spec: ComponentSpec; skin: Skin }) 
                     <TerminalIcon className="size-3.5" />
                     Code
                   </Tabs.Tab>
-                  <Tabs.Indicator className="absolute -bottom-0.5 left-0 h-px w-(--active-tab-width) translate-x-(--active-tab-left) bg-neutral-950 transition-[translate,width] duration-200 ease-sk-out dark:bg-white" />
+                  <Tabs.Indicator className="absolute -bottom-1 left-0 h-px w-(--active-tab-width) translate-x-(--active-tab-left) bg-neutral-950 transition-[translate,width] duration-200 ease-sk-out dark:bg-white" />
                 </Tabs.List>
                 <div className={`flex items-center gap-0.5 transition-opacity duration-150 ${view === "preview" ? "" : "pointer-events-none invisible opacity-0"}`} aria-hidden={view !== "preview"}>
                   <IconChoice
@@ -332,7 +332,7 @@ export function Playground({ spec, skin }: { spec: ComponentSpec; skin: Skin }) 
               </ResizableFrame>
             </Tabs.Panel>
             <Tabs.Panel value="code" className="outline-none">
-              <pre className="code-block max-h-[38rem] overflow-auto px-4 py-3.5 font-sk-mono text-[13px]/6" tabIndex={0}>
+              <pre className="code-block code-lines max-h-[38rem] overflow-auto py-3.5 font-sk-mono text-[13px]/6" tabIndex={0}>
                 <code dangerouslySetInnerHTML={{ __html: highlight(usageFile.replace(/\n$/, "")).replace(/\n/g, "") }} />
               </pre>
             </Tabs.Panel>
@@ -431,7 +431,7 @@ function Install({ skin }: { skin: Skin }) {
       <Tabs.List aria-label="Installation method" className="relative flex border-b border-neutral-200 dark:border-neutral-800">
         <Tabs.Tab value="cli" className={underline}>CLI</Tabs.Tab>
         <Tabs.Tab value="manual" className={underline}>Manual</Tabs.Tab>
-        <Tabs.Indicator className="absolute bottom-[-1px] left-0 h-0.5 w-(--active-tab-width) translate-x-(--active-tab-left) bg-neutral-950 transition-[translate,width] duration-200 ease-sk-out dark:bg-white" />
+        <Tabs.Indicator className="absolute bottom-[-1px] left-0 h-px w-(--active-tab-width) translate-x-(--active-tab-left) bg-neutral-950 transition-[translate,width] duration-200 ease-sk-out dark:bg-white" />
       </Tabs.List>
       <Tabs.Panel value="cli" className="outline-none">
         <CommandBlock commands={runCommand(`shadcn@latest add ${REGISTRY_URL}/${skin.name}.json`)} />
@@ -458,7 +458,7 @@ function Install({ skin }: { skin: Skin }) {
 function Step({ n, title, last, children }: { n: number; title: string; last?: boolean; children?: ReactNode }) {
   return (
     <li className="relative grid grid-cols-[1.75rem_1fr] gap-x-3">
-      <span className="z-10 grid size-7 place-items-center rounded-md bg-neutral-200/50 text-xs font-medium shadow-[inset_0_1px_0_0_rgb(225_225_225),inset_0_2px_0_0_rgb(255_255_255)] dark:bg-neutral-900/60 dark:shadow-[inset_0_1px_0_0_rgb(255_255_255/0.125)]">{n}</span>
+      <span className="z-10 grid size-7 place-items-center rounded-lg bg-neutral-100 text-xs font-medium ring-1 ring-neutral-200/80 dark:bg-neutral-900 dark:ring-white/[0.08]">{n}</span>
       {!last && <span aria-hidden="true" className="absolute top-7 bottom-0 left-3.5 w-px bg-neutral-200 dark:bg-neutral-800" />}
       <div className={`grid gap-4 ${last ? "" : "pb-8"}`}>
         <h3 className="flex min-h-7 items-center font-sk-sans text-[15px] font-medium text-neutral-950/90 dark:text-white/90">{title}</h3>

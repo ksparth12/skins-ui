@@ -66,7 +66,7 @@ export function CodeBlock({ code, title, collapseAfter = 22 }: CodeBlockProps) {
         transition={{ type: "spring", duration: 0.35, bounce: 0 }}
         className={`overflow-hidden ${shut ? "[mask-image:linear-gradient(to_bottom,black_50%,transparent)]" : ""}`}
       >
-        <pre className="code-block overflow-x-auto px-4 py-3.5 font-sk-mono text-[13px]/6" tabIndex={0}>
+        <pre className="code-block code-lines overflow-x-auto py-3.5 font-sk-mono text-[13px]/6" tabIndex={0}>
           <code dangerouslySetInnerHTML={{ __html: html }} />
         </pre>
       </motion.div>
@@ -76,7 +76,7 @@ export function CodeBlock({ code, title, collapseAfter = 22 }: CodeBlockProps) {
             type="button"
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
-            className={`h-7 rounded-md bg-neutral-100 px-3 text-xs font-medium text-neutral-900 ring-1 ring-neutral-200 transition-colors duration-150 hover:bg-neutral-200/70 dark:bg-neutral-800 dark:text-neutral-200 dark:ring-neutral-800 dark:hover:bg-neutral-700/80 ${focus}`}
+            className={`h-8 rounded-lg bg-sk-accent px-3.5 text-[13px] font-semibold text-sk-accent-fg shadow-xs transition-colors duration-150 hover:bg-sk-accent-hover active:scale-[0.97] ${focus}`}
           >
             {open ? "Collapse" : "Expand"}
           </button>
@@ -128,7 +128,7 @@ export function CommandBlock({ commands }: { commands: Record<Manager, string> }
                   {m}
                 </Tabs.Tab>
               ))}
-              <Tabs.Indicator className="absolute -bottom-0.5 left-0 h-px w-(--active-tab-width) translate-x-(--active-tab-left) bg-neutral-950 transition-[translate,width] duration-200 ease-sk-out dark:bg-white" />
+              <Tabs.Indicator className="absolute -bottom-1 left-0 h-px w-(--active-tab-width) translate-x-(--active-tab-left) bg-neutral-950 transition-[translate,width] duration-200 ease-sk-out dark:bg-white" />
             </Tabs.List>
             <CopyIconButton text={commands[manager]} label="Copy command" />
           </>

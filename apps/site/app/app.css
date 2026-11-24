@@ -102,16 +102,19 @@
     counter-reset: sk-line;
   }
   .code-lines .sh__line {
-    padding-right: 1rem;
+    padding-right: 1.25rem;
   }
+  /* A gutter of line numbers with a thin divider, never copied with the code. */
   .code-lines .sh__line::before {
     counter-increment: sk-line;
     content: counter(sk-line);
     display: inline-block;
-    width: 2.75rem;
-    padding-right: 1rem;
+    width: 3.25rem;
+    margin-right: 1rem;
+    padding-right: 0.875rem;
     text-align: right;
     color: var(--sk-faint);
+    border-right: 1px solid var(--sk-hairline);
     user-select: none;
   }
 }
