@@ -3,7 +3,7 @@
   "name": "background-silk",
   "component": "background",
   "title": "Silk",
-  "description": "Molten folds of your colour falling into a near black shade of itself, drawn with WebGL. Pauses when off screen.",
+  "description": "Molten folds of your colour falling into near black. Pauses when off screen.",
   "tags": [
     "shader",
     "material",

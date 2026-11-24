@@ -21,6 +21,9 @@ function eachLine(path: string, text: string, rule: string, test: (line: string)
   });
 }
 
+/** A skin's description sits under its title and must stay on one line at laptop widths. */
+export const DESCRIPTION_MAX = 80;
+
 const LONG_DASH = new RegExp("[\\u2013\\u2014]");
 
 const RAW_COLOUR = /#[0-9a-fA-F]{3,8}\b|\b(?:rgba?|hsla?|oklch|oklab|lab|lch|color)\(/;
@@ -50,5 +53,18 @@ export const rules: Rule[] = [
       eachLine(p, t, "skin-imports", (l) =>
         /from\s+["'](?:react-router|@react-router\/|~\/|@skins\/site|\.\.\/)/.test(l) ? "A skin imports nothing from the site, the router or other skins." : null,
       ),
+  },
+  {
+    id: "description-one-line",
+    applies: (p) => /^registry\/[^/]+\/[^/]+\/meta\.json$/.test(p),
+    check: (p, t) =>
+      eachLine(p, t, "description-one-line", (l) => {
+        const m = /^\s*"description":\s*"((?:[^"\\]|\\.)*)"/.exec(l);
+        if (!m) return null;
+        const text = JSON.parse(`"${m[1]}"`) as string;
+        if (text.length > DESCRIPTION_MAX) return `Keep the description to ${DESCRIPTION_MAX} characters so it fits one line (now ${text.length}).`;
+        if (!/[.!?]$/.test(text)) return "End the description with a full stop.";
+        return null;
+      }),
   },
 ];

@@ -3,7 +3,7 @@
   "name": "tooltip-flat",
   "component": "tooltip",
   "title": "Flat",
-  "description": "A small ink chip with the page colour as its text. Reads instantly on any surface.",
+  "description": "A small ink chip with page coloured text. Reads instantly on any surface.",
   "tags": [
     "minimal",
     "solid"

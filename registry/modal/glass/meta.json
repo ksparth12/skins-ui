@@ -3,7 +3,7 @@
   "name": "modal-glass",
   "component": "modal",
   "title": "Glass",
-  "description": "A frosted panel over a softly blurred page. The page stays present behind the question.",
+  "description": "A frosted panel over a blurred page that stays present behind it.",
   "tags": [
     "glass",
     "material"

@@ -286,6 +286,7 @@ Every word in docs, metadata and the interface follows these rules.
 - Sentence case for every heading, label and button.
 - Every claim is true for the skin as it ships today.
 - Each skin's description is written for that skin. No templates.
+- A description fits on one line under the skin's title: 80 characters at most, ending with a full stop. Say what it looks like and, if there is room, where it fits best. `pnpm check` enforces the length.
 - No long dashes. Use a comma, a colon, a full stop or brackets.
 
 ## Skin Review

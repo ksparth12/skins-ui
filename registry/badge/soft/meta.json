@@ -3,7 +3,7 @@
   "name": "badge-soft",
   "component": "badge",
   "title": "Soft",
-  "description": "A tinted fill with darker text of the same colour. Quiet enough for dense tables and lists.",
+  "description": "A tinted fill with darker text of the same colour. Quiet in dense tables.",
   "tags": [
     "minimal",
     "soft"

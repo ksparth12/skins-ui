@@ -3,7 +3,7 @@
   "name": "badge-solid",
   "component": "badge",
   "title": "Solid",
-  "description": "A full colour fill for the one label that has to be seen first, like a release or an alert.",
+  "description": "A full colour fill for the one label that has to be seen first.",
   "tags": [
     "solid",
     "bold"

@@ -3,7 +3,7 @@
   "name": "navbar-floating",
   "component": "navbar",
   "title": "Floating",
-  "description": "A frosted pill that floats over the page, lit from above. For landing pages over colour.",
+  "description": "A frosted pill that floats over the page, lit from above. For landing pages.",
   "tags": [
     "glass",
     "material"

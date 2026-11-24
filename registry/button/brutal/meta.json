@@ -3,7 +3,7 @@
   "name": "button-brutal",
   "component": "button",
   "title": "Brutal",
-  "description": "A hard ink outline and a solid offset shadow. Pressing pushes it flat into its shadow.",
+  "description": "A hard ink outline and a solid offset shadow. Pressing pushes it flat.",
   "tags": [
     "brutalist",
     "bold"

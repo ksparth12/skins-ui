@@ -3,7 +3,7 @@
   "name": "switch-glass",
   "component": "switch",
   "title": "Glass",
-  "description": "A frosted track lit from above, with a bright glass thumb. Made for controls over colour.",
+  "description": "A frosted track with a bright glass thumb, made for controls over colour.",
   "tags": [
     "glass",
     "material"

@@ -3,7 +3,7 @@
   "name": "background-mesh",
   "component": "background",
   "title": "Mesh",
-  "description": "Soft fields of one colour family drifting slowly over a calm base. The middle stays quiet for your content.",
+  "description": "Soft fields of one colour family drifting slowly, with a quiet middle for text.",
   "tags": [
     "gradient",
     "motion"

@@ -3,7 +3,7 @@
   "name": "button-pixel",
   "component": "button",
   "title": "Pixel",
-  "description": "Notched corners, a stepped bevel and a pixel font. Pressing drops it by one pixel step.",
+  "description": "Notched corners, a stepped bevel and a pixel font. Presses down one step.",
   "tags": [
     "pixel",
     "retro"

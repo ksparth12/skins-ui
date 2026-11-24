@@ -3,7 +3,7 @@
   "name": "loader-orbit",
   "component": "loader",
   "title": "Orbit",
-  "description": "Two dots circling a faint ring at different speeds, in two shades of your colour.",
+  "description": "Two dots circle a faint ring at different speeds, in two shades of your colour.",
   "tags": [
     "playful",
     "motion"

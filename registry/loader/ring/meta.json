@@ -3,7 +3,7 @@
   "name": "loader-ring",
   "component": "loader",
   "title": "Ring",
-  "description": "A faint track with one arc turning around it. Fits inside buttons, fields and rows.",
+  "description": "One arc turning around a faint track. Fits inside buttons, fields and rows.",
   "tags": [
     "minimal"
   ],

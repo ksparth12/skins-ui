@@ -3,7 +3,7 @@
   "name": "badge-brutal",
   "component": "badge",
   "title": "Brutal",
-  "description": "An ink outline and a hard offset shadow around a soft fill. Pairs with the brutal button.",
+  "description": "An ink outline and a hard shadow around a soft fill. Pairs with brutal buttons.",
   "tags": [
     "brutalist",
     "bold"

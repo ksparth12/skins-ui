@@ -3,7 +3,7 @@
   "name": "loader-dots",
   "component": "loader",
   "title": "Dots",
-  "description": "Three dots rising and settling in turn. Friendly for chat replies and empty states.",
+  "description": "Three dots rising and settling in turn. Friendly for chat replies.",
   "tags": [
     "playful",
     "motion"

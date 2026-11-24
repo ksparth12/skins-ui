@@ -3,7 +3,7 @@
   "name": "button-glass",
   "component": "button",
   "title": "Glass",
-  "description": "A see-through pane that blurs what is behind it, lit from above. Made for buttons that sit over colour, photos or motion.",
+  "description": "A see-through pane that blurs what is behind it, for buttons over colour.",
   "tags": ["glass", "material"],
   "modes": ["light", "dark"],
   "dependencies": ["@base-ui/react"],

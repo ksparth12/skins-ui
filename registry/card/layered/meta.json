@@ -3,7 +3,7 @@
   "name": "card-layered",
   "component": "card",
   "title": "Layered",
-  "description": "A tinted shell holding a raised panel, with the action resting in the shell below. For a page's main piece.",
+  "description": "A tinted shell holding a raised panel, with the action resting below it.",
   "tags": [
     "layered",
     "depth"

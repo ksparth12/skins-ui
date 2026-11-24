@@ -3,7 +3,7 @@
   "name": "card-glass",
   "component": "card",
   "title": "Glass",
-  "description": "A frosted pane lit from above. Made for cards that sit over colour, photos or motion.",
+  "description": "A frosted pane lit from above, for cards over colour, photos or motion.",
   "tags": [
     "glass",
     "material"

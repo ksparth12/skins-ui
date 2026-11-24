@@ -3,7 +3,7 @@
   "name": "modal-flat",
   "component": "modal",
   "title": "Flat",
-  "description": "A clean panel on a dimmed page with the actions on the right. Asks once, clearly.",
+  "description": "A clean panel on a dimmed page, actions on the right. Asks once, clearly.",
   "tags": [
     "minimal",
     "solid"

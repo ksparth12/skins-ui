@@ -3,7 +3,7 @@
   "name": "navbar-minimal",
   "component": "navbar",
   "title": "Minimal",
-  "description": "Just words. The current page is marked by a short line that draws itself under it.",
+  "description": "Just words. A short line draws itself under the current page.",
   "tags": [
     "minimal",
     "editorial"

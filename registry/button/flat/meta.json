@@ -3,7 +3,7 @@
   "name": "button-flat",
   "component": "button",
   "title": "Flat",
-  "description": "A solid fill, crisp type and nothing else. The calm default that sits well in any product.",
+  "description": "A solid fill, crisp type and nothing else. The calm default for any product.",
   "tags": ["minimal", "solid"],
   "modes": ["light", "dark"],
   "dependencies": ["@base-ui/react"],
