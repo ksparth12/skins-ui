@@ -38,6 +38,10 @@
   --sk-shadow-inset: inset 0 1px 2px rgb(0 0 0 / 0.06);
   --sk-danger: #c4320a;
   --sk-danger-soft: #fdecea;
+  --sk-danger-solid: #c4320a;
+  --sk-danger-solid-hover: #b02d09;
+  --sk-danger-solid-active: #992607;
+  --sk-danger-solid-fg: #ffffff;
   --sk-success: #177a45;
   --sk-success-soft: #e7f6ee;
   --sk-warning: #a35400;
@@ -95,6 +99,10 @@
   --sk-shadow-inset: inset 0 1px 2px rgb(0 0 0 / 0.4);
   --sk-danger: #ff8a7a;
   --sk-danger-soft: #2a1513;
+  --sk-danger-solid: #d13a12;
+  --sk-danger-solid-hover: #c4320a;
+  --sk-danger-solid-active: #b02d09;
+  --sk-danger-solid-fg: #ffffff;
   --sk-success: #7dcf9f;
   --sk-success-soft: #112219;
   --sk-warning: #ffb35c;
@@ -200,6 +208,10 @@
   --color-sk-menu-on: var(--sk-menu-on);
   --color-sk-danger: var(--sk-danger);
   --color-sk-danger-soft: var(--sk-danger-soft);
+  --color-sk-danger-solid: var(--sk-danger-solid);
+  --color-sk-danger-solid-hover: var(--sk-danger-solid-hover);
+  --color-sk-danger-solid-active: var(--sk-danger-solid-active);
+  --color-sk-danger-solid-fg: var(--sk-danger-solid-fg);
   --color-sk-success: var(--sk-success);
   --color-sk-success-soft: var(--sk-success-soft);
   --color-sk-warning: var(--sk-warning);

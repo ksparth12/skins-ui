@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "@skins/tokens/skins.css";
 
+@source "../../../registry";
+
 @font-face {
   font-family: "Cal Sans";
   src: url("./fonts/cal-sans.woff2") format("woff2");

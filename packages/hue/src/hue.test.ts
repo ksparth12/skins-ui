@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { createHue, presets, toCss } from "./index.ts";
+import { contrast, createHue, neutrals, presets, toCss } from "./index.ts";
 
 const failures = (input: string) => {
   const hue = createHue(input);
@@ -36,6 +36,20 @@ describe("any colour", () => {
     expect(failures("#146bff")).toEqual([]);
     expect(failures("#fc0")).toEqual([]);
   });
+});
+
+describe("neutrals", () => {
+  for (const mode of ["light", "dark"] as const) {
+    it(`${mode}: status text reads on its soft background, and danger fills carry a white label`, () => {
+      const n = neutrals[mode];
+      for (const k of ["danger", "success", "warning", "info"] as const) {
+        expect(contrast(n[k], n[`${k}-soft`]), k).toBeGreaterThanOrEqual(4.5);
+      }
+      for (const k of ["danger-solid", "danger-solid-hover", "danger-solid-active"] as const) {
+        expect(contrast(n["danger-solid-fg"], n[k]), k).toBeGreaterThanOrEqual(4.5);
+      }
+    });
+  }
 });
 
 describe("css", () => {

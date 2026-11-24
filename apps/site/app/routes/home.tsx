@@ -1,5 +1,5 @@
-import { HuePicker } from "~/components/hue-picker";
-import { ThemeToggle } from "~/components/theme";
+import { Link } from "react-router";
+import { SiteHeader } from "~/components/site-header";
 
 export function meta() {
   return [
@@ -17,13 +17,7 @@ const badge = "inline-flex h-6 items-center rounded-md px-2 text-xs font-semibol
 export default function Home() {
   return (
     <div className="min-h-dvh">
-      <header className="mx-auto flex h-16 max-w-6xl items-center gap-6 px-6">
-        <span className="font-sk-display text-[17px] font-semibold">Skins UI</span>
-        <div className="ml-auto flex items-center gap-4">
-          <HuePicker />
-          <ThemeToggle />
-        </div>
-      </header>
+      <SiteHeader />
 
       <main className="mx-auto max-w-6xl px-6 pt-24 pb-32">
         <h1 className="text-5xl/[1.05] tracking-[-0.01em] sm:text-7xl/[1.02]">
@@ -36,7 +30,7 @@ export default function Home() {
 
         <section aria-label="Sample" className="mt-16 grid max-w-xl gap-6 rounded-2xl bg-sk-surface p-6 shadow-sk-card">
           <div className="flex flex-wrap items-center gap-2.5">
-            <button type="button" className={primary}>Deploy skin</button>
+            <Link to="/components" className={primary}>Browse components</Link>
             <button type="button" className={secondary}>Preview</button>
           </div>
           <div className="flex flex-wrap items-center gap-2">
