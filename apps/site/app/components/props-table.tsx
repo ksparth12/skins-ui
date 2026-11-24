@@ -14,34 +14,40 @@ function defaultOf(p: PropSpec): string | null {
 }
 
 const cell = "px-4 py-3 align-top text-[13px] font-medium break-words text-neutral-950/90 dark:text-white/90";
+const muted = "font-normal text-neutral-500 dark:text-neutral-400";
+/** One column layout shared by the header strip and the rows, so they always line up. */
+const COLUMNS = ["Prop", "Type", "Default", "Description"] as const;
+const WIDTHS = ["w-[20%]", "w-[26%]", "w-[18%]", ""];
 
-/** Every prop of a component: a table on wide screens, a list on phones. */
+/** Every prop of a component. Column headings sit in the panel's header strip; the rows sit on the card. */
 export function PropsTable({ spec }: { spec: ComponentSpec }) {
   const props = spec.props;
   return (
-    <Panel>
+    <Panel
+      header={
+        <div aria-hidden="true" className="-mx-1.5 hidden w-[calc(100%+0.75rem)] sm:flex">
+          {COLUMNS.map((c, i) => (
+            <span key={c} className={`${WIDTHS[i] || "flex-1"} px-4 py-1.5 font-sk-mono text-xs text-neutral-500 dark:text-neutral-400`}>{c}</span>
+          ))}
+        </div>
+      }
+    >
       <table className="hidden w-full table-fixed text-left sm:table">
         <colgroup>
-          <col className="w-[20%]" />
-          <col className="w-[26%]" />
-          <col className="w-[18%]" />
-          <col />
+          {WIDTHS.map((w, i) => <col key={i} className={w} />)}
         </colgroup>
-        <thead>
-          <tr className="border-b border-neutral-200/70 font-sk-mono text-xs text-neutral-500 dark:border-neutral-800/70 dark:text-neutral-400">
-            <th scope="col" className="px-4 py-2 font-medium">Prop</th>
-            <th scope="col" className="px-4 py-2 font-medium">Type</th>
-            <th scope="col" className="px-4 py-2 font-medium">Default</th>
-            <th scope="col" className="px-4 py-2 font-medium">Description</th>
+        <thead className="sr-only">
+          <tr>
+            {COLUMNS.map((c) => <th key={c} scope="col">{c}</th>)}
           </tr>
         </thead>
         <tbody>
           {props.map((p) => (
             <tr key={p.name} className="border-b border-neutral-200/70 last:border-0 dark:border-neutral-800/70">
               <td className={cell}>{p.name}</td>
-              <td className={`${cell} font-sk-mono text-xs font-normal text-neutral-500 dark:text-neutral-400`}>{typeOf(p)}</td>
-              <td className={`${cell} font-sk-mono text-xs font-normal text-neutral-500 dark:text-neutral-400`}>{defaultOf(p) ?? "None"}</td>
-              <td className={`${cell} font-normal text-neutral-500 dark:text-neutral-400`}>{p.description ?? ""}</td>
+              <td className={`${cell} ${muted} font-sk-mono text-xs`}>{typeOf(p)}</td>
+              <td className={`${cell} ${muted} font-sk-mono text-xs`}>{defaultOf(p) ?? "None"}</td>
+              <td className={`${cell} ${muted}`}>{p.description ?? ""}</td>
             </tr>
           ))}
         </tbody>
