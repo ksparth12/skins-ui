@@ -7,6 +7,7 @@ import { CheckIcon, CopyIcon, FileIcon, TerminalIcon } from "~/components/icons"
 const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-ring";
 const LINE = 24;
 
+
 /** Copies text and swaps its icon for a check for a moment. */
 export function CopyIconButton({ text, label = "Copy code" }: { text: string; label?: string }) {
   const [done, setDone] = useState(false);
@@ -42,8 +43,8 @@ export function CopyIconButton({ text, label = "Copy code" }: { text: string; la
 /** The frame every block of code sits in: a header bar and a body. */
 function Frame({ header, children }: { header: ReactNode; children: ReactNode }) {
   return (
-    <div className="overflow-hidden rounded-xl bg-sk-well inset-ring inset-ring-sk-hairline">
-      <div className="flex h-10 items-center justify-between gap-3 border-b border-sk-hairline pr-1 pl-3.5">{header}</div>
+    <div className="overflow-hidden rounded-xl border border-sk-border bg-sk-surface">
+      <div className="flex h-10 items-center justify-between gap-3 border-b border-sk-border bg-sk-well/60 pr-1.5 pl-4 dark:bg-white/[0.02]">{header}</div>
       {children}
     </div>
   );
@@ -60,7 +61,7 @@ export interface CodeBlockProps {
 }
 
 /** Highlighted code with a header, copy, line numbers, and a collapsed state for long files. */
-export function CodeBlock({ code, title, kind = "file", lineNumbers = true, collapseAfter = 16 }: CodeBlockProps) {
+export function CodeBlock({ code, title, kind = "file", lineNumbers = false, collapseAfter = 22 }: CodeBlockProps) {
   // Each line is its own block, so the line breaks between them are dropped.
   const html = useMemo(() => highlight(code.replace(/\n$/, "")).replace(/\n/g, ""), [code]);
   const lines = code.replace(/\n$/, "").split("\n").length;
@@ -72,8 +73,8 @@ export function CodeBlock({ code, title, kind = "file", lineNumbers = true, coll
     <Frame
       header={
         <>
-          <span className="flex min-w-0 items-center gap-2 text-[13px] font-medium text-sk-muted">
-            {kind === "terminal" ? <TerminalIcon className="shrink-0" /> : <FileIcon className="shrink-0" />}
+          <span className="flex min-w-0 items-center gap-2 font-sk-mono text-[12.5px] text-sk-muted">
+            {kind === "terminal" ? <TerminalIcon className="size-3.5 shrink-0" /> : <FileIcon className="size-3.5 shrink-0" />}
             <span className="truncate">{title}</span>
           </span>
           <CopyIconButton text={code} />
@@ -83,11 +84,11 @@ export function CodeBlock({ code, title, kind = "file", lineNumbers = true, coll
       <div className="relative">
         <motion.div
           initial={false}
-          animate={{ height: shut ? collapseAfter * LINE + 32 : "auto" }}
+          animate={{ height: shut ? collapseAfter * LINE + 40 : "auto" }}
           transition={{ type: "spring", duration: 0.35, bounce: 0 }}
           className={`overflow-hidden ${shut ? "[mask-image:linear-gradient(to_bottom,black_55%,transparent)]" : ""}`}
         >
-          <pre className={`code-block overflow-x-auto py-4 font-sk-mono text-[13px]/6 ${lineNumbers ? "code-lines" : "px-4"}`} tabIndex={0}>
+          <pre className={`code-block overflow-x-auto py-5 font-sk-mono text-[14px]/[1.7] ${lineNumbers ? "code-lines" : "px-5"}`} tabIndex={0}>
             <code dangerouslySetInnerHTML={{ __html: html }} />
           </pre>
         </motion.div>
@@ -97,9 +98,9 @@ export function CodeBlock({ code, title, kind = "file", lineNumbers = true, coll
               type="button"
               aria-expanded={open}
               onClick={() => setOpen((v) => !v)}
-              className={`inline-flex h-8 items-center rounded-md bg-sk-surface px-3 text-[13px] font-semibold text-sk-ink shadow-sk-card transition-colors duration-100 hover:bg-sk-raised ${focus}`}
+              className={`inline-flex h-8 items-center rounded-md border border-sk-border bg-sk-surface px-3 text-[13px] font-medium text-sk-ink transition-colors duration-100 hover:bg-sk-raised ${focus}`}
             >
-              {open ? "Show less" : `Show all ${lines} lines`}
+              {open ? "Collapse" : "Expand code"}
             </button>
           </div>
         )}
@@ -140,18 +141,18 @@ export function CommandBlock({ commands }: { commands: Record<Manager, string> }
       <Frame
         header={
           <>
-            <Tabs.List aria-label="Package manager" className="relative flex h-10 items-center gap-1">
-              <TerminalIcon className="mr-1.5 shrink-0 text-sk-muted" />
+            <Tabs.List aria-label="Package manager" className="relative flex h-10 items-center gap-2.5">
+
               {MANAGERS.map((m) => (
                 <Tabs.Tab
                   key={m}
                   value={m}
-                  className={`relative h-10 px-1.5 text-[13px] font-medium text-sk-muted transition-colors duration-100 hover:text-sk-ink data-active:text-sk-ink ${focus}`}
+                  className={`relative h-10 px-1.5 font-sk-mono text-[12.5px] text-sk-muted transition-colors duration-100 hover:text-sk-ink data-active:text-sk-ink ${focus}`}
                 >
                   {m}
                 </Tabs.Tab>
               ))}
-              <Tabs.Indicator className="absolute bottom-[-1px] left-0 h-0.5 w-(--active-tab-width) translate-x-(--active-tab-left) rounded-full bg-sk-ink transition-[translate,width] duration-200 ease-sk-out" />
+              <Tabs.Indicator className="absolute bottom-[-1px] left-0 h-px w-(--active-tab-width) translate-x-(--active-tab-left) bg-sk-ink transition-[translate,width] duration-200 ease-sk-out" />
             </Tabs.List>
             <CopyIconButton text={commands[manager]} label="Copy command" />
           </>
@@ -159,7 +160,7 @@ export function CommandBlock({ commands }: { commands: Record<Manager, string> }
       >
         {MANAGERS.map((m) => (
           <Tabs.Panel key={m} value={m}>
-            <pre className="overflow-x-auto px-4 py-3.5 font-sk-mono text-[13px]/6 text-sk-ink">
+            <pre className="overflow-x-auto px-5 py-4 font-sk-mono text-[14px]/6 text-sk-ink">
               <code>{commands[m]}</code>
             </pre>
           </Tabs.Panel>

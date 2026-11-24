@@ -12,61 +12,50 @@ function defaultOf(p: PropSpec): string | null {
   return typeof p.default === "string" ? `"${p.default}"` : String(p.default);
 }
 
-/** Every prop of a component: a table on wide screens, cards on phones. */
+/** Every prop of a component: a table on wide screens, a list on phones. */
 export function PropsTable({ spec }: { spec: ComponentSpec }) {
   const props = spec.props;
   return (
-    <section aria-labelledby="props" className="rounded-2xl bg-sk-well p-1.5 inset-ring inset-ring-sk-hairline">
-      <div className="flex items-baseline justify-between px-3.5 pt-2.5 pb-3">
-        <h2 id="props" className="text-[15px]">Props</h2>
-        <span className="text-[13px] text-sk-muted">
-          {props.length} {props.length === 1 ? "prop" : "props"}
-        </span>
-      </div>
-
-      <div className="hidden overflow-hidden rounded-xl bg-sk-surface shadow-sk-card sm:block">
-        <table className="w-full table-fixed text-left text-sm">
-          <colgroup>
-            <col className="w-[22%]" />
-            <col className="w-[30%]" />
-            <col className="w-[16%]" />
-            <col />
-          </colgroup>
-          <thead>
-            <tr className="border-b border-sk-hairline text-[12px] text-sk-muted">
-              <th scope="col" className="px-4 py-2.5 font-semibold">Prop</th>
-              <th scope="col" className="px-4 py-2.5 font-semibold">Type</th>
-              <th scope="col" className="px-4 py-2.5 font-semibold">Default</th>
-              <th scope="col" className="px-4 py-2.5 font-semibold">Description</th>
+    <div className="overflow-hidden rounded-2xl border border-sk-border bg-sk-surface">
+      <table className="hidden w-full table-fixed text-left sm:table">
+        <colgroup>
+          <col className="w-[20%]" />
+          <col className="w-[28%]" />
+          <col className="w-[18%]" />
+          <col />
+        </colgroup>
+        <thead className="bg-sk-well/60 dark:bg-white/[0.02]">
+          <tr className="border-b border-sk-border font-sk-mono text-[12.5px] text-sk-muted">
+            <th scope="col" className="px-5 py-3 font-normal">Prop</th>
+            <th scope="col" className="px-5 py-3 font-normal">Type</th>
+            <th scope="col" className="px-5 py-3 font-normal">Default</th>
+            <th scope="col" className="px-5 py-3 font-normal">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {props.map((p) => (
+            <tr key={p.name} className="border-b border-sk-border align-top last:border-0">
+              <td className="px-5 py-4 font-sk-mono text-[13px] text-sk-ink">{p.name}</td>
+              <td className="px-5 py-4 font-sk-mono text-[13px] break-words text-sk-muted">{typeOf(p)}</td>
+              <td className="px-5 py-4 font-sk-mono text-[13px] break-words text-sk-muted">{defaultOf(p) ?? "None"}</td>
+              <td className="px-5 py-4 text-[14px]/6 text-sk-muted">{p.description ?? ""}</td>
             </tr>
-          </thead>
-          <tbody>
-            {props.map((p) => (
-              <tr key={p.name} className="border-b border-sk-hairline align-top transition-colors duration-100 last:border-0 hover:bg-sk-hover">
-                <td className="px-4 py-3">
-                  <code className="font-sk-mono text-[12.5px] font-medium text-sk-ink">{p.name}</code>
-                </td>
-                <td className="px-4 py-3 font-sk-mono text-[12.5px] break-words text-sk-link">{typeOf(p)}</td>
-                <td className="px-4 py-3 font-sk-mono text-[12.5px] text-sk-muted">{defaultOf(p) ?? "None"}</td>
-                <td className="px-4 py-3 text-[13px]/5 text-sk-muted">{p.description ?? ""}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+          ))}
+        </tbody>
+      </table>
 
-      <ul className="grid gap-1.5 sm:hidden">
+      <ul className="sm:hidden">
         {props.map((p) => (
-          <li key={p.name} className="grid gap-1.5 rounded-xl bg-sk-surface p-4 shadow-sk-card">
+          <li key={p.name} className="grid gap-1.5 border-b border-sk-border px-5 py-4 last:border-0">
             <div className="flex items-baseline justify-between gap-3">
-              <code className="font-sk-mono text-[13px] font-medium text-sk-ink">{p.name}</code>
+              <code className="font-sk-mono text-[13px] text-sk-ink">{p.name}</code>
               <span className="font-sk-mono text-[12px] text-sk-muted">{defaultOf(p) ?? "None"}</span>
             </div>
-            <code className="font-sk-mono text-[12px] break-words text-sk-link">{typeOf(p)}</code>
-            {p.description && <p className="text-[13px]/5 text-sk-muted">{p.description}</p>}
+            <code className="font-sk-mono text-[12px] break-words text-sk-muted">{typeOf(p)}</code>
+            {p.description && <p className="text-[14px]/6 text-sk-muted">{p.description}</p>}
           </li>
         ))}
       </ul>
-    </section>
+    </div>
   );
 }

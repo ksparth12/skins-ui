@@ -71,16 +71,21 @@
 
 /* Code colours. Keywords take the link colour, so code follows Hue too. */
 :root {
-  --sh-keyword: var(--sk-link);
-  --sh-string: var(--sk-success);
-  --sh-property: var(--sk-warning);
-  --sh-entity: var(--sk-ink);
+  --sh-keyword: var(--sk-muted);
+  --sh-string: #0f7a5f;
+  --sh-property: #a45a00;
+  --sh-entity: #b3530b;
   --sh-class: var(--sk-ink);
   --sh-identifier: var(--sk-ink);
   --sh-jsxliterals: var(--sk-ink);
   --sh-sign: var(--sk-muted);
   --sh-comment: var(--sk-faint);
   --sh-space: inherit;
+}
+.dark {
+  --sh-string: #8ee6c8;
+  --sh-property: #f5b46a;
+  --sh-entity: #f8a16b;
 }
 
 @layer components {

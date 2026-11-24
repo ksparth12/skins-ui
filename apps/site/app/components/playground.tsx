@@ -5,7 +5,7 @@ import { Tooltip } from "@base-ui/react/tooltip";
 import { useEffect, useMemo, useRef, useState, type ComponentPropsWithRef, type ReactNode } from "react";
 import { CodeBlock, CommandBlock, addCommand, runCommand } from "~/components/code-block";
 import { ChoiceControl, Customize, SwitchControl, TextControl } from "~/components/customize";
-import { DesktopIcon, ExpandIcon, MoonIcon, PhoneIcon, ReplayIcon, SunIcon, TabletIcon } from "~/components/icons";
+import { DesktopIcon, ExpandIcon, EyeIcon, MoonIcon, PhoneIcon, ReplayIcon, ResetIcon, SunIcon, TabletIcon, TerminalIcon } from "~/components/icons";
 import { PropsTable } from "~/components/props-table";
 import type { ComponentSpec, PropSpec, Skin } from "~/lib/registry";
 
@@ -112,12 +112,12 @@ function ToolButton({ label, onClick, children }: { label: string; onClick: () =
 /** A small group of icon toggles, one of which is chosen. */
 function IconChoice<T extends string>({ label, value, options, onChange }: { label: string; value: T; options: Array<{ value: T; label: string; icon: ReactNode; disabled?: boolean }>; onChange: (v: T) => void }) {
   return (
-    <ToggleGroup aria-label={label} value={[value]} onValueChange={(next) => next[0] && onChange(next[0] as T)} className="flex items-center gap-0.5 rounded-lg bg-sk-well p-0.5 inset-ring inset-ring-sk-hairline">
+    <ToggleGroup aria-label={label} value={[value]} onValueChange={(next) => next[0] && onChange(next[0] as T)} className="flex items-center gap-0.5">
       {options.map((o) => (
         <Tooltip.Root key={o.value}>
           <Tooltip.Trigger
             render={<Toggle value={o.value} aria-label={o.label} disabled={o.disabled} />}
-            className={`grid size-7 place-items-center rounded-md text-sk-muted transition-[background-color,color,box-shadow] duration-150 hover:text-sk-ink data-pressed:bg-sk-surface data-pressed:text-sk-ink data-pressed:shadow-sk-card disabled:opacity-35 dark:data-pressed:bg-sk-raised ${focus}`}
+            className={`grid size-8 place-items-center rounded-md text-sk-muted transition-[background-color,color] duration-150 hover:bg-sk-hover hover:text-sk-ink data-pressed:bg-sk-menu-on data-pressed:text-sk-ink disabled:opacity-35 ${focus}`}
           >
             {o.icon}
           </Tooltip.Trigger>
@@ -259,164 +259,198 @@ export function Playground({ spec, skin }: { spec: ComponentSpec; skin: Skin }) 
     setIcon("none");
   };
 
-  const tab = `relative z-10 inline-flex h-8 items-center rounded-md px-3 text-[13px] font-semibold text-sk-muted transition-colors duration-150 hover:text-sk-ink data-active:text-sk-ink ${focus}`;
+  const tab = `relative inline-flex h-12 items-center gap-2 text-[14px] font-medium text-sk-muted transition-colors duration-150 hover:text-sk-ink data-active:text-sk-ink ${focus}`;
 
   return (
     <Tooltip.Provider delay={400}>
-      <Tabs.Root value={view} onValueChange={(v) => setView(v as "preview" | "code")} className="grid gap-4">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <Tabs.List aria-label="View" className="relative flex items-center gap-0.5 rounded-lg bg-sk-well p-0.5 inset-ring inset-ring-sk-hairline">
-            <Tabs.Tab value="preview" className={tab}>Preview</Tabs.Tab>
-            <Tabs.Tab value="code" className={tab}>Code</Tabs.Tab>
-            <Tabs.Indicator className="absolute top-0.5 left-0 h-8 w-(--active-tab-width) translate-x-(--active-tab-left) rounded-md bg-sk-surface shadow-sk-card transition-[translate,width] duration-200 ease-sk-out dark:bg-sk-raised" />
-          </Tabs.List>
-          <div className={`flex items-center gap-2 transition-opacity duration-150 ${view === "preview" ? "" : "pointer-events-none invisible opacity-0"}`} aria-hidden={view !== "preview"}>
-            <IconChoice
-              label="Stage colours"
-              value={stageMode}
-              onChange={(v) => setMode(v)}
-              options={[
-                { value: "light", label: "Light stage", icon: <SunIcon />, disabled: forced === "dark" },
-                { value: "dark", label: "Dark stage", icon: <MoonIcon />, disabled: forced === "light" },
-              ]}
-            />
-            <IconChoice
-              label="Stage width"
-              value={preset}
-              onChange={(v) => {
-                setPreset(v);
-                setWidth(WIDTHS[v]);
-              }}
-              options={[
-                { value: "full", label: "Full width", icon: <DesktopIcon /> },
-                { value: "tablet", label: "Tablet, 768px", icon: <TabletIcon /> },
-                { value: "phone", label: "Phone, 390px", icon: <PhoneIcon /> },
-              ]}
-            />
-            <ToolButton label="Replay" onClick={() => setReplay((n) => n + 1)}>
-              <ReplayIcon />
-            </ToolButton>
-            {fill && (
+      <div className="grid gap-16">
+        <Tabs.Root value={view} onValueChange={(v) => setView(v as "preview" | "code")} className="overflow-hidden rounded-2xl border border-sk-border bg-sk-surface">
+          <div className="flex items-center justify-between gap-3 border-b border-sk-border px-5">
+            <Tabs.List aria-label="View" className="relative flex items-center gap-6">
+              <Tabs.Tab value="preview" className={tab}>
+                <EyeIcon className="size-4" />
+                Preview
+              </Tabs.Tab>
+              <Tabs.Tab value="code" className={tab}>
+                <TerminalIcon className="size-4" />
+                Code
+              </Tabs.Tab>
+              <Tabs.Indicator className="absolute bottom-[-1px] left-0 h-px w-(--active-tab-width) translate-x-(--active-tab-left) bg-sk-ink transition-[translate,width] duration-200 ease-sk-out" />
+            </Tabs.List>
+            <div className={`flex items-center gap-1 transition-opacity duration-150 ${view === "preview" ? "" : "pointer-events-none invisible opacity-0"}`} aria-hidden={view !== "preview"}>
+              <IconChoice
+                label="Stage colours"
+                value={stageMode}
+                onChange={(v) => setMode(v)}
+                options={[
+                  { value: "light", label: "Light stage", icon: <SunIcon />, disabled: forced === "dark" },
+                  { value: "dark", label: "Dark stage", icon: <MoonIcon />, disabled: forced === "light" },
+                ]}
+              />
+              <span aria-hidden="true" className="mx-1.5 h-4 w-px bg-sk-border" />
+              <IconChoice
+                label="Stage width"
+                value={preset}
+                onChange={(v) => {
+                  setPreset(v);
+                  setWidth(WIDTHS[v]);
+                }}
+                options={[
+                  { value: "full", label: "Full width", icon: <DesktopIcon /> },
+                  { value: "tablet", label: "Tablet, 768px", icon: <TabletIcon /> },
+                  { value: "phone", label: "Phone, 390px", icon: <PhoneIcon /> },
+                ]}
+              />
+              <span aria-hidden="true" className="mx-1.5 h-4 w-px bg-sk-border" />
+              <ToolButton label="Replay" onClick={() => setReplay((n) => n + 1)}>
+                <ReplayIcon />
+              </ToolButton>
               <ToolButton label="Full screen" onClick={() => stage.current?.requestFullscreen?.()}>
                 <ExpandIcon />
               </ToolButton>
-            )}
-          </div>
-        </div>
-
-        <Tabs.Panel value="preview" className="grid gap-4 outline-none">
-          <ResizableFrame width={width} onWidth={(w) => { setWidth(w); setPreset(w === null ? "full" : w === 768 ? "tablet" : w === 390 ? "phone" : preset); }}>
-            <div
-              ref={stage}
-              className={`relative grid overflow-hidden rounded-2xl inset-ring inset-ring-sk-hairline ${modeClass} ${fill ? "" : "place-items-center p-10"} ${backdrop ?? "bg-sk-floor"}`}
-              style={{ minHeight: spec.preview?.height ?? 320 }}
-            >
-              <div className={fill ? "absolute inset-0" : values.fullWidth ? "w-full max-w-sm" : "max-w-full"}>
-                <Component key={`${replay}:${JSON.stringify(values)}`} {...live}>
-                  {icon === "only" ? undefined : renderChildren(text)}
-                </Component>
-              </div>
             </div>
-          </ResizableFrame>
+          </div>
 
-          <Customize changed={changed} onReset={reset}>
+          <Tabs.Panel value="preview" className="p-4 outline-none sm:p-8">
+            <ResizableFrame width={width} onWidth={(w) => { setWidth(w); setPreset(w === null ? "full" : w === 768 ? "tablet" : w === 390 ? "phone" : preset); }}>
+              <div
+                ref={stage}
+                className={`relative grid overflow-hidden rounded-xl border border-sk-border ${modeClass} ${fill ? "" : "place-items-center p-10"} ${backdrop ?? "bg-sk-floor"}`}
+                style={{ minHeight: spec.preview?.height ?? 380 }}
+              >
+                <div className={fill ? "absolute inset-0" : values.fullWidth ? "w-full max-w-sm" : "max-w-full"}>
+                  <Component key={`${replay}:${JSON.stringify(values)}`} {...live}>
+                    {icon === "only" ? undefined : renderChildren(text)}
+                  </Component>
+                </div>
+              </div>
+            </ResizableFrame>
+          </Tabs.Panel>
+
+          <Tabs.Panel value="code" className="p-4 outline-none sm:p-8">
+            <CodeBlock title={`${skin.name}.tsx`} code={skin.source} collapseAfter={22} />
+          </Tabs.Panel>
+        </Tabs.Root>
+
+        <Section id="customize" title="Customize" action={
+          changed ? (
+            <button type="button" onClick={reset} className={`inline-flex h-8 items-center gap-1.5 rounded-md px-2.5 text-[13px] font-medium text-sk-muted transition-colors duration-100 hover:bg-sk-hover hover:text-sk-ink ${focus}`}>
+              <ResetIcon className="size-3.5" />
+              Reset
+            </button>
+          ) : null
+        }>
+          <Customize>
             {control !== "none" && spec.children && <TextControl label={spec.children.label} value={text} onChange={setText} />}
             {controls.filter((p) => p.type === "string").map((p) => (
               <TextControl key={p.name} label={titleCase(p.name)} value={String(values[p.name] ?? "")} onChange={(v) => set(p.name, v)} />
             ))}
-            {controls.filter((p) => p.type === "enum" && (p.options?.length ?? 0) > 3).map((p) => (
+            {controls.filter((p) => p.type === "enum").map((p) => (
               <ChoiceControl key={p.name} label={titleCase(p.name)} value={String(values[p.name])} options={p.options ?? []} onChange={(v) => set(p.name, v)} />
             ))}
             {hasIcons && <ChoiceControl label="Icon" value={icon} options={["none", "before", "after", "only"]} onChange={(v) => setIcon(v as IconPlace)} />}
-            {controls.filter((p) => p.type === "enum" && (p.options?.length ?? 0) <= 3).map((p) => (
-              <ChoiceControl key={p.name} label={titleCase(p.name)} value={String(values[p.name])} options={p.options ?? []} onChange={(v) => set(p.name, v)} />
-            ))}
             {controls.filter((p) => p.type === "boolean").map((p) => (
               <SwitchControl key={p.name} label={titleCase(p.name)} checked={Boolean(values[p.name])} onChange={(v) => set(p.name, v)} />
             ))}
           </Customize>
+        </Section>
 
-          {gallery && (
-            <section aria-labelledby="gallery" className="rounded-2xl bg-sk-well p-1.5 inset-ring inset-ring-sk-hairline">
-              <h2 id="gallery" className="px-3.5 pt-2.5 pb-3 text-[15px]">{gallery.title}</h2>
-              <div className={`grid gap-4 overflow-x-auto rounded-xl p-6 shadow-sk-card ${modeClass} ${backdrop ?? "bg-sk-floor"}`}>
-                {rows.map((row) => {
-                  const rowProps = gallery.rows ? { [gallery.rows]: row } : {};
-                  return (
-                    <div key={row || "row"} className="flex flex-wrap items-center gap-3">
-                      {gallery.rows && <span className="w-8 shrink-0 font-sk-mono text-[12px] text-sk-muted">{row}</span>}
-                      {cols.map((col) => (
-                        <Component key={col} {...defaults} {...rowProps} {...(gallery.columns ? { [gallery.columns]: col } : {})}>
-                          {renderChildren(gallery.labels === "value" ? titleCase(col) : text)}
-                        </Component>
-                      ))}
-                      {(gallery.extras ?? []).map((extra) => (
-                        <Component key={extra.label} {...defaults} {...rowProps} {...withIcons(extra.props)}>
-                          {extra.iconOnly ? undefined : renderChildren(extra.label)}
-                        </Component>
-                      ))}
-                    </div>
-                  );
-                })}
-              </div>
-            </section>
-          )}
-
-          <PropsTable spec={spec} />
-        </Tabs.Panel>
-
-        <Tabs.Panel value="code" className="grid gap-8 outline-none">
+        <Section id="installation" title="Installation">
           <Install skin={skin} />
-          <section aria-labelledby="usage" className="grid gap-3">
-            <div className="flex items-baseline justify-between">
-              <h2 id="usage" className="text-lg">Usage</h2>
-              <p className="text-[13px] text-sk-muted">Follows your choices in Customize.</p>
+        </Section>
+
+        <Section id="usage" title="Usage" note="Follows your choices in Customize.">
+          <CodeBlock title="usage.tsx" code={usageFile} />
+        </Section>
+
+        {gallery && (
+          <Section id="examples" title={gallery.title}>
+            <div className={`grid gap-5 overflow-x-auto rounded-2xl border border-sk-border p-8 ${modeClass} ${backdrop ?? "bg-sk-floor"}`}>
+              {rows.map((row) => {
+                const rowProps = gallery.rows ? { [gallery.rows]: row } : {};
+                return (
+                  <div key={row || "row"} className="flex flex-wrap items-center gap-3">
+                    {gallery.rows && <span className="w-8 shrink-0 font-sk-mono text-[12px] text-sk-muted">{row}</span>}
+                    {cols.map((col) => (
+                      <Component key={col} {...defaults} {...rowProps} {...(gallery.columns ? { [gallery.columns]: col } : {})}>
+                        {renderChildren(gallery.labels === "value" ? titleCase(col) : text)}
+                      </Component>
+                    ))}
+                    {(gallery.extras ?? []).map((extra) => (
+                      <Component key={extra.label} {...defaults} {...rowProps} {...withIcons(extra.props)}>
+                        {extra.iconOnly ? undefined : renderChildren(extra.label)}
+                      </Component>
+                    ))}
+                  </div>
+                );
+              })}
             </div>
-            <CodeBlock title="Usage" code={usageFile} collapseAfter={40} />
-          </section>
-        </Tabs.Panel>
-      </Tabs.Root>
+          </Section>
+        )}
+
+        <Section id="props" title="Props">
+          <PropsTable spec={spec} />
+        </Section>
+      </div>
     </Tooltip.Provider>
+  );
+}
+
+/** A page section: a large heading, an optional note or action, then its content. */
+function Section({ id, title, note, action, children }: { id: string; title: string; note?: string; action?: ReactNode; children: ReactNode }) {
+  return (
+    <section aria-labelledby={id} className="grid scroll-mt-20 gap-6">
+      <div className="flex items-end justify-between gap-4">
+        <h2 id={id} className="text-[28px]/[1.15]">{title}</h2>
+        {action ?? (note && <p className="pb-1 text-sm text-sk-muted">{note}</p>)}
+      </div>
+      {children}
+    </section>
   );
 }
 
 /** Installation: one command, or the manual steps. */
 function Install({ skin }: { skin: Skin }) {
   const deps = skin.dependencies;
-  const step = "grid gap-3 border-l border-sk-hairline pl-6 relative before:absolute before:-left-[13px] before:top-0 before:grid before:size-6 before:place-items-center before:rounded-full before:bg-sk-well before:text-[12px] before:font-semibold before:text-sk-ink before:inset-ring before:inset-ring-sk-hairline";
-  const underline = `relative h-9 px-1 text-sm font-semibold text-sk-muted transition-colors duration-100 hover:text-sk-ink data-active:text-sk-ink ${focus}`;
+  const underline = `relative h-10 text-[14px] font-medium text-sk-muted transition-colors duration-100 hover:text-sk-ink data-active:text-sk-ink ${focus}`;
   return (
-    <section aria-labelledby="install" className="grid gap-4">
-      <h2 id="install" className="text-lg">Installation</h2>
-      <Tabs.Root defaultValue="cli" className="grid gap-5">
-        <Tabs.List aria-label="Installation method" className="relative flex gap-5 border-b border-sk-hairline">
-          <Tabs.Tab value="cli" className={underline}>Command</Tabs.Tab>
-          <Tabs.Tab value="manual" className={underline}>Manual</Tabs.Tab>
-          <Tabs.Indicator className="absolute bottom-[-1px] left-0 h-0.5 w-(--active-tab-width) translate-x-(--active-tab-left) rounded-full bg-sk-ink transition-[translate,width] duration-200 ease-sk-out" />
-        </Tabs.List>
-        <Tabs.Panel value="cli" className="outline-none">
-          <CommandBlock commands={runCommand(`shadcn@latest add ${REGISTRY_URL}/${skin.name}.json`)} />
-        </Tabs.Panel>
-        <Tabs.Panel value="manual" className="grid gap-8 pl-3 outline-none [counter-reset:step]">
-          <div className={`${step} before:content-['1']`}>
-            <h3 className="text-[15px]">Install the dependencies</h3>
-            {deps.length ? (
-              <CommandBlock commands={addCommand(deps)} />
-            ) : (
-              <p className="text-sm text-sk-muted">Nothing beyond React and Tailwind CSS.</p>
-            )}
-          </div>
-          <div className={`${step} before:content-['2']`}>
-            <h3 className="text-[15px]">Add the tokens</h3>
-            <p className="text-sm text-sk-muted">Every skin reads its colours from one stylesheet. Add it once, after Tailwind.</p>
-            <CodeBlock title="app.css" code={`@import "tailwindcss";\n@import "./skins.css";\n`} lineNumbers={false} />
-          </div>
-          <div className={`${step} before:content-['3']`}>
-            <h3 className="text-[15px]">Copy the source</h3>
+    <Tabs.Root defaultValue="cli" className="grid gap-8">
+      <Tabs.List aria-label="Installation method" className="relative flex gap-6 border-b border-sk-border">
+        <Tabs.Tab value="cli" className={underline}>CLI</Tabs.Tab>
+        <Tabs.Tab value="manual" className={underline}>Manual</Tabs.Tab>
+        <Tabs.Indicator className="absolute bottom-[-1px] left-0 h-px w-(--active-tab-width) translate-x-(--active-tab-left) bg-sk-ink transition-[translate,width] duration-200 ease-sk-out" />
+      </Tabs.List>
+      <Tabs.Panel value="cli" className="outline-none">
+        <CommandBlock commands={runCommand(`shadcn@latest add ${REGISTRY_URL}/${skin.name}.json`)} />
+      </Tabs.Panel>
+      <Tabs.Panel value="manual" className="outline-none">
+        <ol className="grid">
+          <Step n={1} title="Install the packages">
+            {deps.length ? <CommandBlock commands={addCommand(deps)} /> : <p className="text-[15px] text-sk-muted">Nothing beyond React and Tailwind CSS.</p>}
+          </Step>
+          <Step n={2} title="Add the tokens, once">
+            <CodeBlock title="app.css" code={`@import "tailwindcss";\n@import "./skins.css";\n`} />
+          </Step>
+          <Step n={3} title="Copy and paste the code into your project">
             <CodeBlock title={`components/skins/${skin.file}`} code={skin.source} collapseAfter={14} />
-          </div>
-        </Tabs.Panel>
-      </Tabs.Root>
-    </section>
+          </Step>
+          <Step n={4} title="Update the import paths to match your project" last />
+        </ol>
+      </Tabs.Panel>
+    </Tabs.Root>
+  );
+}
+
+/** One numbered step, joined to the next by a line. */
+function Step({ n, title, last, children }: { n: number; title: string; last?: boolean; children?: ReactNode }) {
+  return (
+    <li className="relative grid grid-cols-[2rem_1fr] gap-x-4">
+      <span className="z-10 grid size-8 place-items-center rounded-md border border-sk-border bg-sk-surface font-sk-mono text-[13px] text-sk-ink">{n}</span>
+      {!last && <span aria-hidden="true" className="absolute top-8 bottom-0 left-4 w-px bg-sk-border" />}
+      <div className={`grid gap-4 ${last ? "" : "pb-10"}`}>
+        <h3 className="flex min-h-8 items-center font-sk-sans text-[17px] font-medium">{title}</h3>
+        {children}
+      </div>
+    </li>
   );
 }

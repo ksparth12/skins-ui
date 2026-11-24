@@ -90,3 +90,9 @@ export const ResetIcon = (p: IconProps) => (
     <path d="M2.75 2.75v2.5h2.5" />
   </Icon>
 );
+export const EyeIcon = (p: IconProps) => (
+  <Icon {...p}>
+    <path d="M1.75 8s2.25-4.25 6.25-4.25S14.25 8 14.25 8 12 12.25 8 12.25 1.75 8 1.75 8Z" />
+    <circle cx="8" cy="8" r="1.75" />
+  </Icon>
+);

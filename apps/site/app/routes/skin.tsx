@@ -60,16 +60,16 @@ export default function SkinPage({ loaderData }: Route.ComponentProps) {
           </ul>
         </nav>
 
-        <main className="min-w-0 px-5 py-10 lg:px-10">
+        <main className="min-w-0 px-5 py-12 lg:px-12">
           <div className="mx-auto max-w-5xl">
-            <h1 className="text-4xl/[1.1]">
+            <h1 className="text-[44px]/[1.05] tracking-[-0.01em]">
               {skin.title} {entry.spec.title.toLowerCase()}
             </h1>
-            <p className="mt-3 max-w-2xl text-[15px]/6 text-sk-muted">{skin.description}</p>
-            <p className="mt-2 text-[13px] text-sk-muted">
+            <p className="mt-4 max-w-3xl text-lg/7 text-sk-muted">{skin.description}</p>
+            <p className="mt-3 text-sm text-sk-muted">
               {modesText(skin.modes)} · {skin.tags.join(", ")}
             </p>
-            <div className="mt-8">
+            <div className="mt-12">
               <Playground key={skin.name} spec={entry.spec} skin={skin} />
             </div>
           </div>
