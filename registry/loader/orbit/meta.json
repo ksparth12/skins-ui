@@ -1,0 +1,17 @@
+{
+  "$schema": "../../../packages/checks/schema/skin.schema.json",
+  "name": "loader-orbit",
+  "component": "loader",
+  "title": "Orbit",
+  "description": "Two dots circling a faint ring at different speeds, in two shades of your colour.",
+  "tags": [
+    "playful",
+    "motion"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui"
+}

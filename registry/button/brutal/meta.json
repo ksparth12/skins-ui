@@ -1,0 +1,19 @@
+{
+  "$schema": "../../../packages/checks/schema/skin.schema.json",
+  "name": "button-brutal",
+  "component": "button",
+  "title": "Brutal",
+  "description": "A hard ink outline and a solid offset shadow. Pressing pushes it flat into its shadow.",
+  "tags": [
+    "brutalist",
+    "bold"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "author": "skins-ui"
+}

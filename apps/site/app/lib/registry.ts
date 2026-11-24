@@ -2,10 +2,23 @@ import type { ComponentType } from "react";
 
 export interface PropSpec {
   name: string;
-  type: "enum" | "boolean" | "node" | "string";
+  type: "enum" | "boolean" | "node" | "string" | "data";
   options?: string[];
-  default?: string | boolean;
+  default?: unknown;
   description?: string;
+  /** Kept out of the playground controls. */
+  hidden?: boolean;
+}
+
+export interface Gallery {
+  title: string;
+  /** A prop whose options become rows. */
+  rows?: string;
+  /** A prop whose options become columns. */
+  columns?: string;
+  /** Label each column with its value, or with the default text. */
+  labels?: "value" | "default";
+  extras?: Array<{ label: string; props: Record<string, unknown>; iconOnly?: boolean }>;
 }
 
 export interface ComponentSpec {
@@ -13,9 +26,11 @@ export interface ComponentSpec {
   title: string;
   description: string;
   export: string;
-  children?: { control: "text"; label: string; default: string };
+  children?: { control: "text" | "trigger" | "none"; label: string; default: string };
   props: PropSpec[];
   states: string[];
+  preview?: { layout?: "center" | "fill"; height?: number };
+  gallery?: Gallery;
 }
 
 export interface SkinMeta {

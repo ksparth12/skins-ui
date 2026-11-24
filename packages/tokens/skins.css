@@ -14,7 +14,7 @@
   --sk-motion-slow-exit: 160ms;
 }
 
-:root {
+:root, .light-only {
   --sk-floor: #f6f6f7;
   --sk-surface: #ffffff;
   --sk-raised: #ffffff;
@@ -137,7 +137,7 @@
 }
 
 @media (color-gamut: p3) {
-  :root {
+  :root, .light-only {
     --sk-hue-50: oklch(0.975 0.013 261);
     --sk-hue-100: oklch(0.945 0.028 261);
     --sk-hue-200: oklch(0.895 0.055 261);

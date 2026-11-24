@@ -1,0 +1,18 @@
+{
+  "$schema": "../../../packages/checks/schema/skin.schema.json",
+  "name": "navbar-flat",
+  "component": "navbar",
+  "title": "Flat",
+  "description": "A full width bar with a hairline under it. The current page sits on a soft tint.",
+  "tags": [
+    "minimal",
+    "solid"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui",
+  "featured": true
+}

@@ -1,0 +1,88 @@
+{
+  "$schema": "../../packages/checks/schema/component.schema.json",
+  "name": "input",
+  "title": "Input",
+  "description": "One line of text, with its label, a hint and an error.",
+  "export": "Input",
+  "children": {
+    "control": "none",
+    "label": "",
+    "default": ""
+  },
+  "props": [
+    {
+      "name": "label",
+      "type": "string",
+      "default": "Email"
+    },
+    {
+      "name": "placeholder",
+      "type": "string",
+      "default": "you@example.com"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "default": "We only use it to send your receipts."
+    },
+    {
+      "name": "error",
+      "type": "string",
+      "default": "",
+      "description": "Shown instead of the description, and marks the field invalid."
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "options": [
+        "sm",
+        "md",
+        "lg"
+      ],
+      "default": "md",
+      "description": "32, 40 or 48 pixels tall."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": false
+    }
+  ],
+  "states": [
+    "rest",
+    "hover",
+    "focus",
+    "filled",
+    "invalid",
+    "disabled"
+  ],
+  "preview": {
+    "height": 300
+  },
+  "gallery": {
+    "title": "Every size and state",
+    "rows": "size",
+    "extras": [
+      {
+        "label": "Rest",
+        "props": {
+          "description": ""
+        }
+      },
+      {
+        "label": "Invalid",
+        "props": {
+          "description": "",
+          "error": "Enter a full email address."
+        }
+      },
+      {
+        "label": "Disabled",
+        "props": {
+          "description": "",
+          "disabled": true
+        }
+      }
+    ]
+  }
+}

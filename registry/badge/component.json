@@ -1,0 +1,59 @@
+{
+  "$schema": "../../packages/checks/schema/component.schema.json",
+  "name": "badge",
+  "title": "Badge",
+  "description": "A short label for a status or a category.",
+  "export": "Badge",
+  "children": {
+    "control": "text",
+    "label": "Label",
+    "default": "New skin"
+  },
+  "props": [
+    {
+      "name": "tone",
+      "type": "enum",
+      "options": [
+        "neutral",
+        "accent",
+        "success",
+        "warning",
+        "danger"
+      ],
+      "default": "accent"
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "options": [
+        "sm",
+        "md"
+      ],
+      "default": "md",
+      "description": "20 or 24 pixels tall."
+    },
+    {
+      "name": "dot",
+      "type": "boolean",
+      "default": false,
+      "description": "A small dot before the label."
+    }
+  ],
+  "states": [
+    "rest"
+  ],
+  "gallery": {
+    "title": "Every tone and size",
+    "rows": "size",
+    "columns": "tone",
+    "labels": "value",
+    "extras": [
+      {
+        "label": "With dot",
+        "props": {
+          "dot": true
+        }
+      }
+    ]
+  }
+}

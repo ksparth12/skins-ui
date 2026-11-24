@@ -1,0 +1,43 @@
+{
+  "$schema": "../../packages/checks/schema/component.schema.json",
+  "name": "tooltip",
+  "title": "Tooltip",
+  "description": "A short label for a control, shown on hover or keyboard focus.",
+  "export": "Tooltip",
+  "children": {
+    "control": "trigger",
+    "label": "Trigger",
+    "default": "Hover me"
+  },
+  "props": [
+    {
+      "name": "content",
+      "type": "string",
+      "default": "Copy link"
+    },
+    {
+      "name": "side",
+      "type": "enum",
+      "options": [
+        "top",
+        "right",
+        "bottom",
+        "left"
+      ],
+      "default": "top"
+    },
+    {
+      "name": "defaultOpen",
+      "type": "boolean",
+      "default": true,
+      "description": "Open when it first renders."
+    }
+  ],
+  "states": [
+    "closed",
+    "open"
+  ],
+  "preview": {
+    "height": 300
+  }
+}

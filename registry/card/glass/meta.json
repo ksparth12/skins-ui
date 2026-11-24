@@ -1,0 +1,20 @@
+{
+  "$schema": "../../../packages/checks/schema/skin.schema.json",
+  "name": "card-glass",
+  "component": "card",
+  "title": "Glass",
+  "description": "A frosted pane lit from above. Made for cards that sit over colour, photos or motion.",
+  "tags": [
+    "glass",
+    "material"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui",
+  "preview": {
+    "backdrop": "hue"
+  }
+}

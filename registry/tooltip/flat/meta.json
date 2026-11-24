@@ -1,0 +1,20 @@
+{
+  "$schema": "../../../packages/checks/schema/skin.schema.json",
+  "name": "tooltip-flat",
+  "component": "tooltip",
+  "title": "Flat",
+  "description": "A small ink chip with the page colour as its text. Reads instantly on any surface.",
+  "tags": [
+    "minimal",
+    "solid"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "author": "skins-ui",
+  "featured": true
+}

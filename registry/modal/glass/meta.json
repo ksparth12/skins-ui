@@ -1,0 +1,22 @@
+{
+  "$schema": "../../../packages/checks/schema/skin.schema.json",
+  "name": "modal-glass",
+  "component": "modal",
+  "title": "Glass",
+  "description": "A frosted panel over a softly blurred page. The page stays present behind the question.",
+  "tags": [
+    "glass",
+    "material"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "author": "skins-ui",
+  "preview": {
+    "backdrop": "hue"
+  }
+}

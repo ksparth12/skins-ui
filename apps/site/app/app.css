@@ -16,6 +16,11 @@
   font-display: swap;
 }
 @font-face {
+  font-family: "Geist Pixel";
+  src: url("./fonts/geist-pixel.woff2") format("woff2");
+  font-display: swap;
+}
+@font-face {
   font-family: "Geist Mono";
   src: url("./fonts/geist-mono.woff2") format("woff2");
   font-weight: 100 900;
@@ -62,3 +67,4 @@
       linear-gradient(in oklch 160deg, var(--sk-hue-800), var(--sk-hue-900) 50%, var(--sk-hue-deep));
   }
 }
+

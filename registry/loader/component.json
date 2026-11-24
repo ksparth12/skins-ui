@@ -1,0 +1,38 @@
+{
+  "$schema": "../../packages/checks/schema/component.schema.json",
+  "name": "loader",
+  "title": "Loader",
+  "description": "Shows that work is under way when its length is unknown.",
+  "export": "Loader",
+  "children": {
+    "control": "none",
+    "label": "",
+    "default": ""
+  },
+  "props": [
+    {
+      "name": "size",
+      "type": "enum",
+      "options": [
+        "sm",
+        "md",
+        "lg"
+      ],
+      "default": "md"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "default": "Loading",
+      "description": "Read by screen readers."
+    }
+  ],
+  "states": [
+    "running"
+  ],
+  "gallery": {
+    "title": "Every size",
+    "columns": "size",
+    "labels": "value"
+  }
+}

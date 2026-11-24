@@ -1,0 +1,67 @@
+{
+  "$schema": "../../packages/checks/schema/component.schema.json",
+  "name": "navbar",
+  "title": "Navbar",
+  "description": "The bar at the top of a site: the name, the main pages and one action.",
+  "export": "Navbar",
+  "children": {
+    "control": "none",
+    "label": "",
+    "default": ""
+  },
+  "props": [
+    {
+      "name": "brand",
+      "type": "string",
+      "default": "Lumen"
+    },
+    {
+      "name": "items",
+      "type": "data",
+      "default": [
+        {
+          "label": "Product",
+          "href": "#"
+        },
+        {
+          "label": "Pricing",
+          "href": "#"
+        },
+        {
+          "label": "Docs",
+          "href": "#"
+        },
+        {
+          "label": "Blog",
+          "href": "#"
+        }
+      ]
+    },
+    {
+      "name": "active",
+      "type": "enum",
+      "options": [
+        "Product",
+        "Pricing",
+        "Docs",
+        "Blog"
+      ],
+      "default": "Product",
+      "description": "The label of the current page."
+    },
+    {
+      "name": "action",
+      "type": "string",
+      "default": "Get started"
+    }
+  ],
+  "states": [
+    "rest",
+    "hover",
+    "current"
+  ],
+  "preview": {
+    "layout": "fill",
+    "height": 260
+  }
+}

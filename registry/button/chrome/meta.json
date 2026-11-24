@@ -1,0 +1,19 @@
+{
+  "$schema": "../../../packages/checks/schema/skin.schema.json",
+  "name": "button-chrome",
+  "component": "button",
+  "title": "Chrome",
+  "description": "Polished metal with bands of light across the face, and a sweep of light on hover.",
+  "tags": [
+    "metal",
+    "material"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "author": "skins-ui"
+}

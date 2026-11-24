@@ -20,7 +20,7 @@ function applyHue(id: string) {
     localStorage.removeItem(HUE_ID_KEY);
     return;
   }
-  const css = toCss(createHue(preset.color), { neutrals: false });
+  const css = toCss(createHue(preset.color), { neutrals: false, light: ":root, .light-only" });
   if (!style) {
     style = document.createElement("style");
     style.id = "sk-hue";

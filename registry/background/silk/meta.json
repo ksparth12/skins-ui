@@ -1,0 +1,17 @@
+{
+  "$schema": "../../../packages/checks/schema/skin.schema.json",
+  "name": "background-silk",
+  "component": "background",
+  "title": "Silk",
+  "description": "Molten folds of your colour falling into a near black shade of itself, drawn with WebGL. Pauses when off screen.",
+  "tags": [
+    "shader",
+    "material",
+    "motion"
+  ],
+  "modes": [
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui"
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "../../../packages/checks/schema/skin.schema.json",
+  "name": "loader-dots",
+  "component": "loader",
+  "title": "Dots",
+  "description": "Three dots rising and settling in turn. Friendly for chat replies and empty states.",
+  "tags": [
+    "playful",
+    "motion"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "motion"
+  ],
+  "author": "skins-ui"
+}

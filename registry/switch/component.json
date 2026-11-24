@@ -1,0 +1,74 @@
+{
+  "$schema": "../../packages/checks/schema/component.schema.json",
+  "name": "switch",
+  "title": "Switch",
+  "description": "Turns one setting on or off, right away.",
+  "export": "Switch",
+  "children": {
+    "control": "none",
+    "label": "",
+    "default": ""
+  },
+  "props": [
+    {
+      "name": "label",
+      "type": "string",
+      "default": "Email updates",
+      "description": "The visible name of the setting."
+    },
+    {
+      "name": "defaultChecked",
+      "type": "boolean",
+      "default": true
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "options": [
+        "sm",
+        "md"
+      ],
+      "default": "md",
+      "description": "20 or 24 pixels tall."
+    }
+  ],
+  "states": [
+    "off",
+    "on",
+    "focus",
+    "disabled"
+  ],
+  "gallery": {
+    "title": "Every state and size",
+    "rows": "size",
+    "extras": [
+      {
+        "label": "Off",
+        "props": {
+          "defaultChecked": false,
+          "label": "Off"
+        }
+      },
+      {
+        "label": "On",
+        "props": {
+          "defaultChecked": true,
+          "label": "On"
+        }
+      },
+      {
+        "label": "Disabled",
+        "props": {
+          "defaultChecked": true,
+          "disabled": true,
+          "label": "Disabled"
+        }
+      }
+    ]
+  }
+}

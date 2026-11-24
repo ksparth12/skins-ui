@@ -1,0 +1,61 @@
+{
+  "$schema": "../../packages/checks/schema/component.schema.json",
+  "name": "modal",
+  "title": "Modal",
+  "description": "Asks for a decision on top of the page. Focus stays inside until it closes.",
+  "export": "Modal",
+  "children": {
+    "control": "none",
+    "label": "",
+    "default": ""
+  },
+  "props": [
+    {
+      "name": "triggerLabel",
+      "type": "string",
+      "default": "Delete project"
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "default": "Delete this project?"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "default": "Its skins, settings and history will be removed. This can't be undone."
+    },
+    {
+      "name": "confirmLabel",
+      "type": "string",
+      "default": "Delete"
+    },
+    {
+      "name": "cancelLabel",
+      "type": "string",
+      "default": "Cancel"
+    },
+    {
+      "name": "tone",
+      "type": "enum",
+      "options": [
+        "default",
+        "danger"
+      ],
+      "default": "danger"
+    },
+    {
+      "name": "defaultOpen",
+      "type": "boolean",
+      "default": false,
+      "description": "Open when it first renders."
+    }
+  ],
+  "states": [
+    "closed",
+    "open"
+  ],
+  "preview": {
+    "height": 300
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "../../../packages/checks/schema/skin.schema.json",
+  "name": "switch-flat",
+  "component": "switch",
+  "title": "Flat",
+  "description": "A quiet grey track that fills with the indicator colour when it turns on.",
+  "tags": [
+    "minimal",
+    "solid"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "author": "skins-ui",
+  "featured": true
+}

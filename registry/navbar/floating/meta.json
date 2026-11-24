@@ -1,0 +1,20 @@
+{
+  "$schema": "../../../packages/checks/schema/skin.schema.json",
+  "name": "navbar-floating",
+  "component": "navbar",
+  "title": "Floating",
+  "description": "A frosted pill that floats over the page, lit from above. For landing pages over colour.",
+  "tags": [
+    "glass",
+    "material"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui",
+  "preview": {
+    "backdrop": "hue"
+  }
+}

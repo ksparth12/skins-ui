@@ -1,0 +1,39 @@
+{
+  "$schema": "../../packages/checks/schema/component.schema.json",
+  "name": "background",
+  "title": "Background",
+  "description": "A full frame field behind content, drawn from your colour.",
+  "export": "Background",
+  "children": {
+    "control": "text",
+    "label": "Content",
+    "default": "Ship something beautiful"
+  },
+  "props": [
+    {
+      "name": "speed",
+      "type": "enum",
+      "options": [
+        "still",
+        "slow",
+        "medium"
+      ],
+      "default": "slow",
+      "description": "Still draws one frame and stops."
+    },
+    {
+      "name": "grain",
+      "type": "boolean",
+      "default": false,
+      "description": "A fine film grain over the colour."
+    }
+  ],
+  "states": [
+    "running",
+    "still"
+  ],
+  "preview": {
+    "layout": "fill",
+    "height": 420
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "$schema": "../../packages/checks/schema/component.schema.json",
+  "name": "card",
+  "title": "Card",
+  "description": "Groups one piece of content: a picture, a title, a line and an action.",
+  "export": "Card",
+  "children": {
+    "control": "none",
+    "label": "",
+    "default": ""
+  },
+  "props": [
+    {
+      "name": "title",
+      "type": "string",
+      "default": "Midnight silk"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "default": "A slow, deep background that falls from your colour into near black."
+    },
+    {
+      "name": "action",
+      "type": "string",
+      "default": "View skin",
+      "description": "The label of the card's link. Leave empty for no link."
+    },
+    {
+      "name": "href",
+      "type": "string",
+      "default": "#",
+      "hidden": true
+    },
+    {
+      "name": "media",
+      "type": "boolean",
+      "default": true,
+      "description": "A picture area at the top."
+    }
+  ],
+  "states": [
+    "rest",
+    "hover",
+    "focus"
+  ],
+  "preview": {
+    "height": 420
+  }
+}
