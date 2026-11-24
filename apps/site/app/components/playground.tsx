@@ -318,16 +318,16 @@ export function Playground({ spec, skin }: { spec: ComponentSpec; skin: Skin }) 
             }
           >
             <Customize>
-              {control !== "none" && spec.children && <TextControl label={spec.children.label} prop="children" value={text} onChange={setText} />}
+              {control !== "none" && spec.children && <TextControl label={spec.children.label} value={text} onChange={setText} />}
               {controls.filter((p) => p.type === "string").map((p) => (
-                <TextControl key={p.name} label={titleCase(p.name)} prop={p.name} value={String(values[p.name] ?? "")} onChange={(v) => set(p.name, v)} />
+                <TextControl key={p.name} label={titleCase(p.name)} value={String(values[p.name] ?? "")} onChange={(v) => set(p.name, v)} />
               ))}
               {controls.filter((p) => p.type === "enum").map((p) => (
-                <ChoiceControl key={p.name} label={titleCase(p.name)} prop={p.name} value={String(values[p.name])} options={p.options ?? []} onChange={(v) => set(p.name, v)} />
+                <ChoiceControl key={p.name} label={titleCase(p.name)} value={String(values[p.name])} options={p.options ?? []} onChange={(v) => set(p.name, v)} />
               ))}
-              {hasIcons && <ChoiceControl label="Icon" prop="icon, iconRight" value={icon} options={["none", "before", "after", "only"]} onChange={(v) => setIcon(v as IconPlace)} />}
+              {hasIcons && <ChoiceControl label="Icon" value={icon} options={["none", "before", "after", "only"]} onChange={(v) => setIcon(v as IconPlace)} />}
               {controls.filter((p) => p.type === "boolean").map((p) => (
-                <SwitchControl key={p.name} label={titleCase(p.name)} prop={p.name} checked={Boolean(values[p.name])} onChange={(v) => set(p.name, v)} />
+                <SwitchControl key={p.name} label={titleCase(p.name)} checked={Boolean(values[p.name])} onChange={(v) => set(p.name, v)} />
               ))}
             </Customize>
           </Panel>

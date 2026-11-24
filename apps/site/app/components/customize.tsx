@@ -7,14 +7,13 @@ import { ClearIcon } from "~/components/icons";
 
 const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-ring";
 
-/** A control row: the label and its prop name on the left, the control on the right. */
-function Row({ label, prop, htmlFor, children }: { label: string; prop?: string; htmlFor?: string; children: ReactNode }) {
+/** A control row: the label on the left, the control on the right. */
+function Row({ label, htmlFor, children }: { label: string; htmlFor?: string; children: ReactNode }) {
   const Label = htmlFor ? "label" : "span";
   return (
-    <div className="flex min-h-14 items-center justify-between gap-6 border-b border-neutral-200/70 px-4 py-2 dark:border-neutral-800/70">
-      <Label htmlFor={htmlFor} className="grid shrink-0 gap-0.5">
-        <span className="text-[13px] font-medium text-neutral-950/90 dark:text-white/90">{label}</span>
-        {prop && <span className="font-sk-mono text-[11px] text-neutral-400 dark:text-neutral-500">{prop}</span>}
+    <div className="flex min-h-14 flex-wrap items-center justify-between gap-x-6 gap-y-2 border-b border-neutral-200/70 px-4 py-2 dark:border-neutral-800/70">
+      <Label htmlFor={htmlFor} className="shrink-0 text-[13px] font-medium text-neutral-950/90 dark:text-white/90">
+        {label}
       </Label>
       {children}
     </div>
@@ -23,14 +22,14 @@ function Row({ label, prop, htmlFor, children }: { label: string; prop?: string;
 
 const display = (o: string) => (o.length > 2 ? o.charAt(0).toUpperCase() + o.slice(1) : o);
 
-export function ChoiceControl({ label, prop, value, options, onChange }: { label: string; prop?: string; value: string; options: readonly string[]; onChange: (v: string) => void }) {
+export function ChoiceControl({ label, value, options, onChange }: { label: string; value: string; options: readonly string[]; onChange: (v: string) => void }) {
   return (
-    <Row label={label} prop={prop}>
+    <Row label={label}>
       <ToggleGroup
         aria-label={label}
         value={[value]}
         onValueChange={(next) => next[0] && onChange(next[0])}
-        className="flex min-w-0 flex-wrap items-center justify-end gap-0.5 rounded-lg bg-neutral-100 p-0.5 ring-1 ring-neutral-200/60 ring-inset dark:bg-neutral-900 dark:ring-white/[0.06]"
+        className="flex shrink-0 items-center gap-0.5 rounded-lg bg-neutral-100 p-0.5 ring-1 ring-neutral-200/60 ring-inset dark:bg-neutral-900 dark:ring-white/[0.06]"
       >
         {options.map((o) => (
           <Toggle
@@ -40,7 +39,7 @@ export function ChoiceControl({ label, prop, value, options, onChange }: { label
           >
             {value === o && (
               <motion.span
-                layoutId={`choice-${prop ?? label}`}
+                layoutId={`choice-${label}`}
                 transition={{ type: "spring", duration: 0.25, bounce: 0 }}
                 className="absolute inset-0 rounded-md bg-white shadow-xs ring-1 ring-black/5 dark:bg-neutral-800 dark:ring-white/[0.06]"
               />
@@ -53,10 +52,10 @@ export function ChoiceControl({ label, prop, value, options, onChange }: { label
   );
 }
 
-export function SwitchControl({ label, prop, checked, onChange }: { label: string; prop?: string; checked: boolean; onChange: (v: boolean) => void }) {
+export function SwitchControl({ label, checked, onChange }: { label: string; checked: boolean; onChange: (v: boolean) => void }) {
   const id = useId();
   return (
-    <Row label={label} prop={prop} htmlFor={id}>
+    <Row label={label} htmlFor={id}>
       <Switch.Root
         id={id}
         checked={checked}
@@ -70,11 +69,11 @@ export function SwitchControl({ label, prop, checked, onChange }: { label: strin
 }
 
 /** A soft filled field. Focus lifts it with a neutral ring; a clear button shows once there is text. */
-export function TextControl({ label, prop, value, onChange }: { label: string; prop?: string; value: string; onChange: (v: string) => void }) {
+export function TextControl({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
   const id = useId();
   const input = useRef<HTMLInputElement>(null);
   return (
-    <Row label={label} prop={prop} htmlFor={id}>
+    <Row label={label} htmlFor={id}>
       <div
         className={
           "relative flex h-8 w-full max-w-72 min-w-0 items-center rounded-lg bg-neutral-100 ring-1 ring-neutral-200/80 ring-inset " +
@@ -116,11 +115,16 @@ export function TextControl({ label, prop, value, onChange }: { label: string; p
   );
 }
 
-/** Rows in two columns on wide screens. A last row on its own spans both. */
+/**
+ * Rows in two columns once the panel itself has room for them, whatever the screen width.
+ * A last row on its own spans both.
+ */
 export function Customize({ children }: { children: ReactNode }) {
   return (
-    <div className="-mb-px grid lg:grid-cols-2 lg:[&>*:last-child:nth-child(odd)]:col-span-2 lg:[&>*:nth-child(odd):not(:last-child)]:border-r">
-      {children}
+    <div className="@container">
+      <div className="-mb-px grid @[52rem]:grid-cols-2 @[52rem]:[&>*:last-child:nth-child(odd)]:col-span-2 @[52rem]:[&>*:nth-child(odd):not(:last-child)]:border-r">
+        {children}
+      </div>
     </div>
   );
 }
