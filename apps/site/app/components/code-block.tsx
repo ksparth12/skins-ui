@@ -90,8 +90,10 @@ export function CodeBlock({ code, title, collapseAfter = 22 }: CodeBlockProps) {
 
 /* ---------------- Commands ---------------- */
 
-export const MANAGERS = ["pnpm", "npm", "yarn", "bun"] as const;
+export const MANAGERS = ["npm", "pnpm", "yarn", "bun"] as const;
 export type Manager = (typeof MANAGERS)[number];
+/** The first manager is the default until a reader picks another. */
+const DEFAULT_MANAGER: Manager = MANAGERS[0];
 const KEY = "sk-package-manager";
 const listeners = new Set<() => void>();
 
@@ -102,14 +104,14 @@ function useManager(): [Manager, (m: Manager) => void] {
       listeners.add(fn);
       return () => listeners.delete(fn);
     },
-    () => (localStorage.getItem(KEY) as Manager | null) ?? "pnpm",
-    () => "pnpm" as Manager,
+    () => (localStorage.getItem(KEY) as Manager | null) ?? DEFAULT_MANAGER,
+    () => DEFAULT_MANAGER,
   );
   const set = (m: Manager) => {
     localStorage.setItem(KEY, m);
     listeners.forEach((fn) => fn());
   };
-  return [MANAGERS.includes(value) ? value : "pnpm", set];
+  return [MANAGERS.includes(value) ? value : DEFAULT_MANAGER, set];
 }
 
 /** One command, written for each package manager, with tabs to switch between them. */
