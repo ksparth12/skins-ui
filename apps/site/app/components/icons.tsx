@@ -16,6 +16,7 @@ import {
   Plus,
   Sun,
   TerminalWindow,
+  X,
 } from "@phosphor-icons/react/ssr";
 import type { ComponentType } from "react";
 
@@ -40,6 +41,7 @@ export const TerminalIcon = icon(TerminalWindow);
 export const FileIcon = icon(FileCode);
 export const PlusIcon = icon(Plus);
 export const ArrowRightIcon = icon(ArrowRight);
+export const ClearIcon = icon(X);
 
 /** The icon for a file, from its name. */
 export function FileTypeIcon({ name, ...props }: IconProps & { name: string }) {
