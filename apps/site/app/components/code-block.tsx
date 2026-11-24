@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { useMemo, useState, useSyncExternalStore } from "react";
 import { highlight } from "sugar-high";
 import { CheckIcon, CopyIcon, FileTypeIcon } from "~/components/icons";
+import { ManagerIcon } from "~/components/manager-icons";
 import { Panel, PanelLabel } from "~/components/panel";
 
 const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-ring";
@@ -123,8 +124,9 @@ export function CommandBlock({ commands }: { commands: Record<Manager, string> }
                 <Tabs.Tab
                   key={m}
                   value={m}
-                  className={`relative h-7 px-2 text-xs text-neutral-500 transition-colors duration-150 hover:text-neutral-900 data-active:font-medium data-active:text-neutral-950 dark:text-neutral-400 dark:hover:text-white dark:data-active:text-white ${focus}`}
+                  className={`relative inline-flex h-7 items-center gap-1.5 px-2 text-xs text-neutral-500 transition-colors duration-150 hover:text-neutral-900 data-active:font-medium data-active:text-neutral-950 dark:text-neutral-400 dark:hover:text-white dark:data-active:text-white ${focus}`}
                 >
+                  <ManagerIcon manager={m} active={m === manager} className="size-3.5 shrink-0 transition-colors duration-150" />
                   {m}
                 </Tabs.Tab>
               ))}
