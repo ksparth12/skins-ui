@@ -28,6 +28,8 @@ export interface SkinMeta {
   dependencies: string[];
   author: string;
   featured?: boolean;
+  /** What the site draws behind the preview. */
+  preview?: { backdrop?: "hue" };
 }
 
 export interface Skin extends SkinMeta {

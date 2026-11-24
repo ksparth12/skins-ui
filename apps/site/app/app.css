@@ -46,3 +46,19 @@
     font-optical-sizing: auto;
   }
 }
+
+/* A soft field in the current Hue, for skins that need something behind them (glass). One hue family only. */
+@layer components {
+  .stage-hue {
+    background:
+      radial-gradient(55% 80% at 18% 28%, color-mix(in oklch, var(--sk-hue-300) 90%, transparent) 0%, transparent 62%),
+      radial-gradient(50% 75% at 82% 72%, color-mix(in oklch, var(--sk-hue-500) 70%, transparent) 0%, transparent 65%),
+      linear-gradient(in oklch 160deg, var(--sk-hue-100), var(--sk-hue-200) 45%, var(--sk-hue-400));
+  }
+  .dark .stage-hue {
+    background:
+      radial-gradient(55% 80% at 18% 28%, color-mix(in oklch, var(--sk-hue-500) 70%, transparent) 0%, transparent 62%),
+      radial-gradient(50% 75% at 82% 72%, color-mix(in oklch, var(--sk-hue-700) 80%, transparent) 0%, transparent 65%),
+      linear-gradient(in oklch 160deg, var(--sk-hue-800), var(--sk-hue-900) 50%, var(--sk-hue-deep));
+  }
+}

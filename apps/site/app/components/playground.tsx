@@ -47,6 +47,7 @@ export function Playground({ spec, skin }: { spec: ComponentSpec; skin: Skin }) 
   const [icon, setIcon] = useState<IconPlace>("none");
   const set = (name: string, v: string | boolean) => setValues((prev) => ({ ...prev, [name]: v }));
   const { Component } = skin;
+  const backdrop = skin.preview?.backdrop === "hue" ? "stage-hue" : undefined;
   const hasIcons = spec.props.some((p) => p.name === "icon") && spec.props.some((p) => p.name === "iconRight");
 
   const live = {
@@ -66,7 +67,7 @@ export function Playground({ spec, skin }: { spec: ComponentSpec; skin: Skin }) 
   return (
     <div className="grid gap-6">
       <div className={`${panel} grid overflow-hidden lg:grid-cols-[1fr_340px]`}>
-        <div className="grid min-h-72 place-items-center bg-sk-floor/40 p-10">
+        <div className={`grid min-h-72 place-items-center p-10 ${backdrop ?? "bg-sk-floor/40"}`}>
           <div className={values.fullWidth ? "w-full max-w-sm" : undefined}>
             <Component {...live}>{icon === "only" ? undefined : label}</Component>
           </div>
@@ -92,10 +93,10 @@ export function Playground({ spec, skin }: { spec: ComponentSpec; skin: Skin }) 
       {variantProp && sizeProp && (
         <section aria-labelledby="every-look" className={`${panel} p-6`}>
           <h2 id="every-look" className="text-lg">Every variant and size</h2>
-          <div className="mt-5 grid gap-4 overflow-x-auto">
+          <div className={`mt-5 grid gap-4 overflow-x-auto ${backdrop ? `${backdrop} -mx-6 -mb-6 rounded-b-2xl p-6` : ""}`}>
             {(sizeProp.options ?? []).map((size) => (
               <div key={size} className="flex items-center gap-3">
-                <span className="w-8 shrink-0 text-[13px] text-sk-muted">{size}</span>
+                <span className={`w-8 shrink-0 text-[13px] ${backdrop ? "font-medium text-sk-ink" : "text-sk-muted"}`}>{size}</span>
                 {(variantProp.options ?? []).map((variant) => (
                   <Component key={variant} variant={variant} size={size}>
                     {variant[0]?.toUpperCase() + variant.slice(1)}
