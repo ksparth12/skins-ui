@@ -3,11 +3,14 @@ import { MotionConfig } from "motion/react";
 import type { Route } from "./+types/root";
 import calSans from "./fonts/cal-sans.woff2?url";
 import calSansText from "./fonts/cal-sans-text-ui.woff2?url";
+import { AppShell } from "~/components/app-shell";
+import { ErrorPage } from "~/components/error-pages";
 import { ThemeScript } from "~/components/theme";
 import { fetchStars } from "~/lib/site";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [
+  { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
   { rel: "preload", href: calSansText, as: "font", type: "font/woff2", crossOrigin: "anonymous" },
   { rel: "preload", href: calSans, as: "font", type: "font/woff2", crossOrigin: "anonymous" },
 ];
@@ -46,10 +49,13 @@ export default function App() {
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   const notFound = isRouteErrorResponse(error) && error.status === 404;
+  // The real error is shown only while developing.
+  const detail = import.meta.env.DEV && error instanceof Error ? (error.stack ?? error.message) : undefined;
   return (
-    <main className="mx-auto grid min-h-dvh max-w-xl place-content-center gap-3 px-6 text-center">
-      <h1 className="text-3xl">{notFound ? "This page doesn't exist" : "Something went wrong"}</h1>
-      <p className="text-sk-muted">{notFound ? "Check the address, or start from the home page." : "Try again in a moment."}</p>
-    </main>
+    <MotionConfig reducedMotion="user">
+      <AppShell>
+        <ErrorPage kind={notFound ? "404" : "500"} detail={detail} />
+      </AppShell>
+    </MotionConfig>
   );
 }

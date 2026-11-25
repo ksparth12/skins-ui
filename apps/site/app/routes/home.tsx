@@ -5,7 +5,7 @@ import { registry, skinPath } from "~/lib/registry";
 export function meta() {
   return [
     { title: "Skins UI" },
-    { name: "description", content: "Every component in many complete looks. Pick a colour and every skin follows." },
+    { name: "description", content: "Every skin of a component shares the same props, so changing its look is a one-line edit." },
   ];
 }
 
@@ -17,8 +17,8 @@ export default function Home() {
   return (
     <AppShell>
       <main className="mx-auto grid min-h-[calc(100dvh-7.5rem)] max-w-4xl place-content-center justify-items-center px-5 py-16 text-center lg:px-8">
-        <h1 className="text-4xl/tight font-semibold tracking-tight text-balance sm:text-5xl/tight">Every component. Every skin.</h1>
-        <p className="mt-3 text-base text-pretty text-sk-muted sm:text-lg">Every component in many complete looks. Pick a colour and every skin follows.</p>
+        <h1 className="text-4xl/tight font-semibold tracking-tight text-balance sm:text-5xl/tight">Swap the skin, keep the code.</h1>
+        <p className="mt-3 text-base text-pretty text-sk-muted sm:text-lg">Every skin of a component shares the same props, so changing its look is a one-line edit.</p>
         {/* Shown once there is a component to open. */}
         {first && (
           <Link to={skinPath(first.spec.name, first.skins[0]!.slug)} className={`mt-8 ${primary}`}>

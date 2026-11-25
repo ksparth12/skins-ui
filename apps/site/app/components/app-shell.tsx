@@ -3,6 +3,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Link, useLocation } from "react-router";
 import { GithubStar } from "~/components/github-star";
 import { HuePicker } from "~/components/hue-picker";
+import { Mark } from "~/components/logo";
 import { ThemeToggle } from "~/components/theme";
 import { Sponsors } from "~/components/sponsors";
 import { CheckIcon, ClearIcon, MenuIcon, SearchIcon } from "~/components/icons";
@@ -27,7 +28,8 @@ function HeaderActions() {
 
 function Logo() {
   return (
-    <Link to="/" className={`rounded-md font-sk-display text-[17px] font-semibold ${focus}`}>
+    <Link to="/" className={`flex items-center gap-2 rounded-md font-sk-display text-[17px] font-semibold ${focus}`}>
+      <Mark size={20} className="shrink-0" />
       Skins UI
     </Link>
   );

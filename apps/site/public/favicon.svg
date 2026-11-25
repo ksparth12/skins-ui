@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="3 3 26 26">
+  <style>
+    .ink { fill: #0a0a0a; }
+    @media (prefers-color-scheme: dark) { .ink { fill: #fafafa; } }
+  </style>
+  <clipPath id="c"><rect x="3" y="3" width="26" height="26" rx="7"/></clipPath>
+  <mask id="m" maskUnits="userSpaceOnUse" x="3" y="3" width="26" height="26">
+    <rect x="3" y="3" width="26" height="26" fill="#fff"/>
+    <path d="M29 11C18 11 14 21 3 21" fill="none" stroke="#000" stroke-width="2.25"/>
+  </mask>
+  <g clip-path="url(#c)" mask="url(#m)">
+    <path d="M3 3H29V11C18 11 14 21 3 21Z" fill="#146bff"/>
+    <path class="ink" d="M29 11C18 11 14 21 3 21V29H29Z"/>
+  </g>
+</svg>
