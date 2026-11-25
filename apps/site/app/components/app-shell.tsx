@@ -1,7 +1,9 @@
 import { Dialog } from "@base-ui/react/dialog";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Link, useLocation } from "react-router";
-import { HeaderActions } from "~/components/site-header";
+import { GithubStar } from "~/components/github-star";
+import { HuePicker } from "~/components/hue-picker";
+import { ThemeToggle } from "~/components/theme";
 import { Sponsors } from "~/components/sponsors";
 import { CheckIcon, ClearIcon, MenuIcon, SearchIcon } from "~/components/icons";
 import { findEntry, registry, skinPath } from "~/lib/registry";
@@ -11,6 +13,17 @@ const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visi
 const surface =
   "bg-site-panel lg:ring-1 lg:ring-sk-hairline lg:shadow-[0_1px_0_rgb(0_0_0/0.04),0_2px_1px_-1px_rgb(0_0_0/0.05)] dark:lg:shadow-[0_1px_0_rgb(0_0_0/0.45),0_2px_1px_-1px_rgb(0_0_0/0.5)]";
 const row = `flex h-8 items-center gap-2 rounded-lg px-2.5 text-[13px] transition-colors duration-100 hover:bg-sk-menu-on hover:text-sk-ink ${focus}`;
+
+/** The controls at the top right of every page: colour, theme and the GitHub link. */
+function HeaderActions() {
+  return (
+    <div className="ml-auto flex items-center gap-3">
+      <HuePicker />
+      <ThemeToggle />
+      <GithubStar />
+    </div>
+  );
+}
 
 function Logo() {
   return (
@@ -160,7 +173,7 @@ function MobileMenu({ component, skin }: { component: string; skin: string }) {
  * On wide screens the frame stays put and only the panel's content scrolls.
  * On phones the panel fills the screen, the page scrolls as usual and the sidebar moves into a drawer.
  */
-export function AppShell({ component, skin, children }: { component: string; skin: string; children: ReactNode }) {
+export function AppShell({ component = "", skin = "", children }: { component?: string; skin?: string; children: ReactNode }) {
   const panel = useRef<HTMLDivElement>(null);
   const { pathname } = useLocation();
   // The panel is its own scroller, so a new page starts it at the top as the window would.
@@ -169,25 +182,28 @@ export function AppShell({ component, skin, children }: { component: string; ski
   }, [pathname]);
 
   return (
-    <div className="min-h-dvh bg-site-floor lg:grid lg:h-dvh lg:grid-cols-[224px_272px_minmax(0,1fr)] lg:gap-2 lg:overflow-hidden lg:pr-2">
+    <div className={`min-h-dvh bg-site-floor lg:grid lg:h-dvh lg:gap-2 lg:overflow-hidden lg:pr-2 ${component ? "lg:grid-cols-[224px_272px_minmax(0,1fr)]" : "lg:grid-cols-[224px_minmax(0,1fr)]"}`}>
       <aside className="hidden h-dvh flex-col overflow-y-auto overscroll-contain px-2.5 pb-3 [scrollbar-width:thin] lg:flex">
         <div className="flex h-14 shrink-0 items-center px-2.5">
           <Logo />
         </div>
         <ComponentTree component={component} skin={skin} />
       </aside>
-      <div className="hidden min-h-0 py-2 lg:block">
-        <div className={`h-full overflow-hidden lg:rounded-[18px] ${surface}`}>
-          <SkinList key={component} component={component} skin={skin} />
+      {component && (
+        <div className="hidden min-h-0 py-2 lg:block">
+          <div className={`h-full overflow-hidden lg:rounded-[18px] ${surface}`}>
+            <SkinList key={component} component={component} skin={skin} />
+          </div>
         </div>
-      </div>
+      )}
       <div className="min-w-0 lg:h-dvh lg:py-2">
         <div
           ref={panel}
           className={`min-h-dvh lg:h-full lg:min-h-0 lg:overflow-y-auto lg:overscroll-contain lg:rounded-[18px] lg:[scrollbar-width:thin] ${surface}`}
         >
           <header className="flex h-14 items-center gap-3 px-5 lg:px-7">
-            <MobileMenu component={component} skin={skin} />
+            {/* The menu only appears once there is a component to list. */}
+            {registry.length > 0 && <MobileMenu component={component} skin={skin} />}
             <span className="lg:hidden">
               <Logo />
             </span>
