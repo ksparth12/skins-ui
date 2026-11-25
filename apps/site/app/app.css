@@ -40,6 +40,29 @@
   color-scheme: light;
 }
 
+/*
+ * The docs frame's own surfaces, kept off pure white in light mode so long reading stays easy on the eyes:
+ * the floor the sidebar rests on, the raised panels, and the stage a skin is shown on.
+ * Muted text passes AA on all three.
+ */
+:root,
+.light {
+  --site-floor: #eeeeee;
+  --site-panel: #f7f7f7;
+  --site-stage: #fbfbfb;
+}
+.dark {
+  --site-floor: #0a0a0a;
+  --site-panel: var(--sk-surface);
+  --site-stage: var(--sk-floor);
+}
+
+@theme inline {
+  --color-site-floor: var(--site-floor);
+  --color-site-panel: var(--site-panel);
+  --color-site-stage: var(--site-stage);
+}
+
 @layer base {
   html {
     background: var(--sk-floor);

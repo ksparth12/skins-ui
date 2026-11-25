@@ -4,12 +4,18 @@ import type { Route } from "./+types/root";
 import calSans from "./fonts/cal-sans.woff2?url";
 import calSansText from "./fonts/cal-sans-text-ui.woff2?url";
 import { ThemeScript } from "~/components/theme";
+import { fetchStars } from "~/lib/site";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preload", href: calSansText, as: "font", type: "font/woff2", crossOrigin: "anonymous" },
   { rel: "preload", href: calSans, as: "font", type: "font/woff2", crossOrigin: "anonymous" },
 ];
+
+/** The GitHub star count rides along with every page. A slow or failed answer never holds the page up. */
+export async function loader() {
+  return { stars: await fetchStars(AbortSignal.timeout(2500)) };
+}
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (

@@ -9,7 +9,7 @@ export function Panel({ header, children, className = "", innerClassName = "" }:
     <div className={`rounded-[14px] bg-neutral-100/80 p-1 ring-1 ring-neutral-200/80 dark:bg-neutral-900/50 dark:ring-white/[0.08] ${className}`}>
       {header && <div className="relative z-20 flex min-h-8 items-center justify-between gap-3 px-1.5 pb-1">{header}</div>}
       <div
-        className={`relative isolate overflow-hidden rounded-[10px] bg-white ring-1 ring-neutral-200/80 dark:bg-black dark:ring-white/[0.08] ${innerClassName}`}
+        className={`relative isolate overflow-hidden rounded-[10px] bg-site-stage ring-1 ring-neutral-200/80 dark:ring-white/[0.08] ${innerClassName}`}
       >
         {children}
       </div>

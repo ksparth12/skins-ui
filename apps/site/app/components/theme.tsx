@@ -82,7 +82,7 @@ export function ThemeToggle() {
       onClick={toggle}
       aria-label="Dark theme"
       aria-pressed={dark}
-      className="inline-flex size-10 items-center justify-center rounded-lg text-sk-muted transition-colors duration-100 hover:bg-sk-hover hover:text-sk-ink active:bg-sk-press focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-ring"
+      className="inline-flex size-8 items-center justify-center rounded-lg text-sk-muted transition-colors duration-100 hover:bg-sk-hover hover:text-sk-ink active:bg-sk-press focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-ring"
     >
       <MoonIcon className="dark:hidden" />
       <SunIcon className="hidden dark:block" />

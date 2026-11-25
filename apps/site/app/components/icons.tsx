@@ -2,6 +2,7 @@ import type { IconProps } from "@phosphor-icons/react";
 import {
   ArrowCounterClockwise,
   ArrowRight,
+  CaretRight,
   Check,
   Copy,
   CornersOut,
@@ -12,6 +13,9 @@ import {
   FileCode,
   FileCss,
   FileTsx,
+  GithubLogo,
+  List,
+  MagnifyingGlass,
   Moon,
   Plus,
   Sun,
@@ -42,6 +46,10 @@ export const FileIcon = icon(FileCode);
 export const PlusIcon = icon(Plus);
 export const ArrowRightIcon = icon(ArrowRight);
 export const ClearIcon = icon(X);
+export const GithubIcon = icon(GithubLogo);
+export const ChevronIcon = icon(CaretRight);
+export const MenuIcon = icon(List);
+export const SearchIcon = icon(MagnifyingGlass);
 
 /** The icon for a file, from its name. */
 export function FileTypeIcon({ name, ...props }: IconProps & { name: string }) {

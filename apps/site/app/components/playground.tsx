@@ -6,7 +6,6 @@ import { useEffect, useMemo, useRef, useState, type ComponentPropsWithRef, type 
 import { CodeBlock, CommandBlock, addCommand, runCommand } from "~/components/code-block";
 import { Panel, PanelLabel } from "~/components/panel";
 import { TabPill } from "~/components/tab-pill";
-import { highlight } from "sugar-high";
 import { ChoiceControl, Customize, SwitchControl, TextControl } from "~/components/customize";
 import { ArrowRightIcon as ArrowIcon, DesktopIcon, ExpandIcon, EyeIcon, PhoneIcon, PlusIcon, ReplayIcon, ResetIcon, TabletIcon, TerminalIcon } from "~/components/icons";
 import { PropsTable } from "~/components/props-table";
@@ -18,6 +17,8 @@ type IconPlace = "none" | "before" | "after" | "only";
 const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-ring";
 const REGISTRY_URL = "https://skinsui.dev/r";
 const MIN_WIDTH = 320;
+/** The stage's edge, drawn over its content so skins that fill the stage never hide it. */
+const frameEdge = "pointer-events-none absolute inset-0 z-10 rounded-[inherit] ring-1 ring-black/10 ring-inset dark:ring-white/[0.07]";
 
 
 const titleCase = (s: string) => {
@@ -230,25 +231,23 @@ export function Playground({ spec, skin }: { spec: ComponentSpec; skin: Skin }) 
     setIcon("none");
   };
 
-  const tab = `relative inline-flex h-7 items-center gap-1.5 rounded-md px-2.5 text-xs font-medium text-neutral-500 transition-colors duration-150 hover:text-neutral-900 data-active:text-neutral-950 dark:text-neutral-400 dark:hover:text-white dark:data-active:text-white ${focus}`;
+  const tab = `relative inline-flex h-[30px] items-center gap-1.5 rounded-full px-3 text-[13px] font-medium text-neutral-500 transition-colors duration-150 hover:text-neutral-900 data-active:text-neutral-950 dark:text-neutral-400 dark:hover:text-white dark:data-active:text-white ${focus}`;
 
   return (
     <Tooltip.Provider delay={400}>
-      <div className="grid">
+      <div className="grid grid-cols-1">
         <Tabs.Root value={view} onValueChange={(v) => setView(v as "preview" | "code")}>
-          <Panel
-            header={
-              <>
-                <Tabs.List aria-label="View" className="relative flex items-center gap-0.5">
+          <div className="flex items-center justify-between gap-3 pb-3">
+                <Tabs.List aria-label="View" className="relative flex items-center gap-0.5 rounded-full bg-black/[0.04] p-[3px] dark:bg-white/5">
                   <Tabs.Tab value="preview" className={tab}>
-                    {view === "preview" && <TabPill group="view" />}
+                    {view === "preview" && <TabPill group="view" round />}
                     <span className="relative inline-flex items-center gap-1.5">
                       <EyeIcon className="size-3.5" />
                       Preview
                     </span>
                   </Tabs.Tab>
                   <Tabs.Tab value="code" className={tab}>
-                    {view === "code" && <TabPill group="view" />}
+                    {view === "code" && <TabPill group="view" round />}
                     <span className="relative inline-flex items-center gap-1.5">
                       <TerminalIcon className="size-3.5" />
                       Code
@@ -277,16 +276,15 @@ export function Playground({ spec, skin }: { spec: ComponentSpec; skin: Skin }) 
                     <ExpandIcon className="size-3.5" />
                   </ToolButton>
                 </div>
-              </>
-            }
-          >
+          </div>
             <Tabs.Panel value="preview" className="outline-none">
               <ResizableFrame width={width} onWidth={(w) => { setWidth(w); setPreset(w === null ? "full" : w === 768 ? "tablet" : w === 390 ? "phone" : preset); }}>
                 <div
                   ref={stage}
-                  className={`relative grid overflow-hidden ${modeClass} ${fill ? "" : "place-items-center px-6 py-12 sm:px-10"} ${backdrop ?? "bg-white dark:bg-black"}`}
+                  className={`relative grid overflow-hidden rounded-[18px] ${modeClass} ${fill ? "" : "place-items-center px-6 py-14 sm:px-12"} ${backdrop ?? "bg-site-stage"}`}
                   style={{ minHeight: spec.preview?.height ?? 352 }}
                 >
+                  <span aria-hidden="true" className={frameEdge} />
                   <div className={fill ? "absolute inset-0" : values.fullWidth ? "w-full max-w-sm" : "max-w-full"}>
                     <Component key={`${replay}:${JSON.stringify(values)}`} {...live}>
                       {icon === "only" ? undefined : renderChildren(text)}
@@ -296,14 +294,11 @@ export function Playground({ spec, skin }: { spec: ComponentSpec; skin: Skin }) 
               </ResizableFrame>
             </Tabs.Panel>
             <Tabs.Panel value="code" className="outline-none">
-              <pre className="code-block code-lines max-h-[38rem] overflow-auto py-3.5 font-sk-mono text-[13px]/6" tabIndex={0}>
-                <code dangerouslySetInnerHTML={{ __html: highlight(usageFile.replace(/\n$/, "")).replace(/\n/g, "") }} />
-              </pre>
+              <CodeBlock title="usage.tsx" code={usageFile} />
             </Tabs.Panel>
-          </Panel>
         </Tabs.Root>
 
-        <Section id="customize" title="Customize" first>
+        <Section id="customize" title="Customize">
           <Panel
             header={
               <>
@@ -349,10 +344,10 @@ export function Playground({ spec, skin }: { spec: ComponentSpec; skin: Skin }) 
   );
 }
 
-/** A page section with a quiet heading. */
-function Section({ id, title, first, children }: { id: string; title: string; first?: boolean; children: ReactNode }) {
+/** Every section sits 56px below the one above it, with 20px between its heading and its content. */
+function Section({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   return (
-    <section aria-labelledby={id} className={`grid scroll-mt-20 gap-5 ${first ? "mt-12" : "mt-14"}`}>
+    <section aria-labelledby={id} className="mt-14 grid scroll-mt-20 grid-cols-1 gap-5">
       <h2 id={id} className="font-sk-sans text-2xl font-medium tracking-tight">{title}</h2>
       {children}
     </section>
@@ -365,7 +360,7 @@ function Install({ skin }: { skin: Skin }) {
   const [method, setMethod] = useState<"cli" | "manual">("cli");
   const underline = `relative inline-flex h-7 items-center rounded-md px-3 text-[13px] font-medium text-neutral-500 transition-colors duration-150 hover:text-neutral-900 data-active:text-neutral-950 dark:text-neutral-400 dark:hover:text-white dark:data-active:text-white ${focus}`;
   return (
-    <Tabs.Root value={method} onValueChange={(v) => setMethod(v as "cli" | "manual")} className="grid gap-6">
+    <Tabs.Root value={method} onValueChange={(v) => setMethod(v as "cli" | "manual")} className="grid grid-cols-1 gap-3">
       <Tabs.List aria-label="Installation method" className="relative flex w-fit items-center gap-0.5 rounded-lg bg-neutral-100 p-0.5 ring-1 ring-neutral-200/70 ring-inset dark:bg-neutral-900 dark:ring-white/[0.06]">
         <Tabs.Tab value="cli" className={underline}>
           {method === "cli" && <TabPill group="install" />}
@@ -380,7 +375,7 @@ function Install({ skin }: { skin: Skin }) {
         <CommandBlock commands={runCommand(`shadcn@latest add ${REGISTRY_URL}/${skin.name}.json`)} />
       </Tabs.Panel>
       <Tabs.Panel value="manual" className="outline-none">
-        <ol className="grid">
+        <ol className="grid grid-cols-1">
           <Step n={1} title="Install the packages">
             {deps.length ? <CommandBlock commands={addCommand(deps)} /> : <p className="text-sm text-neutral-500 dark:text-neutral-400">Nothing beyond React and Tailwind CSS.</p>}
           </Step>
@@ -400,10 +395,10 @@ function Install({ skin }: { skin: Skin }) {
 /** One numbered step, joined to the next by a line. */
 function Step({ n, title, last, children }: { n: number; title: string; last?: boolean; children?: ReactNode }) {
   return (
-    <li className="relative grid grid-cols-[1.75rem_1fr] gap-x-3">
+    <li className="relative grid grid-cols-[1.75rem_minmax(0,1fr)] gap-x-3">
       <span className="z-10 grid size-7 place-items-center rounded-lg bg-neutral-100 text-xs font-medium ring-1 ring-neutral-200/80 dark:bg-neutral-900 dark:ring-white/[0.08]">{n}</span>
       {!last && <span aria-hidden="true" className="absolute top-7 bottom-0 left-3.5 w-px bg-neutral-200 dark:bg-neutral-800" />}
-      <div className={`grid gap-4 ${last ? "" : "pb-8"}`}>
+      <div className={`grid grid-cols-1 gap-4 ${last ? "" : "pb-8"}`}>
         <h3 className="flex min-h-7 items-center font-sk-sans text-[15px] font-medium text-neutral-950/90 dark:text-white/90">{title}</h3>
         {children}
       </div>
