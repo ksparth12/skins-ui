@@ -7,9 +7,10 @@
     "node": ">=26"
   },
   "scripts": {
-    "dev": "pnpm --filter @skins/site dev",
-    "build": "pnpm tokens && pnpm --filter @skins/site build",
+    "dev": "pnpm tokens && pnpm registry && pnpm --filter @skins/site dev",
+    "build": "pnpm tokens && pnpm registry && pnpm --filter @skins/site build",
     "tokens": "node packages/tokens/build.ts",
+    "registry": "node packages/tokens/registry.ts",
     "typecheck": "pnpm -r typecheck",
     "test": "vitest run",
     "check": "node packages/checks/src/cli.ts"

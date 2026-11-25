@@ -7,6 +7,7 @@ import { Mark } from "~/components/logo";
 import { ThemeToggle } from "~/components/theme";
 import { Sponsors } from "~/components/sponsors";
 import { CheckIcon, ClearIcon, MenuIcon, SearchIcon } from "~/components/icons";
+import { docs } from "~/lib/docs";
 import { findEntry, registry, skinPath } from "~/lib/registry";
 
 const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-ring";
@@ -36,49 +37,70 @@ function Logo() {
 }
 
 /**
- * Every component. In the phone drawer the open one also shows its skins underneath;
+ * The getting started pages, then every component. In the phone drawer the open one also shows its skins underneath;
  * on wide screens the skins have their own panel instead.
  */
 function ComponentTree({ component, skin, nested, onNavigate }: { component: string; skin: string; nested?: boolean; onNavigate?: () => void }) {
+  const { pathname } = useLocation();
   return (
-    <nav aria-label="Components">
-      <ul className="grid gap-0.5">
-        {registry.map((e) => {
-          const open = e.spec.name === component;
-          return (
-            <li key={e.spec.name}>
-              <Link
-                to={skinPath(e.spec.name, e.skins[0]?.slug ?? "")}
-                onClick={onNavigate}
-                aria-current={open && !nested ? "true" : undefined}
-                className={`${row} justify-between ${open ? `font-medium text-sk-ink ${nested ? "" : "bg-sk-menu-on"}` : "text-sk-muted"}`}
-              >
-                {e.spec.title}
-                <span className="text-xs font-normal text-sk-muted tabular-nums">{e.skins.length}</span>
-              </Link>
-              {open && nested && (
-                <ul aria-label={`${e.spec.title} skins`} className="relative my-0.5 grid gap-0.5 pl-5 before:absolute before:inset-y-1 before:left-[15px] before:w-px before:bg-sk-hairline">
-                  {e.skins.map((s) => {
-                    const on = s.slug === skin;
-                    return (
-                      <li key={s.slug}>
-                        <Link
-                          to={skinPath(e.spec.name, s.slug)}
-                          onClick={onNavigate}
-                          aria-current={on ? "page" : undefined}
-                          className={`${row} ${on ? "bg-sk-menu-on font-medium text-sk-ink" : "text-sk-muted"}`}
-                        >
-                          {s.title}
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-              )}
-            </li>
-          );
-        })}
-      </ul>
+    <nav aria-label="Docs" className="grid gap-6">
+      <div className="grid gap-1">
+        <h2 className="px-2.5 font-sk-sans text-[13px] font-medium text-sk-ink">Getting started</h2>
+        <ul className="grid gap-0.5">
+          {docs.map((d) => {
+            const on = pathname.replace(/\/$/, "") === d.path;
+            return (
+              <li key={d.path}>
+                <Link to={d.path} onClick={onNavigate} aria-current={on ? "page" : undefined} className={`${row} ${on ? "bg-sk-menu-on font-medium text-sk-ink" : "text-sk-muted"}`}>
+                  {d.title}
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+      {registry.length > 0 && (
+        <div className="grid gap-1">
+          <h2 className="px-2.5 font-sk-sans text-[13px] font-medium text-sk-ink">Components</h2>
+          <ul className="grid gap-0.5">
+            {registry.map((e) => {
+              const open = e.spec.name === component;
+              return (
+                <li key={e.spec.name}>
+                  <Link
+                    to={skinPath(e.spec.name, e.skins[0]?.slug ?? "")}
+                    onClick={onNavigate}
+                    aria-current={open && !nested ? "true" : undefined}
+                    className={`${row} justify-between ${open ? `font-medium text-sk-ink ${nested ? "" : "bg-sk-menu-on"}` : "text-sk-muted"}`}
+                  >
+                    {e.spec.title}
+                    <span className="text-xs font-normal text-sk-muted tabular-nums">{e.skins.length}</span>
+                  </Link>
+                  {open && nested && (
+                    <ul aria-label={`${e.spec.title} skins`} className="relative my-0.5 grid gap-0.5 pl-5 before:absolute before:inset-y-1 before:left-[15px] before:w-px before:bg-sk-hairline">
+                      {e.skins.map((s) => {
+                        const on = s.slug === skin;
+                        return (
+                          <li key={s.slug}>
+                            <Link
+                              to={skinPath(e.spec.name, s.slug)}
+                              onClick={onNavigate}
+                              aria-current={on ? "page" : undefined}
+                              className={`${row} ${on ? "bg-sk-menu-on font-medium text-sk-ink" : "text-sk-muted"}`}
+                            >
+                              {s.title}
+                            </Link>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
     </nav>
   );
 }
@@ -179,7 +201,11 @@ export function AppShell({ component = "", skin = "", children }: { component?: 
   const panel = useRef<HTMLDivElement>(null);
   const { pathname } = useLocation();
   // The panel is its own scroller, so a new page starts it at the top as the window would.
+  // The first page already opens at the top, so a scroll made before it hydrates is kept.
+  const shown = useRef(pathname);
   useEffect(() => {
+    if (shown.current === pathname) return;
+    shown.current = pathname;
     panel.current?.scrollTo({ top: 0 });
   }, [pathname]);
 
@@ -204,8 +230,7 @@ export function AppShell({ component = "", skin = "", children }: { component?: 
           className={`min-h-dvh lg:h-full lg:min-h-0 lg:overflow-y-auto lg:overscroll-contain lg:rounded-[18px] lg:[scrollbar-width:thin] ${surface}`}
         >
           <header className="flex h-14 items-center gap-3 px-5 lg:px-7">
-            {/* The menu only appears once there is a component to list. */}
-            {registry.length > 0 && <MobileMenu component={component} skin={skin} />}
+            <MobileMenu component={component} skin={skin} />
             <span className="lg:hidden">
               <Logo />
             </span>

@@ -13,26 +13,30 @@ export interface CssOptions {
   neutrals?: boolean;
 }
 
-function colorVars(hue: Hue, roles: Roles, p: string, wide: boolean): string[] {
+/** The colour tokens of one mode as [name, value] pairs, names without the prefix. */
+export function colorTokens(hue: Hue, roles: Roles, wide = false): Array<[string, string]> {
   const v = (s: Shade) => (wide ? s.p3 : s.hex);
   const { ramp } = hue;
   return [
-    ...ramp.shades.map((s, i) => `--${p}-hue-${STOPS[i]}: ${v(s)};`),
-    `--${p}-hue-deep: ${v(ramp.deep)};`,
-    `--${p}-hue-2: ${v(ramp.neighbours[0])};`,
-    `--${p}-hue-3: ${v(ramp.neighbours[1])};`,
-    `--${p}-accent: ${v(roles.accent)};`,
-    `--${p}-accent-hover: ${v(roles.accentHover)};`,
-    `--${p}-accent-active: ${v(roles.accentActive)};`,
-    `--${p}-indicator: ${v(roles.indicator)};`,
-    `--${p}-accent-subtle: ${v(roles.accentSubtle)};`,
-    `--${p}-accent-subtle-fg: ${v(roles.accentSubtleFg)};`,
-    `--${p}-accent-border: ${v(roles.accentBorder)};`,
-    `--${p}-link: ${v(roles.link)};`,
-    `--${p}-ring: ${v(roles.ring)};`,
-    ...(wide ? [] : [`--${p}-accent-fg: ${roles.accentFg};`, `--${p}-indicator-fg: ${roles.indicatorFg};`]),
+    ...ramp.shades.map((s, i): [string, string] => [`hue-${STOPS[i]}`, v(s)]),
+    ["hue-deep", v(ramp.deep)],
+    ["hue-2", v(ramp.neighbours[0])],
+    ["hue-3", v(ramp.neighbours[1])],
+    ["accent", v(roles.accent)],
+    ["accent-hover", v(roles.accentHover)],
+    ["accent-active", v(roles.accentActive)],
+    ["indicator", v(roles.indicator)],
+    ["accent-subtle", v(roles.accentSubtle)],
+    ["accent-subtle-fg", v(roles.accentSubtleFg)],
+    ["accent-border", v(roles.accentBorder)],
+    ["link", v(roles.link)],
+    ["ring", v(roles.ring)],
+    // The label colours are white or near-black, the same on every screen.
+    ...(wide ? [] : ([["accent-fg", roles.accentFg], ["indicator-fg", roles.indicatorFg]] as Array<[string, string]>)),
   ];
 }
+
+const colorVars = (hue: Hue, roles: Roles, p: string, wide: boolean) => colorTokens(hue, roles, wide).map(([k, val]) => `--${p}-${k}: ${val};`);
 
 const neutralVars = (mode: Mode, p: string) => Object.entries(neutrals[mode]).map(([k, val]) => `--${p}-${k}: ${val};`);
 

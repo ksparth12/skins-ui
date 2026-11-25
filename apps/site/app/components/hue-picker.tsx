@@ -2,10 +2,10 @@ import { Popover } from "@base-ui/react/popover";
 import { Toggle } from "@base-ui/react/toggle";
 import { ToggleGroup } from "@base-ui/react/toggle-group";
 import { DEFAULT_PRESET, createHue, presets, toCss } from "@skins/hue";
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import { HUE_CSS_KEY, HUE_ID_KEY } from "~/components/theme";
 
-const swatchColour = Object.fromEntries(
+export const swatchColour = Object.fromEntries(
   presets.map((p) => {
     const hue = createHue(p.color);
     return [p.id, hue.ramp.shades[hue.ramp.anchor]?.p3 ?? ""];
@@ -21,7 +21,7 @@ function applyHue(id: string) {
     localStorage.removeItem(HUE_ID_KEY);
     return;
   }
-  const css = toCss(createHue(preset.color), { neutrals: false, light: ':root, .light, [data-theme="light"]' });
+  const css = hueCss(preset.id);
   if (!style) {
     style = document.createElement("style");
     style.id = "sk-hue";
@@ -32,15 +32,30 @@ function applyHue(id: string) {
   localStorage.setItem(HUE_ID_KEY, preset.id);
 }
 
-function useHueChoice() {
-  const [value, setValue] = useState(DEFAULT_PRESET.id);
-  useEffect(() => setValue(localStorage.getItem(HUE_ID_KEY) ?? DEFAULT_PRESET.id), []);
+const listeners = new Set<() => void>();
+
+/** The chosen preset, shared by every picker on the page and remembered between visits. */
+export function useHueChoice() {
+  const value = useSyncExternalStore(
+    (fn) => {
+      listeners.add(fn);
+      return () => listeners.delete(fn);
+    },
+    () => localStorage.getItem(HUE_ID_KEY) ?? DEFAULT_PRESET.id,
+    () => DEFAULT_PRESET.id,
+  );
   const choose = (id: string) => {
-    setValue(id);
     applyHue(id);
+    listeners.forEach((fn) => fn());
   };
   return [value, choose] as const;
 }
+
+/** The CSS that sets a preset, to paste after the tokens. */
+export const hueCss = (id: string) => {
+  const preset = presets.find((p) => p.id === id) ?? DEFAULT_PRESET;
+  return toCss(createHue(preset.color), { neutrals: false, light: ':root, .light, [data-theme="light"]' });
+};
 
 const swatch =
   "size-6 rounded-full inset-ring inset-ring-sk-border transition-shadow duration-150 ease-sk-out focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sk-ring";

@@ -12,3 +12,6 @@ worker-configuration.d.ts
 
 # Private notes and copied docs, never published
 .local/
+
+# Written by pnpm registry
+apps/site/public/r/
