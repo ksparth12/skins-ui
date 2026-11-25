@@ -1,0 +1,21 @@
+{
+  "name": "button-glass",
+  "component": "button",
+  "title": "Glass",
+  "description": "A frosted pill that blurs what is behind it, lit by a bright rim on top.",
+  "tags": [
+    "glass",
+    "material"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "author": "skins-ui",
+  "preview": {
+    "backdrop": "folds"
+  }
+}

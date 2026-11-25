@@ -1,0 +1,18 @@
+{
+  "name": "button-soft",
+  "component": "button",
+  "title": "Soft 3D",
+  "description": "A raised key on a lip of its own shade. Pressing sinks it into the lip.",
+  "tags": [
+    "3d",
+    "tactile"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "author": "skins-ui"
+}

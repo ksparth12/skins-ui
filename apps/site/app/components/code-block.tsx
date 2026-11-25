@@ -48,20 +48,33 @@ export interface CodeBlockProps {
   title: string;
   /** Longer code shows this many lines and a button to see the rest. */
   collapseAfter?: number;
+  /** Passed to the outer plate, for example to let it fill a fixed area. */
+  className?: string;
+  /** Passed to the inner card. */
+  innerClassName?: string;
+  /** Fill the height it is given and scroll inside it, instead of collapsing long code. */
+  scroll?: boolean;
 }
 
 /** Highlighted code in a panel: the file name and copy above, the code on the inner card. */
-export function CodeBlock({ code, title, collapseAfter = 22 }: CodeBlockProps) {
+export function CodeBlock({ code, title, collapseAfter = 22, className, innerClassName, scroll = false }: CodeBlockProps) {
   const trimmed = code.replace(/\n$/, "");
   // Each line is its own block, so the line breaks between them are dropped.
   const html = useMemo(() => highlight(trimmed).replace(/\n/g, ""), [trimmed]);
   const lines = trimmed.split("\n").length;
-  const collapsible = lines > collapseAfter + 4;
+  const collapsible = !scroll && lines > collapseAfter + 4;
   const [open, setOpen] = useState(false);
   const shut = collapsible && !open;
 
   return (
-    <Panel header={<><PanelLabel icon={<FileTypeIcon name={title} className="size-4" />}>{title}</PanelLabel><CopyIconButton text={code} /></>}>
+    <Panel className={className} innerClassName={innerClassName} header={<><PanelLabel icon={<FileTypeIcon name={title} className="size-4" />}>{title}</PanelLabel><CopyIconButton text={code} /></>}>
+      {scroll ? (
+        <div className="absolute inset-0 overflow-auto overscroll-contain scroll-fade-b">
+          <pre className="code-block code-lines py-3.5 font-sk-mono text-[13px]/6" tabIndex={0}>
+            <code dangerouslySetInnerHTML={{ __html: html }} />
+          </pre>
+        </div>
+      ) : (
       <motion.div
         initial={false}
         animate={{ height: shut ? collapseAfter * LINE + 28 : "auto" }}
@@ -72,6 +85,7 @@ export function CodeBlock({ code, title, collapseAfter = 22 }: CodeBlockProps) {
           <code dangerouslySetInnerHTML={{ __html: html }} />
         </pre>
       </motion.div>
+      )}
       {collapsible && (
         <div className={shut ? "absolute inset-x-0 bottom-3 flex justify-center" : "flex justify-center pb-3"}>
           <button

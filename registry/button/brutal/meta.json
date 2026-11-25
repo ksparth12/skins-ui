@@ -1,0 +1,18 @@
+{
+  "name": "button-brutal",
+  "component": "button",
+  "title": "Brutal",
+  "description": "Square, a thick ink outline and a hard shadow. Pressing pushes it flat.",
+  "tags": [
+    "brutalist",
+    "bold"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "author": "skins-ui"
+}

@@ -78,22 +78,19 @@
   }
 }
 
-/* A soft field in the current Hue, for skins that need something behind them (glass). One hue family only. */
-@layer components {
-  .stage-hue {
-    background:
-      radial-gradient(55% 80% at 18% 28%, color-mix(in oklch, var(--sk-hue-300) 90%, transparent) 0%, transparent 62%),
-      radial-gradient(50% 75% at 82% 72%, color-mix(in oklch, var(--sk-hue-500) 70%, transparent) 0%, transparent 65%),
-      linear-gradient(in oklch 160deg, var(--sk-hue-100), var(--sk-hue-200) 45%, var(--sk-hue-400));
-  }
-  .dark .stage-hue {
-    background:
-      radial-gradient(55% 80% at 18% 28%, color-mix(in oklch, var(--sk-hue-500) 70%, transparent) 0%, transparent 62%),
-      radial-gradient(50% 75% at 82% 72%, color-mix(in oklch, var(--sk-hue-700) 80%, transparent) 0%, transparent 65%),
-      linear-gradient(in oklch 160deg, var(--sk-hue-800), var(--sk-hue-900) 50%, var(--sk-hue-deep));
-  }
+/* The drift of the Folds backdrop's three sheets. Slow, small and in different directions. */
+@keyframes folds-a {
+  from { transform: translate3d(0, 0, 0) rotate(0deg); }
+  to { transform: translate3d(3%, 2%, 0) rotate(6deg); }
 }
-
+@keyframes folds-b {
+  from { transform: translate3d(0, 0, 0) rotate(0deg); }
+  to { transform: translate3d(-3%, 3%, 0) rotate(-5deg); }
+}
+@keyframes folds-c {
+  from { transform: translate3d(0, 0, 0) rotate(0deg); }
+  to { transform: translate3d(2%, -3%, 0) rotate(4deg); }
+}
 
 /* Code colours. Keywords take the link colour, so code follows Hue too. */
 :root {
@@ -143,4 +140,26 @@
     border-right: 1px solid var(--sk-hairline);
     user-select: none;
   }
+}
+
+/* A list that scrolls without a scrollbar. The bottom edge fades while there is more below and
+   clears once you reach the end; a list that fits shows no fade at all. */
+@property --scroll-fade-b {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+
+@keyframes scroll-fade-b {
+  from { --scroll-fade-b: 48px; }
+  95% { --scroll-fade-b: 48px; }
+  to { --scroll-fade-b: 0px; }
+}
+
+@utility scroll-fade-b {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+  mask-image: linear-gradient(to bottom, black calc(100% - var(--scroll-fade-b)), transparent);
+  animation: scroll-fade-b linear both;
+  animation-timeline: scroll(self);
 }

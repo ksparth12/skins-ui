@@ -1,0 +1,18 @@
+{
+  "name": "button-edge",
+  "component": "button",
+  "title": "Edge",
+  "description": "A solid face set in a thin plate, like a key in its frame.",
+  "tags": [
+    "inset",
+    "minimal"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "author": "skins-ui"
+}

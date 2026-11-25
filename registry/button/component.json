@@ -1,0 +1,81 @@
+{
+  "name": "button",
+  "title": "Button",
+  "description": "Starts an action. One primary button per view.",
+  "export": "Button",
+  "children": {
+    "control": "text",
+    "label": "Label",
+    "default": "Deploy skin"
+  },
+  "props": [
+    {
+      "name": "variant",
+      "type": "enum",
+      "options": [
+        "primary",
+        "secondary",
+        "ghost",
+        "danger"
+      ],
+      "default": "primary",
+      "description": "Danger is only for actions that destroy something."
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "options": [
+        "sm",
+        "md",
+        "lg"
+      ],
+      "default": "md",
+      "description": "32, 40 or 48 pixels tall."
+    },
+    {
+      "name": "loading",
+      "type": "boolean",
+      "default": false,
+      "description": "Keeps the width, blocks clicks, shows a spinner and tells screen readers the button is busy."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": false,
+      "description": "Dims it and blocks interaction."
+    },
+    {
+      "name": "icon",
+      "type": "node",
+      "description": "An icon before the label.",
+      "hidden": true
+    },
+    {
+      "name": "iconRight",
+      "type": "node",
+      "description": "An icon after the label.",
+      "hidden": true
+    },
+    {
+      "name": "fullWidth",
+      "type": "boolean",
+      "default": false,
+      "description": "Fills the width of its container."
+    },
+    {
+      "name": "href",
+      "type": "string",
+      "description": "Renders a link that looks like the button.",
+      "hidden": true
+    }
+  ],
+  "states": [
+    "rest",
+    "hover",
+    "press",
+    "focus",
+    "disabled",
+    "loading",
+    "icon-only"
+  ]
+}

@@ -9,3 +9,6 @@ build/
 CLAUDE.local.md
 .claude/
 worker-configuration.d.ts
+
+# Private notes and copied docs, never published
+.local/

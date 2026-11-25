@@ -84,17 +84,18 @@ function useStars(): number | null {
   const [stars, setStars] = useState(fromPage);
   useEffect(() => {
     try {
-      const saved = JSON.parse(sessionStorage.getItem(STARS_KEY) ?? "null") as { n: number; at: number } | null;
+      const saved = JSON.parse(sessionStorage.getItem(STARS_KEY) ?? "null") as { n: number | null; at: number } | null;
       if (saved && Date.now() - saved.at < FRESH_FOR) {
-        setStars(saved.n);
+        if (saved.n !== null) setStars(saved.n);
         return;
       }
     } catch {}
     const ctrl = new AbortController();
     fetchStars(ctrl.signal).then((n) => {
-      if (n === null) return;
-      setStars(n);
+      // A failed answer is remembered too, so a rate limit is not asked again on every page.
+      if (ctrl.signal.aborted) return;
       sessionStorage.setItem(STARS_KEY, JSON.stringify({ n, at: Date.now() }));
+      if (n !== null) setStars(n);
     });
     return () => ctrl.abort();
   }, []);

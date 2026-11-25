@@ -117,7 +117,7 @@ function SkinList({ component, skin }: { component: string; skin: string }) {
           />
         </label>
       </div>
-      <ul className="grid min-h-0 flex-1 content-start gap-0.5 overflow-y-auto overscroll-contain px-2 pb-2 [scrollbar-width:thin]">
+      <ul className="grid min-h-0 flex-1 content-start gap-0.5 overflow-y-auto overscroll-contain px-2 pb-2 scroll-fade-b">
         {shown.map((s) => {
           const on = s.slug === skin;
           return (

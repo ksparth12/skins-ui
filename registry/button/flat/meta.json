@@ -1,0 +1,19 @@
+{
+  "name": "button-flat",
+  "component": "button",
+  "title": "Flat",
+  "description": "A solid fill, crisp type and nothing else. The calm default for any product.",
+  "tags": [
+    "minimal",
+    "solid"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "author": "skins-ui",
+  "featured": true
+}

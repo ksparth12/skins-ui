@@ -1,0 +1,18 @@
+{
+  "name": "button-sticker",
+  "component": "button",
+  "title": "Sticker",
+  "description": "A die-cut sticker with a thick white edge, lifted off the page.",
+  "tags": [
+    "sticker",
+    "playful"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "author": "skins-ui"
+}

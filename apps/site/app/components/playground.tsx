@@ -8,6 +8,7 @@ import { Panel, PanelLabel } from "~/components/panel";
 import { TabPill } from "~/components/tab-pill";
 import { ChoiceControl, Customize, SwitchControl, TextControl } from "~/components/customize";
 import { ArrowRightIcon as ArrowIcon, DesktopIcon, ExpandIcon, EyeIcon, PhoneIcon, PlusIcon, ReplayIcon, ResetIcon, TabletIcon, TerminalIcon } from "~/components/icons";
+import { Folds } from "~/components/folds";
 import { PropsTable } from "~/components/props-table";
 import type { ComponentSpec, PropSpec, Skin } from "~/lib/registry";
 
@@ -197,7 +198,7 @@ export function Playground({ spec, skin }: { spec: ComponentSpec; skin: Skin }) 
 
   const set = (name: string, v: unknown) => setValues((prev) => ({ ...prev, [name]: v }));
   const { Component } = skin;
-  const backdrop = skin.preview?.backdrop === "hue" ? "stage-hue" : undefined;
+  const folds = skin.preview?.backdrop === "folds";
   const hasIcons = spec.props.some((p) => p.name === "icon") && spec.props.some((p) => p.name === "iconRight");
   const fill = spec.preview?.layout === "fill";
   const control = spec.children?.control ?? "none";
@@ -231,6 +232,7 @@ export function Playground({ spec, skin }: { spec: ComponentSpec; skin: Skin }) 
     setIcon("none");
   };
 
+  const stageHeight = spec.preview?.height ?? 352;
   const tab = `relative inline-flex h-[30px] items-center gap-1.5 rounded-full px-3 text-[13px] font-medium text-neutral-500 transition-colors duration-150 hover:text-neutral-900 data-active:text-neutral-950 dark:text-neutral-400 dark:hover:text-white dark:data-active:text-white ${focus}`;
 
   return (
@@ -281,11 +283,12 @@ export function Playground({ spec, skin }: { spec: ComponentSpec; skin: Skin }) 
               <ResizableFrame width={width} onWidth={(w) => { setWidth(w); setPreset(w === null ? "full" : w === 768 ? "tablet" : w === 390 ? "phone" : preset); }}>
                 <div
                   ref={stage}
-                  className={`relative grid overflow-hidden rounded-[18px] ${modeClass} ${fill ? "" : "place-items-center px-6 py-14 sm:px-12"} ${backdrop ?? "bg-site-stage"}`}
-                  style={{ minHeight: spec.preview?.height ?? 352 }}
+                  className={`relative grid overflow-hidden rounded-[18px] ${modeClass} ${fill ? "" : "place-items-center px-6 py-14 sm:px-12"} ${folds ? "" : "bg-site-stage"}`}
+                  style={{ minHeight: stageHeight }}
                 >
                   <span aria-hidden="true" className={frameEdge} />
-                  <div className={fill ? "absolute inset-0" : values.fullWidth ? "w-full max-w-sm" : "max-w-full"}>
+                  {folds && <Folds />}
+                  <div className={fill ? "absolute inset-0" : `relative ${values.fullWidth ? "w-full max-w-sm" : "max-w-full"}`}>
                     <Component key={`${replay}:${JSON.stringify(values)}`} {...live}>
                       {icon === "only" ? undefined : renderChildren(text)}
                     </Component>
@@ -293,8 +296,10 @@ export function Playground({ spec, skin }: { spec: ComponentSpec; skin: Skin }) 
                 </div>
               </ResizableFrame>
             </Tabs.Panel>
-            <Tabs.Panel value="code" className="outline-none">
-              <CodeBlock title="usage.tsx" code={usageFile} />
+            {/* The skin's source, at the stage's height and scrolling inside, so nothing below moves
+                when you switch. Usage has its own section further down. */}
+            <Tabs.Panel value="code" className="flex flex-col outline-none" style={{ height: stageHeight }}>
+              <CodeBlock title={`${skin.name}.tsx`} code={skin.source} scroll className="flex min-h-0 flex-1 flex-col" innerClassName="min-h-0 flex-1" />
             </Tabs.Panel>
         </Tabs.Root>
 

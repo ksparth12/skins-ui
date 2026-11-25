@@ -35,8 +35,8 @@ export interface SkinMeta {
   dependencies: string[];
   author: string;
   featured?: boolean;
-  /** What the site draws behind the preview. */
-  preview?: { backdrop?: "hue" };
+  /** What the site draws behind the preview: Folds gives glass real edges to bend. */
+  preview?: { backdrop?: "folds" };
 }
 
 export interface Skin extends SkinMeta {
