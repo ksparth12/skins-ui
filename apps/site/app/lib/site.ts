@@ -17,3 +17,14 @@ export async function fetchStars(signal?: AbortSignal): Promise<number | null> {
     return null;
   }
 }
+
+/** Where the site is served. */
+export const SITE_DOMAIN = "skinsui.dev";
+export const SITE_URL = `https://${SITE_DOMAIN}`;
+export const SITE_NAME = "Skins UI";
+
+/** The default Hue in sRGB, for places that take one fixed colour: the browser bar and link previews. */
+export const BRAND_COLOUR = "#146bff";
+
+/** The share image file for a page path: `/` is home.jpg, `/components/card/glass` is components-card-glass.jpg. */
+export const ogImageFile = (path: string) => `${path === "/" ? "home" : path.slice(1).replaceAll("/", "-")}.jpg`;

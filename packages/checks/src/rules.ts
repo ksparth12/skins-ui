@@ -30,7 +30,32 @@ const RAW_COLOUR = /#[0-9a-fA-F]{3,8}\b|\b(?:rgba?|hsla?|oklch|oklab|lab|lch|col
 const PALETTE_CLASS =
   /\b(?:bg|text|border|ring|outline|fill|stroke|from|via|to|shadow|decoration|caret|accent|divide|placeholder)-(?:slate|gray|zinc|neutral|stone|red|orange|amber|yellow|lime|green|emerald|teal|cyan|sky|blue|indigo|violet|purple|fuchsia|pink|rose)-\d{2,3}\b/;
 
+const BINARY = /\.(png|jpe?g|webp|avif|gif|ico|woff2?|ttf|otf|mp4|webm)$/;
+const SECRET_FILE = /(^|\/)(\.env(\.[^/]*)?|\.dev\.vars(\.[^/]*)?|[^/]+\.(pem|key|p12|pfx))$/;
+const SECRETS: [RegExp, string][] = [
+  [/\bCLOUDFLARE_API_(?:KEY|TOKEN)\s*[=:]\s*["']?[A-Za-z0-9_-]{20,}/, "Cloudflare credential"],
+  [/(?:^|[^0-9a-f])[0-9a-f]{37}(?:[^0-9a-f]|$)/, "Cloudflare key"],
+  [/-----BEGIN [A-Z ]*PRIVATE KEY-----/, "private key"],
+  [/\b(?:ghp|gho|ghs|ghu|github_pat)_[A-Za-z0-9_]{20,}/, "GitHub token"],
+  [/\bAKIA[0-9A-Z]{16}\b/, "AWS access key"],
+  [/\bsk_live_[A-Za-z0-9]{16,}/, "live secret key"],
+];
+
 export const rules: Rule[] = [
+  {
+    id: "no-secret-files",
+    applies: (p) => SECRET_FILE.test(p),
+    check: (p) => [{ file: p, line: 1, rule: "no-secret-files", message: "Credential files stay out of the repository." }],
+  },
+  {
+    id: "no-secrets",
+    applies: (p) => !BINARY.test(p),
+    check: (p, t) =>
+      eachLine(p, t, "no-secrets", (l) => {
+        const hit = SECRETS.find(([re]) => re.test(l));
+        return hit ? `Looks like a ${hit[1]}. Keep secrets out of the repository.` : null;
+      }),
+  },
   {
     id: "no-long-dash",
     applies: (p) => TEXT.test(p),

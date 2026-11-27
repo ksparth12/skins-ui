@@ -1,12 +1,15 @@
 import { Link } from "react-router";
 import { AppShell } from "~/components/app-shell";
 import { registry, skinPath } from "~/lib/registry";
+import { pageMeta } from "~/lib/seo";
 
 export function meta() {
-  return [
-    { title: "Skins UI" },
-    { name: "description", content: "Every skin of a component shares the same props, so changing its look is a one-line edit." },
-  ];
+  return pageMeta({
+    title: "Skins UI",
+    description: "Every skin of a component shares the same props, so changing its look is a one-line edit.",
+    path: "/",
+    imageAlt: "Swap the skin, keep the code. One button drawn in five skins.",
+  });
 }
 
 const primary =

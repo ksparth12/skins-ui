@@ -3,12 +3,13 @@ import { Link } from "react-router";
 import { AppShell } from "~/components/app-shell";
 import { ArrowRightIcon } from "~/components/icons";
 import { docs, findDoc, type DocPath } from "~/lib/docs";
+import { pageMeta } from "~/lib/seo";
 
 const focus = "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-ring";
 
 export const docMeta = (path: DocPath) => {
   const doc = findDoc(path);
-  return [{ title: `${doc.title} · Skins UI` }, { name: "description", content: doc.description }];
+  return pageMeta({ title: `${doc.title} · Skins UI`, description: doc.description, path, imageAlt: `${doc.title}: ${doc.description}` });
 };
 
 /** A getting started page: title, one line under it, the content, then links to the pages either side. */

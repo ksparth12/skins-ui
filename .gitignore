@@ -15,3 +15,6 @@ worker-configuration.d.ts
 
 # Written by pnpm registry
 apps/site/public/r/
+
+# Written by pnpm og
+apps/site/public/og/

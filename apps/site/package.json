@@ -6,6 +6,8 @@
     "dev": "react-router dev",
     "build": "react-router build",
     "preview": "pnpm build && vite preview",
+    "og": "node scripts/og.ts",
+    "deploy": "node scripts/og.ts && react-router build && wrangler deploy",
     "typecheck": "wrangler types && react-router typegen && tsc -b",
     "postinstall": "wrangler types"
   },
@@ -28,6 +30,7 @@
     "@types/node": "^26.6.7",
     "@types/react": "^19.3.1",
     "@types/react-dom": "^19.3.0",
+    "playwright-core": "^1.65.1",
     "tailwindcss": "^4.3.5",
     "typescript": "^7.0.2",
     "vite": "^8.3.8",

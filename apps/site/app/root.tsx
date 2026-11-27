@@ -6,7 +6,7 @@ import calSansText from "./fonts/cal-sans-text-ui.woff2?url";
 import { AppShell } from "~/components/app-shell";
 import { ErrorPage } from "~/components/error-pages";
 import { ThemeScript } from "~/components/theme";
-import { fetchStars } from "~/lib/site";
+import { BRAND_COLOUR, fetchStars } from "~/lib/site";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [
@@ -26,6 +26,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content={BRAND_COLOUR} />
         <ThemeScript />
         <Meta />
         <Links />

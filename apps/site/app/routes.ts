@@ -9,4 +9,6 @@ export default [
   route("components", "routes/components.tsx", { id: "components-index" }),
   route("components/:component", "routes/components.tsx", { id: "component-index" }),
   route("components/:component/:skin", "routes/skin.tsx"),
+  // Tools for working on the site, served by the dev server only.
+  ...((globalThis as { process?: { env: Record<string, string | undefined> } }).process?.env.NODE_ENV === "production" ? [] : [route("dev/og", "routes/dev/og.tsx")]),
 ] satisfies RouteConfig;

@@ -13,7 +13,9 @@
     "registry": "node packages/tokens/registry.ts",
     "typecheck": "pnpm -r typecheck",
     "test": "vitest run",
-    "check": "node packages/checks/src/cli.ts"
+    "check": "node packages/checks/src/cli.ts",
+    "og": "pnpm --filter @skins/site run og",
+    "deploy": "pnpm tokens && pnpm registry && pnpm --filter @skins/site run deploy"
   },
   "devDependencies": {
     "@types/node": "^26.6.7",

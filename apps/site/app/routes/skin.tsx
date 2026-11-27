@@ -3,7 +3,8 @@ import type { Route } from "./+types/skin";
 import { Playground } from "~/components/playground";
 import { AppShell } from "~/components/app-shell";
 import { ChevronIcon } from "~/components/icons";
-import { findEntry } from "~/lib/registry";
+import { findEntry, skinPath } from "~/lib/registry";
+import { pageMeta } from "~/lib/seo";
 
 export function loader({ params }: Route.LoaderArgs) {
   const entry = findEntry(params.component);
@@ -16,7 +17,13 @@ export function meta({ loaderData }: Route.MetaArgs) {
   const entry = findEntry(loaderData?.component);
   const skin = entry?.skins.find((s) => s.slug === loaderData?.skin);
   if (!entry || !skin) return [{ title: "Skins UI" }];
-  return [{ title: `${skin.title} ${entry.spec.title.toLowerCase()} · Skins UI` }, { name: "description", content: skin.description }];
+  const name = `${skin.title} ${entry.spec.title.toLowerCase()}`;
+  return pageMeta({
+    title: `${name} · Skins UI`,
+    description: skin.description,
+    path: skinPath(entry.spec.name, skin.slug),
+    imageAlt: `The ${name}, drawn live on a dark stage.`,
+  });
 }
 
 const crumb = "rounded-sm transition-colors duration-100 hover:text-sk-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sk-ring";
