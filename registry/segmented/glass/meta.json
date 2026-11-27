@@ -1,0 +1,22 @@
+{
+  "name": "segmented-glass",
+  "component": "segmented",
+  "title": "Glass",
+  "description": "A frosted track with a glossy bead of glass that slides to your choice.",
+  "tags": [
+    "glass",
+    "material"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "@base-ui/react",
+    "motion"
+  ],
+  "author": "skins-ui",
+  "preview": {
+    "backdrop": "folds"
+  }
+}

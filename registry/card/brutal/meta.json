@@ -1,0 +1,16 @@
+{
+  "name": "card-brutal",
+  "component": "card",
+  "title": "Brutal",
+  "description": "Square corners, a thick ink outline and a hard shadow. Pressing pushes it flat.",
+  "tags": [
+    "brutalist",
+    "bold"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui"
+}

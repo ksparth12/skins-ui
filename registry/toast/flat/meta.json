@@ -1,0 +1,19 @@
+{
+  "name": "toast-flat",
+  "component": "toast",
+  "title": "Flat",
+  "description": "An inverted card, dark on a light page and white on a dark one.",
+  "tags": [
+    "minimal",
+    "solid"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "author": "skins-ui",
+  "featured": true
+}

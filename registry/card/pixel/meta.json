@@ -1,0 +1,19 @@
+{
+  "name": "card-pixel",
+  "component": "card",
+  "title": "Pixel",
+  "description": "Notched corners, a stepped bevel and a pixel title. Presses down one step.",
+  "tags": [
+    "pixel",
+    "retro"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui",
+  "fonts": [
+    "Geist Pixel"
+  ]
+}

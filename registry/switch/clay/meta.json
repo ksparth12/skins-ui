@@ -1,0 +1,18 @@
+{
+  "name": "switch-clay",
+  "component": "switch",
+  "title": "Clay",
+  "description": "A puffy track in a tint of your colour, with a soft round thumb.",
+  "tags": [
+    "clay",
+    "playful"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "author": "skins-ui"
+}

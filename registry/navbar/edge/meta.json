@@ -1,0 +1,16 @@
+{
+  "name": "navbar-edge",
+  "component": "navbar",
+  "title": "Edge",
+  "description": "A floating bar set in a thin plate, with corners that follow each other.",
+  "tags": [
+    "inset",
+    "floating"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui"
+}

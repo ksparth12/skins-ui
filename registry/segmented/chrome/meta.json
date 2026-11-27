@@ -1,0 +1,19 @@
+{
+  "name": "segmented-chrome",
+  "component": "segmented",
+  "title": "Chrome",
+  "description": "A machined groove with a polished metal slider that moves to your choice.",
+  "tags": [
+    "metal",
+    "material"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "@base-ui/react",
+    "motion"
+  ],
+  "author": "skins-ui"
+}

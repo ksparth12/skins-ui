@@ -2,7 +2,11 @@ import type { ComponentType } from "react";
 
 export interface PropSpec {
   name: string;
-  type: "enum" | "boolean" | "node" | "string" | "data";
+  type: "enum" | "boolean" | "node" | "string" | "data" | "function" | "number";
+  /** For numbers: the range the playground slider covers. */
+  min?: number;
+  max?: number;
+  step?: number;
   options?: string[];
   /** The component's own default. */
   default?: unknown;
@@ -23,6 +27,8 @@ export interface ComponentSpec {
   props: PropSpec[];
   states: string[];
   preview?: { layout?: "center" | "fill"; height?: number };
+  /** For components built from parts: every part a skin exports, in the order you use them. */
+  parts?: Array<{ name: string; element: string; description: string }>;
 }
 
 export interface SkinMeta {
@@ -44,6 +50,8 @@ export interface Skin extends SkinMeta {
   file: string;
   source: string;
   Component: ComponentType<Record<string, unknown>>;
+  /** Everything the skin's file exports, for components built from parts. */
+  parts: Record<string, ComponentType<Record<string, unknown>>>;
 }
 
 export interface Entry {
@@ -69,7 +77,10 @@ function load(): Entry[] {
     const Component = modules[modulePath]?.[entry.spec.export];
     const source = sources[modulePath];
     if (!Component || source === undefined) throw new Error(`${meta.name}: ${file} must export ${entry.spec.export}`);
-    entry.skins.push({ ...meta, slug, file, source, Component });
+    const parts = modules[modulePath]!;
+    const missing = (entry.spec.parts ?? []).filter((p) => !parts[p.name]).map((p) => p.name);
+    if (missing.length) throw new Error(`${meta.name}: ${file} must also export ${missing.join(", ")}`);
+    entry.skins.push({ ...meta, slug, file, source, Component, parts });
   }
   for (const e of entries) e.skins.sort((a, b) => Number(b.featured ?? false) - Number(a.featured ?? false) || a.title.localeCompare(b.title));
   return entries.sort((a, b) => a.spec.title.localeCompare(b.spec.title));

@@ -1,0 +1,19 @@
+{
+  "name": "card-glass",
+  "component": "card",
+  "title": "Glass",
+  "description": "A frosted pane that blurs what is behind it, lit by a bright rim on top.",
+  "tags": [
+    "glass",
+    "material"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui",
+  "preview": {
+    "backdrop": "folds"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "name": "segmented",
+  "title": "Segmented control",
+  "description": "A row of choices where one is picked, with a piece that slides to it.",
+  "export": "SegmentedControl",
+  "children": {
+    "control": "none",
+    "label": "",
+    "default": ""
+  },
+  "props": [
+    {
+      "name": "options",
+      "type": "data",
+      "demo": ["Day", "Week", "Month", "Year"],
+      "description": "The choices, in order. Two to five short words work best."
+    },
+    {
+      "name": "defaultValue",
+      "type": "string",
+      "demo": "Week",
+      "description": "The choice picked when it first renders. The first one if you leave it out."
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "options": ["sm", "md"],
+      "default": "md",
+      "description": "32 or 40 pixels tall."
+    },
+    {
+      "name": "onValueChange",
+      "type": "function",
+      "hidden": true,
+      "description": "Called with the new choice whenever it changes."
+    }
+  ],
+  "states": ["rest", "hover", "picked", "focus"],
+  "preview": {
+    "height": 260
+  }
+}

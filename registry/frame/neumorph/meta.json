@@ -1,0 +1,16 @@
+{
+  "name": "frame-neumorph",
+  "component": "frame",
+  "title": "Neumorph",
+  "description": "A soft raised panel with the photo pressed into a well in its face.",
+  "tags": [
+    "neumorphic",
+    "soft"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "background-plasma",
+  "component": "background",
+  "title": "Plasma",
+  "description": "Slow, warping clouds of your colour drifting through a deep field.",
+  "tags": [
+    "shader",
+    "motion"
+  ],
+  "modes": [
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui"
+}

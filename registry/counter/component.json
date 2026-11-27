@@ -1,0 +1,44 @@
+{
+  "name": "counter",
+  "title": "Counter",
+  "description": "A number whose digits roll to each new value, for stats, prices and totals.",
+  "export": "Counter",
+  "children": {
+    "control": "none",
+    "label": "",
+    "default": ""
+  },
+  "props": [
+    {
+      "name": "value",
+      "type": "number",
+      "default": 0,
+      "demo": 12480,
+      "min": 0,
+      "max": 99999,
+      "description": "The number to show. Each digit rolls when it changes."
+    },
+    {
+      "name": "prefix",
+      "type": "string",
+      "demo": "$",
+      "description": "Text before the number, such as a currency sign."
+    },
+    {
+      "name": "suffix",
+      "type": "string",
+      "description": "Text after the number, such as a unit."
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "options": ["md", "lg", "xl"],
+      "default": "lg",
+      "description": "32, 48 or 72 pixels."
+    }
+  ],
+  "states": ["rest", "rolling"],
+  "preview": {
+    "height": 300
+  }
+}

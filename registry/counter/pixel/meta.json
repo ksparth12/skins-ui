@@ -1,0 +1,21 @@
+{
+  "name": "counter-pixel",
+  "component": "counter",
+  "title": "Pixel",
+  "description": "Pixel digits in your colour that tick to each value in hard steps.",
+  "tags": [
+    "pixel",
+    "retro"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "motion"
+  ],
+  "author": "skins-ui",
+  "fonts": [
+    "Geist Pixel"
+  ]
+}

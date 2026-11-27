@@ -1,0 +1,16 @@
+{
+  "name": "card-double",
+  "component": "card",
+  "title": "Double border",
+  "description": "Two fine lines with a narrow gap between them, like a framed print.",
+  "tags": [
+    "outline",
+    "minimal"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui"
+}

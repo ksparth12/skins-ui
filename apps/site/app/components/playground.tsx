@@ -6,12 +6,13 @@ import { useEffect, useMemo, useRef, useState, type ComponentPropsWithRef, type 
 import { CodeBlock, CommandBlock, addCommand, runCommand } from "~/components/code-block";
 import { Panel, PanelLabel } from "~/components/panel";
 import { TabPill } from "~/components/tab-pill";
-import { ChoiceControl, Customize, SwitchControl, TextControl } from "~/components/customize";
+import { ChoiceControl, Customize, NumberControl, SwitchControl, TextControl } from "~/components/customize";
 import { ArrowRightIcon as ArrowIcon, DesktopIcon, ExpandIcon, EyeIcon, PhoneIcon, PlusIcon, ReplayIcon, ResetIcon, TabletIcon, TerminalIcon } from "~/components/icons";
 import { Folds } from "~/components/folds";
-import { PropsTable } from "~/components/props-table";
+import { PartsTable, PropsTable } from "~/components/props-table";
 import { Section, Step } from "~/components/section";
-import type { ComponentSpec, PropSpec, Skin } from "~/lib/registry";
+import { demos } from "~/demos/index";
+import { findEntry, type ComponentSpec, type PropSpec, type Skin } from "~/lib/registry";
 
 type Values = Record<string, unknown>;
 type IconPlace = "none" | "before" | "after" | "only";
@@ -29,15 +30,24 @@ const titleCase = (s: string) => {
 };
 
 /** The values the playground starts with: the demo value when there is one, otherwise the default. */
-const startOf = (spec: ComponentSpec): Values =>
-  Object.fromEntries(spec.props.filter((p) => (p.demo ?? p.default) !== undefined).map((p) => [p.name, p.demo ?? p.default]));
+export const startOf = (spec: ComponentSpec): Values =>
+  Object.fromEntries(
+    [...spec.props, ...(demos[spec.name]?.controls ?? [])].filter((p) => (p.demo ?? p.default) !== undefined).map((p) => [p.name, p.demo ?? p.default]),
+  );
+
+/** The button skin a demo pairs with: the one of the same style, or Flat when there is none. */
+export function pairedButton(spec: ComponentSpec, skin: Skin) {
+  const buttons = findEntry("button")?.skins ?? [];
+  const wanted = demos[spec.name]?.buttons?.[skin.slug] ?? skin.slug;
+  return buttons.find((b) => b.slug === wanted) ?? buttons.find((b) => b.slug === "flat") ?? buttons[0];
+}
 
 /** The component's own defaults, which usage code leaves out. */
 const realDefaultsOf = (spec: ComponentSpec): Values =>
   Object.fromEntries(spec.props.filter((p) => p.default !== undefined).map((p) => [p.name, p.default]));
 
 /** A neutral element the playground hands to components that wrap a trigger. */
-function DemoTrigger({ children, ...props }: ComponentPropsWithRef<"button">) {
+export function DemoTrigger({ children, ...props }: ComponentPropsWithRef<"button">) {
   return (
     <button
       {...props}
@@ -52,6 +62,11 @@ function DemoTrigger({ children, ...props }: ComponentPropsWithRef<"button">) {
 function jsxValue(p: PropSpec, v: unknown): string | null {
   if (p.type === "boolean") return v === true ? p.name : `${p.name}={false}`;
   if (p.type === "enum" || p.type === "string") return `${p.name}="${String(v)}"`;
+  if (p.type === "number") return `${p.name}={${String(v)}}`;
+  if (p.type === "data" && Array.isArray(v)) {
+    const rows = v.map((row) => `    ${JSON.stringify(row).replace(/"(\w+)":/g, "$1: ").replace(/,(?=\w+:)/g, ", ")},`);
+    return `${p.name}={[\n${rows.join("\n")}\n  ]}`;
+  }
   return null;
 }
 
@@ -60,7 +75,7 @@ function usage(spec: ComponentSpec, values: Values, text: string, icon: IconPlac
   const attrs: string[] = [];
   for (const p of spec.props) {
     const v = values[p.name];
-    if (v === undefined || v === defaults[p.name] || p.type === "node" || p.type === "data") continue;
+    if (v === undefined || v === defaults[p.name] || p.type === "node" || p.type === "function") continue;
     const a = jsxValue(p, v);
     if (a) attrs.push(a);
   }
@@ -223,10 +238,14 @@ export function Playground({ spec, skin }: { spec: ComponentSpec; skin: Skin }) 
         }
       : {}),
   };
+  const demo = demos[spec.name];
+  const button = demo ? pairedButton(spec, skin) : undefined;
   const code = useMemo(() => usage(spec, values, text, icon), [spec, values, text, icon]);
-  const usageFile = `import { ${spec.export} } from "@/components/skins/${skin.name}";\n\n${code}\n`;
+  const usageFile = demo
+    ? demo.usage({ values, skin: skin.name, slug: skin.slug, button: button?.name ?? "button-flat" })
+    : `import { ${spec.export} } from "@/components/skins/${skin.name}";\n\n${code}\n`;
 
-  const controls = spec.props.filter((p) => !p.hidden);
+  const controls = [...spec.props, ...(demo?.controls ?? [])].filter((p) => !p.hidden);
   const reset = () => {
     setValues(defaults);
     setText(spec.children?.default ?? "");
@@ -289,10 +308,16 @@ export function Playground({ spec, skin }: { spec: ComponentSpec; skin: Skin }) 
                 >
                   <span aria-hidden="true" className={frameEdge} />
                   {folds && <Folds />}
-                  <div className={fill ? "absolute inset-0" : `relative ${values.fullWidth ? "w-full max-w-sm" : "max-w-full"}`}>
-                    <Component key={`${replay}:${JSON.stringify(values)}`} {...live}>
-                      {icon === "only" ? undefined : renderChildren(text)}
-                    </Component>
+                  <div className={fill ? "absolute inset-0" : demo ? "relative flex w-full justify-center" : `relative ${values.fullWidth ? "w-full max-w-sm" : "max-w-full"}`}>
+                    {demo && button ? (
+                      <div key={replay} className="flex w-full justify-center">
+                        {demo.render({ parts: skin.parts, values, skin: skin.slug, Button: button.Component })}
+                      </div>
+                    ) : (
+                      <Component key={`${replay}:${JSON.stringify(values)}`} {...live}>
+                        {icon === "only" ? undefined : renderChildren(text)}
+                      </Component>
+                    )}
                   </div>
                 </div>
               </ResizableFrame>
@@ -327,6 +352,9 @@ export function Playground({ spec, skin }: { spec: ComponentSpec; skin: Skin }) 
                 <ChoiceControl key={p.name} label={titleCase(p.name)} value={String(values[p.name])} options={p.options ?? []} onChange={(v) => set(p.name, v)} />
               ))}
               {hasIcons && <ChoiceControl label="Icon" value={icon} options={["none", "before", "after", "only"]} onChange={(v) => setIcon(v as IconPlace)} />}
+              {controls.filter((p) => p.type === "number").map((p) => (
+                <NumberControl key={p.name} label={titleCase(p.name)} value={Number(values[p.name] ?? 0)} min={p.min} max={p.max} step={p.step} onChange={(v) => set(p.name, v)} />
+              ))}
               {controls.filter((p) => p.type === "boolean").map((p) => (
                 <SwitchControl key={p.name} label={titleCase(p.name)} checked={Boolean(values[p.name])} onChange={(v) => set(p.name, v)} />
               ))}
@@ -345,6 +373,12 @@ export function Playground({ spec, skin }: { spec: ComponentSpec; skin: Skin }) 
         <Section id="props" title="Props">
           <PropsTable spec={spec} />
         </Section>
+
+        {spec.parts && (
+          <Section id="parts" title="Parts">
+            <PartsTable parts={spec.parts} />
+          </Section>
+        )}
       </div>
     </Tooltip.Provider>
   );

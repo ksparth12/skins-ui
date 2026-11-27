@@ -1,0 +1,21 @@
+{
+  "name": "switch-glass",
+  "component": "switch",
+  "title": "Glass",
+  "description": "A frosted track that tints with your colour, and a glossy bead of a thumb.",
+  "tags": [
+    "glass",
+    "material"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "author": "skins-ui",
+  "preview": {
+    "backdrop": "folds"
+  }
+}

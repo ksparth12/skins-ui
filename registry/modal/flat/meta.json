@@ -1,0 +1,22 @@
+{
+  "name": "modal-flat",
+  "component": "modal",
+  "title": "Flat",
+  "description": "A plain sheet over a soft dim, with a hairline edge and a deep shadow.",
+  "tags": [
+    "minimal",
+    "solid"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "author": "skins-ui",
+  "featured": true,
+  "preview": {
+    "backdrop": "fixed inset-0 z-50 bg-black/40 transition-opacity duration-(--sk-motion-slow) ease-sk-out data-ending-style:duration-(--sk-motion-slow-exit) data-starting-style:opacity-0 data-ending-style:opacity-0"
+  }
+}

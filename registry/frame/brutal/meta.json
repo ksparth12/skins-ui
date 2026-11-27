@@ -1,0 +1,16 @@
+{
+  "name": "frame-brutal",
+  "component": "frame",
+  "title": "Brutal",
+  "description": "A thick ink border, a hard shadow and a caption bar in capitals.",
+  "tags": [
+    "brutalist",
+    "bold"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui"
+}

@@ -1,0 +1,19 @@
+{
+  "name": "loader-ring",
+  "component": "loader",
+  "title": "Ring",
+  "description": "A thin arc of your colour turning on a faint track. The quiet default.",
+  "tags": [
+    "minimal",
+    "solid"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "motion"
+  ],
+  "author": "skins-ui",
+  "featured": true
+}

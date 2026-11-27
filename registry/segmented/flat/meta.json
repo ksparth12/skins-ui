@@ -1,0 +1,20 @@
+{
+  "name": "segmented-flat",
+  "component": "segmented",
+  "title": "Flat",
+  "description": "A soft grey track with a white piece that glides to your choice.",
+  "tags": [
+    "minimal",
+    "solid"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "@base-ui/react",
+    "motion"
+  ],
+  "author": "skins-ui",
+  "featured": true
+}

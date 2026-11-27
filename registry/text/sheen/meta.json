@@ -1,0 +1,18 @@
+{
+  "name": "text-sheen",
+  "component": "text",
+  "title": "Sheen",
+  "description": "Plain ink with a soft light in your colour passing through it now and then.",
+  "tags": [
+    "motion",
+    "minimal"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "motion"
+  ],
+  "author": "skins-ui"
+}

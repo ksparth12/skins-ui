@@ -1,0 +1,16 @@
+{
+  "name": "card-neumorph",
+  "component": "card",
+  "title": "Neumorph",
+  "description": "Soft and pushed out of the page, with the picture pressed into it.",
+  "tags": [
+    "neumorphic",
+    "soft"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui"
+}

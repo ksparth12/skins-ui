@@ -1,0 +1,16 @@
+{
+  "name": "card-clay",
+  "component": "card",
+  "title": "Clay",
+  "description": "A soft, puffy body in a tint of your colour. Pressing squeezes it in.",
+  "tags": [
+    "clay",
+    "playful"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui"
+}

@@ -1,0 +1,21 @@
+{
+  "name": "progress-pixel",
+  "component": "progress",
+  "title": "Pixel",
+  "description": "A notched frame that fills with whole square blocks, one at a time.",
+  "tags": [
+    "pixel",
+    "retro"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "author": "skins-ui",
+  "fonts": [
+    "Geist Pixel"
+  ]
+}

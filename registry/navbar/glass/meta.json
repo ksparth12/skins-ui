@@ -1,0 +1,19 @@
+{
+  "name": "navbar-glass",
+  "component": "navbar",
+  "title": "Glass",
+  "description": "A frosted pill that floats over the top of the page and blurs what passes.",
+  "tags": [
+    "glass",
+    "floating"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui",
+  "preview": {
+    "backdrop": "folds"
+  }
+}

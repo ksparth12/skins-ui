@@ -1,0 +1,16 @@
+{
+  "name": "background-silk",
+  "component": "background",
+  "title": "Silk",
+  "description": "Molten folds of your colour falling into near black, moving slowly.",
+  "tags": [
+    "shader",
+    "material"
+  ],
+  "modes": [
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui",
+  "featured": true
+}

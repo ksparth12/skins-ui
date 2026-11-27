@@ -1,0 +1,18 @@
+{
+  "name": "progress-depth",
+  "component": "progress",
+  "title": "Depth",
+  "description": "A fill that runs from a deep shade of your colour up to the colour itself.",
+  "tags": [
+    "gradient",
+    "depth"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "author": "skins-ui"
+}

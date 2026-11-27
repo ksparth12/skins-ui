@@ -1,0 +1,19 @@
+{
+  "name": "text-pixel",
+  "component": "text",
+  "title": "Pixel",
+  "description": "Pixel letters in your colour, stepped back into deeper shades of it.",
+  "tags": [
+    "pixel",
+    "retro"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui",
+  "fonts": [
+    "Geist Pixel"
+  ]
+}

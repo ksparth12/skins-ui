@@ -1,0 +1,18 @@
+{
+  "name": "text-chrome",
+  "component": "text",
+  "title": "Chrome",
+  "description": "Polished metal letters with a machined edge and light that slides across.",
+  "tags": [
+    "metal",
+    "material"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "motion"
+  ],
+  "author": "skins-ui"
+}

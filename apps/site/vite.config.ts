@@ -10,7 +10,7 @@ const prebundle = [
   "motion/react",
   "sugar-high",
   "@phosphor-icons/react/ssr",
-  ...["button", "dialog", "field", "input", "popover", "switch", "tabs", "toggle", "toggle-group", "tooltip"].map((name) => `@base-ui/react/${name}`),
+  ...["button", "dialog", "field", "input", "popover", "progress", "slider", "switch", "tabs", "toast", "toggle", "toggle-group", "tooltip"].map((name) => `@base-ui/react/${name}`),
 ];
 
 /**

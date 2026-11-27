@@ -1,0 +1,19 @@
+{
+  "name": "segmented-neumorph",
+  "component": "segmented",
+  "title": "Neumorph",
+  "description": "A groove pressed into the page with a soft raised piece sliding in it.",
+  "tags": [
+    "neumorphic",
+    "soft"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "@base-ui/react",
+    "motion"
+  ],
+  "author": "skins-ui"
+}

@@ -1,0 +1,18 @@
+{
+  "name": "toast-glass",
+  "component": "toast",
+  "title": "Glass",
+  "description": "A frosted pane that blurs the page behind it, lit by a bright rim on top.",
+  "tags": [
+    "glass",
+    "material"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "author": "skins-ui"
+}

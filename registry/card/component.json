@@ -1,0 +1,39 @@
+{
+  "name": "card",
+  "title": "Card",
+  "description": "Holds one piece of content, built from parts you put together as you need.",
+  "export": "Card",
+  "children": {
+    "control": "none",
+    "label": "",
+    "default": ""
+  },
+  "props": [
+    {
+      "name": "size",
+      "type": "enum",
+      "options": ["sm", "md", "lg"],
+      "default": "md",
+      "description": "Padding of 16, 20 or 28 pixels, with type and gaps to match."
+    },
+    {
+      "name": "href",
+      "type": "string",
+      "hidden": true,
+      "description": "Makes the whole card a link. Use it only when the card holds no other buttons or links."
+    }
+  ],
+  "parts": [
+    { "name": "Card", "element": "div", "description": "The card itself. Renders a link when you pass href." },
+    { "name": "CardMedia", "element": "div", "description": "A picture at the top, edge to edge. Pass src and alt, or your own children." },
+    { "name": "CardHeader", "element": "div", "description": "Holds the title and description." },
+    { "name": "CardTitle", "element": "h3", "description": "The heading." },
+    { "name": "CardDescription", "element": "p", "description": "A line or two under the title." },
+    { "name": "CardContent", "element": "div", "description": "Anything else: a list, a form, a chart." },
+    { "name": "CardFooter", "element": "div", "description": "A row at the bottom for actions or details." }
+  ],
+  "states": ["rest", "hover", "focus"],
+  "preview": {
+    "height": 600
+  }
+}

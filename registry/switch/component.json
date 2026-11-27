@@ -1,0 +1,43 @@
+{
+  "name": "switch",
+  "title": "Switch",
+  "description": "Turns one setting on or off, and takes effect right away.",
+  "export": "Switch",
+  "children": {
+    "control": "none",
+    "label": "",
+    "default": ""
+  },
+  "props": [
+    {
+      "name": "label",
+      "type": "string",
+      "demo": "Email updates",
+      "description": "The visible name of the setting. Without one, pass aria-label."
+    },
+    {
+      "name": "defaultChecked",
+      "type": "boolean",
+      "default": false,
+      "demo": true,
+      "description": "On when it first renders."
+    },
+    {
+      "name": "disabled",
+      "type": "boolean",
+      "default": false,
+      "description": "Dims it and blocks interaction."
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "options": ["sm", "md"],
+      "default": "md",
+      "description": "Small or medium. The label grows with it."
+    }
+  ],
+  "states": ["off", "on", "focus", "disabled"],
+  "preview": {
+    "height": 280
+  }
+}

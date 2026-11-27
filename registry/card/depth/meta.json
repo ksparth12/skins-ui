@@ -1,0 +1,16 @@
+{
+  "name": "card-depth",
+  "component": "card",
+  "title": "Depth",
+  "description": "Your colour falling into a near-black shade of itself, lit from above.",
+  "tags": [
+    "gradient",
+    "depth"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui"
+}

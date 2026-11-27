@@ -1,0 +1,16 @@
+{
+  "name": "navbar-brutal",
+  "component": "navbar",
+  "title": "Brutal",
+  "description": "A block with a thick ink outline and a hard shadow. Links set in capitals.",
+  "tags": [
+    "brutalist",
+    "bold"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui"
+}

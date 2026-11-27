@@ -1,0 +1,19 @@
+{
+  "name": "progress-liquid",
+  "component": "progress",
+  "title": "Liquid",
+  "description": "A glass tube filling with your colour, light flowing slowly through it.",
+  "tags": [
+    "glass",
+    "liquid"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "@base-ui/react",
+    "motion"
+  ],
+  "author": "skins-ui"
+}

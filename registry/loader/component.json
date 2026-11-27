@@ -1,0 +1,37 @@
+{
+  "name": "loader",
+  "title": "Loader",
+  "description": "Shows that work is under way when you can't tell how long it will take.",
+  "export": "Loader",
+  "children": {
+    "control": "none",
+    "label": "",
+    "default": ""
+  },
+  "props": [
+    {
+      "name": "size",
+      "type": "enum",
+      "options": [
+        "sm",
+        "md",
+        "lg"
+      ],
+      "default": "md",
+      "description": "16, 24 or 40 pixels, to sit in a button, a field or a page.",
+      "demo": "lg"
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "default": "Loading",
+      "description": "Read by screen readers. Say what is loading when you can."
+    }
+  ],
+  "states": [
+    "running"
+  ],
+  "preview": {
+    "height": 280
+  }
+}

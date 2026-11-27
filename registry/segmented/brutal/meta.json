@@ -1,0 +1,19 @@
+{
+  "name": "segmented-brutal",
+  "component": "segmented",
+  "title": "Brutal",
+  "description": "One thick ink frame split by ink lines, with a solid block for your choice.",
+  "tags": [
+    "brutalist",
+    "bold"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "@base-ui/react",
+    "motion"
+  ],
+  "author": "skins-ui"
+}

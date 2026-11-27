@@ -1,0 +1,39 @@
+{
+  "name": "progress",
+  "title": "Progress",
+  "description": "Shows how far a task has come when you know how long it will take.",
+  "export": "Progress",
+  "children": {
+    "control": "none",
+    "label": "",
+    "default": ""
+  },
+  "props": [
+    {
+      "name": "value",
+      "type": "number",
+      "default": 0,
+      "demo": 64,
+      "min": 0,
+      "max": 100,
+      "description": "How far along it is, from 0 to 100."
+    },
+    {
+      "name": "label",
+      "type": "string",
+      "demo": "Uploading photos",
+      "description": "Says what is in progress. Without one, pass aria-label."
+    },
+    {
+      "name": "showValue",
+      "type": "boolean",
+      "default": false,
+      "demo": true,
+      "description": "Shows the percentage beside the label."
+    }
+  ],
+  "states": ["progressing", "complete"],
+  "preview": {
+    "height": 280
+  }
+}

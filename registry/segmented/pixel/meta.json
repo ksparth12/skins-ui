@@ -1,0 +1,22 @@
+{
+  "name": "segmented-pixel",
+  "component": "segmented",
+  "title": "Pixel",
+  "description": "A notched strip with a block of your colour that jumps over in steps.",
+  "tags": [
+    "pixel",
+    "retro"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "@base-ui/react",
+    "motion"
+  ],
+  "author": "skins-ui",
+  "fonts": [
+    "Geist Pixel"
+  ]
+}

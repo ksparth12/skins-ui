@@ -1,0 +1,15 @@
+{
+  "name": "background-chrome",
+  "component": "background",
+  "title": "Liquid chrome",
+  "description": "Flowing liquid metal, anodised in your colour, catching a bright sky.",
+  "tags": [
+    "shader",
+    "metal"
+  ],
+  "modes": [
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui"
+}

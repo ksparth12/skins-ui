@@ -1,0 +1,24 @@
+{
+  "name": "modal-pixel",
+  "component": "modal",
+  "title": "Pixel",
+  "description": "A notched window with a stepped bevel and a pixel title, like an old game.",
+  "tags": [
+    "pixel",
+    "retro"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "author": "skins-ui",
+  "fonts": [
+    "Geist Pixel"
+  ],
+  "preview": {
+    "backdrop": "fixed inset-0 z-50 bg-black/45 transition-opacity duration-(--sk-motion-base) ease-[steps(3)] data-starting-style:opacity-0 data-ending-style:opacity-0"
+  }
+}

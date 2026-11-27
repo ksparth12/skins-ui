@@ -1,0 +1,17 @@
+{
+  "name": "frame-polaroid",
+  "component": "frame",
+  "title": "Polaroid",
+  "description": "An instant print with a deep white border below and a slight tilt.",
+  "tags": [
+    "paper",
+    "playful"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui",
+  "featured": true
+}

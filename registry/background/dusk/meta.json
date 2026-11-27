@@ -1,0 +1,17 @@
+{
+  "name": "background-dusk",
+  "component": "background",
+  "title": "Dusk",
+  "description": "The sky just after sunset in one hue, with a light drifting along the horizon.",
+  "tags": [
+    "gradient",
+    "calm"
+  ],
+  "modes": [
+    "dark"
+  ],
+  "dependencies": [
+    "motion"
+  ],
+  "author": "skins-ui"
+}

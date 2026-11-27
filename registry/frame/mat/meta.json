@@ -1,0 +1,16 @@
+{
+  "name": "frame-mat",
+  "component": "frame",
+  "title": "Gallery mat",
+  "description": "A thin dark frame around a wide pale mat, with a bevelled window cut in it.",
+  "tags": [
+    "paper",
+    "classic"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui"
+}

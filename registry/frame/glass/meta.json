@@ -1,0 +1,19 @@
+{
+  "name": "frame-glass",
+  "component": "frame",
+  "title": "Glass",
+  "description": "A photo held in a thick frosted mount that blurs what is behind it.",
+  "tags": [
+    "glass",
+    "material"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui",
+  "preview": {
+    "backdrop": "folds"
+  }
+}

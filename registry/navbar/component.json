@@ -1,0 +1,55 @@
+{
+  "name": "navbar",
+  "title": "Navbar",
+  "description": "The bar at the top of a site: its name, the main pages and one action.",
+  "export": "Navbar",
+  "children": {
+    "control": "none",
+    "label": "",
+    "default": ""
+  },
+  "props": [
+    {
+      "name": "brand",
+      "type": "string",
+      "demo": "Lumen",
+      "description": "The site name at the start of the bar. It links home."
+    },
+    {
+      "name": "items",
+      "type": "data",
+      "demo": [
+        { "label": "Product", "href": "#" },
+        { "label": "Pricing", "href": "#" },
+        { "label": "Docs", "href": "#" },
+        { "label": "Blog", "href": "#" }
+      ],
+      "description": "The main pages, each with a label and an href. Shown from 640 pixels wide."
+    },
+    {
+      "name": "active",
+      "type": "enum",
+      "options": ["Product", "Pricing", "Docs", "Blog"],
+      "demo": "Pricing",
+      "description": "The label of the current page."
+    },
+    {
+      "name": "action",
+      "type": "string",
+      "demo": "Get started",
+      "description": "The label of the main action. Leave it empty for none."
+    },
+    {
+      "name": "actionHref",
+      "type": "string",
+      "default": "#",
+      "hidden": true,
+      "description": "Where the main action goes."
+    }
+  ],
+  "states": ["rest", "hover", "current"],
+  "preview": {
+    "layout": "fill",
+    "height": 300
+  }
+}

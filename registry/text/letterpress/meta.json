@@ -1,0 +1,16 @@
+{
+  "name": "text-letterpress",
+  "component": "text",
+  "title": "Letterpress",
+  "description": "Letters pressed into the page, with light catching the lower edge.",
+  "tags": [
+    "texture",
+    "minimal"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui"
+}

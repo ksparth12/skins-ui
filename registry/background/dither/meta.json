@@ -1,0 +1,15 @@
+{
+  "name": "background-dither",
+  "component": "background",
+  "title": "Dither",
+  "description": "Your colour stepping down into deep shade through a fine ordered dither.",
+  "tags": [
+    "shader",
+    "texture"
+  ],
+  "modes": [
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui"
+}

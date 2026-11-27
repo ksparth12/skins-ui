@@ -1,0 +1,21 @@
+{
+  "name": "toast-pixel",
+  "component": "toast",
+  "title": "Pixel",
+  "description": "A deep blue message box with a white notched border, like an old RPG.",
+  "tags": [
+    "pixel",
+    "retro"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "author": "skins-ui",
+  "fonts": [
+    "Geist Pixel"
+  ]
+}

@@ -1,3 +1,4 @@
+import { Slider } from "@base-ui/react/slider";
 import { Switch } from "@base-ui/react/switch";
 import { Toggle } from "@base-ui/react/toggle";
 import { ToggleGroup } from "@base-ui/react/toggle-group";
@@ -64,6 +65,28 @@ export function SwitchControl({ label, checked, onChange }: { label: string; che
       >
         <Switch.Thumb className="size-4 rounded-full bg-white shadow-[0_1px_2px_rgb(0_0_0/0.2)] transition-transform duration-200 ease-sk-out data-checked:translate-x-4 dark:bg-neutral-400 dark:data-checked:bg-neutral-950" />
       </Switch.Root>
+    </Row>
+  );
+}
+
+/** A slider for a number, with the value beside it. */
+export function NumberControl({ label, value, min = 0, max = 100, step = 1, onChange }: { label: string; value: number; min?: number; max?: number; step?: number; onChange: (v: number) => void }) {
+  return (
+    <Row label={label}>
+      <div className="flex w-full max-w-72 min-w-0 items-center gap-3">
+        <Slider.Root value={value} min={min} max={max} step={step} onValueChange={(v) => onChange(Array.isArray(v) ? (v[0] ?? min) : v)} className="min-w-0 flex-1">
+          <Slider.Control className="flex h-8 w-full touch-none items-center select-none">
+            <Slider.Track className="relative h-1 w-full rounded-full bg-neutral-200 dark:bg-neutral-800">
+              <Slider.Indicator className="rounded-full bg-neutral-950 dark:bg-white" />
+              <Slider.Thumb
+                aria-label={label}
+                className={`size-4 rounded-full bg-white shadow-[0_1px_2px_rgb(0_0_0/0.25)] ring-1 ring-black/10 dark:bg-neutral-200 ${focus}`}
+              />
+            </Slider.Track>
+          </Slider.Control>
+        </Slider.Root>
+        <span className="w-10 shrink-0 text-right font-sk-mono text-xs text-neutral-500 tabular-nums dark:text-neutral-400">{value}</span>
+      </div>
     </Row>
   );
 }

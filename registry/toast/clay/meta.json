@@ -1,0 +1,18 @@
+{
+  "name": "toast-clay",
+  "component": "toast",
+  "title": "Clay",
+  "description": "A puffy blob of your colour, with the icon set in a soft white bead.",
+  "tags": [
+    "clay",
+    "playful"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "author": "skins-ui"
+}

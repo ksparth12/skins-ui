@@ -1,0 +1,31 @@
+{
+  "name": "text",
+  "title": "Text",
+  "description": "Gives a headline a material: metal, moving light, deep colour or ink.",
+  "export": "Text",
+  "children": {
+    "control": "text",
+    "label": "Text",
+    "default": "Swap the skin, keep the code."
+  },
+  "props": [
+    {
+      "name": "as",
+      "type": "enum",
+      "options": ["h1", "h2", "h3", "p", "span"],
+      "default": "h2",
+      "description": "The element it renders, so the outline of the page stays right."
+    },
+    {
+      "name": "size",
+      "type": "enum",
+      "options": ["md", "lg", "xl"],
+      "default": "lg",
+      "description": "32, 48 or 72 pixels."
+    }
+  ],
+  "states": ["rest"],
+  "preview": {
+    "height": 320
+  }
+}

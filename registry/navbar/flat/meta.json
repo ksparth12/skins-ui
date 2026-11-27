@@ -1,0 +1,17 @@
+{
+  "name": "navbar-flat",
+  "component": "navbar",
+  "title": "Flat",
+  "description": "A full-width bar on the page surface with a hairline under it.",
+  "tags": [
+    "minimal",
+    "solid"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui",
+  "featured": true
+}

@@ -1,0 +1,21 @@
+{
+  "name": "modal-brutal",
+  "component": "modal",
+  "title": "Brutal",
+  "description": "A square sheet with a thick ink outline and a big hard shadow.",
+  "tags": [
+    "brutalist",
+    "bold"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "author": "skins-ui",
+  "preview": {
+    "backdrop": "fixed inset-0 z-50 bg-black/30 dark:bg-black/60 transition-opacity duration-(--sk-motion-slow) ease-sk-out data-ending-style:duration-(--sk-motion-slow-exit) data-starting-style:opacity-0 data-ending-style:opacity-0"
+  }
+}

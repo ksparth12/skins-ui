@@ -1,0 +1,36 @@
+{
+  "name": "toast",
+  "title": "Toast",
+  "description": "A short message in a corner of the screen that leaves on its own.",
+  "export": "ToastProvider",
+  "children": {
+    "control": "none",
+    "label": "",
+    "default": ""
+  },
+  "props": [
+    {
+      "name": "limit",
+      "type": "enum",
+      "options": ["1", "3", "5"],
+      "default": "3",
+      "hidden": true,
+      "description": "How many toasts can show at once. Older ones fold away behind the newest."
+    },
+    {
+      "name": "timeout",
+      "type": "number",
+      "default": 5000,
+      "hidden": true,
+      "description": "How long each toast stays, in milliseconds. Hovering keeps it."
+    }
+  ],
+  "parts": [
+    { "name": "ToastProvider", "element": "div", "description": "Wrap your app once. It holds the toasts and draws them in the corner." },
+    { "name": "useToast", "element": "hook", "description": "Returns add, update and close. Call add with a title, a description and a type." }
+  ],
+  "states": ["entering", "stacked", "expanded", "leaving"],
+  "preview": {
+    "height": 300
+  }
+}

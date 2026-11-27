@@ -1,0 +1,18 @@
+{
+  "name": "loader-liquid",
+  "component": "loader",
+  "title": "Liquid",
+  "description": "Two drops of your colour that pull apart and melt back together.",
+  "tags": [
+    "liquid",
+    "motion"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "motion"
+  ],
+  "author": "skins-ui"
+}

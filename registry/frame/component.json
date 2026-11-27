@@ -1,0 +1,44 @@
+{
+  "name": "frame",
+  "title": "Image frame",
+  "description": "Mounts a photo so it feels like an object, with an optional caption.",
+  "export": "Frame",
+  "children": {
+    "control": "none",
+    "label": "",
+    "default": ""
+  },
+  "props": [
+    {
+      "name": "src",
+      "type": "string",
+      "hidden": true,
+      "demo": "https://assets.wensity.com/photos/architecture-interiors/concrete-water-courtyard.webp",
+      "description": "The photo."
+    },
+    {
+      "name": "alt",
+      "type": "string",
+      "hidden": true,
+      "demo": "A pine tree on a rock in a still pool, inside a concrete courtyard in the rain",
+      "description": "Describes the photo. Use an empty string when it is only decoration."
+    },
+    {
+      "name": "caption",
+      "type": "string",
+      "demo": "Courtyard, after rain",
+      "description": "A short line under the photo. Leave it empty for none."
+    },
+    {
+      "name": "ratio",
+      "type": "enum",
+      "options": ["landscape", "square", "portrait"],
+      "default": "landscape",
+      "description": "4 by 3, 1 by 1 or 3 by 4. The photo is cropped to fit."
+    }
+  ],
+  "states": ["rest"],
+  "preview": {
+    "height": 520
+  }
+}

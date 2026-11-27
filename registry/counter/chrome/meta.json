@@ -1,0 +1,18 @@
+{
+  "name": "counter-chrome",
+  "component": "counter",
+  "title": "Chrome",
+  "description": "Polished metal digits with a machined edge, rolling into place.",
+  "tags": [
+    "metal",
+    "material"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "motion"
+  ],
+  "author": "skins-ui"
+}

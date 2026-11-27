@@ -1,0 +1,17 @@
+{
+  "name": "text-depth",
+  "component": "text",
+  "title": "Depth",
+  "description": "Your colour falling into a deep shade of itself from the top of each line.",
+  "tags": [
+    "gradient",
+    "depth"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui",
+  "featured": true
+}

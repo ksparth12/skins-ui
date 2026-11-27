@@ -1,0 +1,17 @@
+{
+  "name": "card-flat",
+  "component": "card",
+  "title": "Flat",
+  "description": "A quiet surface, a hairline edge and a faint drop. The calm default.",
+  "tags": [
+    "minimal",
+    "solid"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui",
+  "featured": true
+}

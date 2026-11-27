@@ -1,0 +1,16 @@
+{
+  "name": "card-edge",
+  "component": "card",
+  "title": "Edge",
+  "description": "A card set inside a thin plate, with corners that follow each other.",
+  "tags": [
+    "inset",
+    "minimal"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [],
+  "author": "skins-ui"
+}

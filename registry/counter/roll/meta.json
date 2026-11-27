@@ -1,0 +1,19 @@
+{
+  "name": "counter-roll",
+  "component": "counter",
+  "title": "Roll",
+  "description": "Plain digits that roll into place, fading in and out at the edges.",
+  "tags": [
+    "minimal",
+    "motion"
+  ],
+  "modes": [
+    "light",
+    "dark"
+  ],
+  "dependencies": [
+    "motion"
+  ],
+  "author": "skins-ui",
+  "featured": true
+}
