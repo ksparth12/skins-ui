@@ -1,0 +1,31 @@
+name: New skin idea
+description: A style you'd like to see on a component.
+labels: [skin idea]
+body:
+  - type: input
+    id: component
+    attributes:
+      label: Component
+      description: An existing one, such as Button or Card, or a new one you'd like added.
+    validations:
+      required: true
+  - type: input
+    id: style
+    attributes:
+      label: Style
+      placeholder: Frosted glass, paper, terminal, ...
+    validations:
+      required: true
+  - type: textarea
+    id: look
+    attributes:
+      label: How it looks
+      description: Describe the look. Pictures help.
+    validations:
+      required: true
+  - type: checkboxes
+    id: build
+    attributes:
+      label: Building it
+      options:
+        - label: I'd like to build this skin myself

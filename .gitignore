@@ -6,8 +6,6 @@ build/
 .env*
 *.tsbuildinfo
 .DS_Store
-CLAUDE.local.md
-.claude/
 worker-configuration.d.ts
 
 # Private notes and copied docs, never published

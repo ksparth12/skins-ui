@@ -17,7 +17,8 @@ const out = fileURLToPath(new URL("../public/og/", import.meta.url));
 const WORKERS = 4;
 
 const prerender = config.prerender as () => string[];
-const paths = prerender();
+// Pages only: files such as the sitemap have no share image.
+const paths = prerender().filter((p) => !p.includes("."));
 
 const up = () =>
   fetch(`${ORIGIN}/dev/og?page=/`)

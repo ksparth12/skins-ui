@@ -11,5 +11,5 @@ const skinPages = () => dirs(registry).flatMap((component) => dirs(join(registry
 export default {
   ssr: true,
   // Public pages are rendered once at build time and served as static files.
-  prerender: () => ["/", "/docs", "/docs/installation", "/docs/theming", "/docs/tokens", ...skinPages()],
+  prerender: () => ["/", "/sitemap.xml", "/docs", "/docs/installation", "/docs/theming", "/docs/tokens", ...skinPages()],
 } satisfies Config;
