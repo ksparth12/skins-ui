@@ -5,7 +5,7 @@ import calSans from "./fonts/cal-sans.woff2?url";
 import calSansText from "./fonts/cal-sans-text-ui.woff2?url";
 import { AppShell } from "~/components/app-shell";
 import { ErrorPage } from "~/components/error-pages";
-import { ThemeScript } from "~/components/theme";
+import { HueScript, ThemeScript } from "~/components/theme";
 import { BRAND_COLOUR, fetchStars } from "~/lib/site";
 import "./app.css";
 
@@ -30,6 +30,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <ThemeScript />
         <Meta />
         <Links />
+        <HueScript />
       </head>
       <body>
         {children}

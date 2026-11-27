@@ -5,27 +5,38 @@ const THEME_KEY = "sk-theme";
 export const HUE_CSS_KEY = "sk-hue-css";
 export const HUE_ID_KEY = "sk-hue";
 
-/**
- * Runs before the first paint: applies the saved or system theme, and the saved Hue,
- * so a page never flashes the defaults.
- */
+/** Runs before the first paint: applies the saved or system theme, so a page never flashes the wrong one. */
 const script = `(() => {
   try {
     const saved = localStorage.getItem("${THEME_KEY}");
     const dark = saved ? saved === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
     document.documentElement.classList.toggle("dark", dark);
-    const hue = localStorage.getItem("${HUE_CSS_KEY}");
-    if (hue) {
-      const style = document.createElement("style");
-      style.id = "sk-hue";
-      style.textContent = hue;
-      document.head.appendChild(style);
-    }
   } catch {}
 })();`;
 
 export function ThemeScript() {
   return <script dangerouslySetInnerHTML={{ __html: script }} />;
+}
+
+/**
+ * Applies the saved Hue before the first paint. It must come after the stylesheets in the head:
+ * its rules have the same weight as the default tokens, so whichever comes later wins.
+ */
+const hueScript = `(() => {
+  try {
+    const hue = localStorage.getItem("${HUE_CSS_KEY}");
+    if (!hue) return;
+    const style = document.createElement("style");
+    style.id = "sk-hue";
+    style.textContent = hue;
+    document.head.appendChild(style);
+    // While developing, stylesheets are added by script after this runs, so move it last once they are in.
+    addEventListener("load", () => document.head.appendChild(style));
+  } catch {}
+})();`;
+
+export function HueScript() {
+  return <script dangerouslySetInnerHTML={{ __html: hueScript }} />;
 }
 
 const media = "(prefers-color-scheme: dark)";
